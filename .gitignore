@@ -2,3 +2,4 @@
 .project
 .settings/
 target
+src/main/webapp/META-INF/MANIFEST.MF
