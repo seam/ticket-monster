@@ -1,12 +1,14 @@
 package org.jboss.seam.examples.ticketmonster;
 
-import org.testng.annotations.Test;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class HelloWorldTest
 {
    @Test
    public void testGetText() {
       HelloWorld fixture = new HelloWorld();
-      assert "Hello World!".equals(fixture.getText());
+      assertEquals("Hello World!", fixture.getText());
    }
 }
