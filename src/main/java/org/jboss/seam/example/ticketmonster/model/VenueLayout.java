@@ -10,7 +10,8 @@ import javax.persistence.ManyToOne;
 
 /**
  * Represents a single seating layout for a venue.  A venue may be capable of
- * multiple seating layouts, depending on the type of event.
+ * multiple seating layouts, depending on the type of event.  A layout can
+ * contain many sections.
  * 
  * @author Shane Bryzak
  *

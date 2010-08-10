@@ -9,7 +9,9 @@ import javax.persistence.OneToMany;
 
 /**
  * Used to store rich text entries used for venue descriptions, event descriptions,
- * front page announcements, etc.
+ * front page announcements, etc. A document may have multiple revisions, only
+ * one of which is the 'active' revision.  This allows document changes to
+ * go through an approval process before being made live.
  * 
  * @author Shane Bryzak
  *
@@ -17,10 +19,6 @@ import javax.persistence.OneToMany;
 public class Document
 {
    private Long id;
-   private Date created;
-   private String createdBy;
-   private Date modified;
-   private String modifiedBy;
    private Revision activeRevision;
    
    @Id @GeneratedValue
@@ -34,46 +32,6 @@ public class Document
       this.id = id;
    }
 
-   public Date getCreated()
-   {
-      return created;
-   }
-
-   public void setCreated(Date created)
-   {
-      this.created = created;
-   }
-
-   public String getCreatedBy()
-   {
-      return createdBy;
-   }
-
-   public void setCreatedBy(String createdBy)
-   {
-      this.createdBy = createdBy;
-   }
-
-   public Date getModified()
-   {
-      return modified;
-   }
-
-   public void setModified(Date modified)
-   {
-      this.modified = modified;
-   }
-
-   public String getModifiedBy()
-   {
-      return modifiedBy;
-   }
-
-   public void setModifiedBy(String modifiedBy)
-   {
-      this.modifiedBy = modifiedBy;
-   }
-
    @OneToMany @JoinColumn(name = "REVISION_ID")
    public Revision getActiveRevision()
    {
@@ -84,6 +42,4 @@ public class Document
    {
       this.activeRevision = activeRevision;
    }
-   
-   
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Stores a single revision of a document.  A document may have multiple
@@ -20,8 +22,11 @@ public class Revision implements Serializable
    private static final long serialVersionUID = 6197879518040782042L;
 
    private Long id;
+   private Document document;
    private Date created;
    private String createdBy;
+   private Date modified;
+   private String modifiedBy;
    private String content;
    
    @Id @GeneratedValue
@@ -33,6 +38,17 @@ public class Revision implements Serializable
    public void setId(Long id)
    {
       this.id = id;
+   }
+   
+   @ManyToOne @JoinColumn(name = "DOCUMENT_ID")
+   public Document getDocument()
+   {
+      return document;
+   }
+   
+   public void setDocument(Document document)
+   {
+      this.document = document;
    }
    
    public Date getCreated()
@@ -53,6 +69,26 @@ public class Revision implements Serializable
    public void setCreatedBy(String createdBy)
    {
       this.createdBy = createdBy;
+   }
+   
+   public Date getModified()
+   {
+      return modified;
+   }
+   
+   public void setModified(Date modified)
+   {
+      this.modified = modified;
+   }
+   
+   public String getModifiedBy()
+   {
+      return modifiedBy;
+   }
+   
+   public void setModifiedBy(String modifiedBy)
+   {
+      this.modifiedBy = modifiedBy;
    }
    
    public String getContent()
