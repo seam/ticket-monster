@@ -8,11 +8,11 @@ import javax.persistence.Id;
 
 /**
  * Represents a single row of seats within a section.  May also be used to 
- * represent seats at a table, for events such as dinner shows. 
+ * represent a table, for events such as dinner shows. 
  * 
  * Seat allocations are given an alphabetic code based on the capacity of the row.
- * If the capacity is 26 or less, a single letter code will be used, e.g. A, B..Z.
- * If the capacity is more than 26, a double letter code will be used, e.g.
+ * If the capacity is 26 or less, a single letter code is used, e.g. A, B..Z.
+ * If the capacity is more than 26, a double letter code is used, e.g.
  * AA, AB, AC..ZZ
  * 
  * @author Shane Bryzak
