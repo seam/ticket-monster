@@ -119,7 +119,7 @@
       </dependency>
    </dependencies>
    <build>
-      <finalName>${artifactId}</finalName>
+      <finalName>${project.artifactId}</finalName>
       <plugins>
          <!-- Compiler plugin enforces Java 1.6 compatiblity -->
          <plugin>
@@ -139,7 +139,7 @@
                <jbossHome>${jboss.home}</jbossHome>
                <serverName>${jboss.domain}</serverName>
                <fileNames>
-                  <fileName>${project.build.directory}/${build.finalName}.war</fileName>
+                  <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
                </fileNames>
             </configuration>
          </plugin>
