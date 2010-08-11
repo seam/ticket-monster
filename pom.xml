@@ -28,6 +28,7 @@
       <hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
       <uel.impl.version>2.1.2-b04</uel.impl.version>
       <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
+      <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
    </properties>
 
    <dependencyManagement>
@@ -150,6 +151,12 @@
          <artifactId>seam-security-impl</artifactId>
          <version>${seam.security.version}</version>
       </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.seam.xml</groupId>
+         <artifactId>seam-xml-config</artifactId>
+         <version>${seam.xmlconfig.version}</version>
+      </dependency>      
 
    </dependencies>
    <build>
