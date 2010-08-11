@@ -1,7 +1,8 @@
 package org.jboss.seam.example.ticketmonster.model;
 
-import java.util.Date;
+import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,8 +17,11 @@ import javax.persistence.OneToMany;
  * @author Shane Bryzak
  *
  */
-public class Document
+@Entity
+public class Document implements Serializable
 {
+   private static final long serialVersionUID = -3190368407410663590L;
+   
    private Long id;
    private Revision activeRevision;
    
