@@ -27,6 +27,7 @@
       <junit.version>4.8.1</junit.version>
       <hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
       <uel.impl.version>2.1.2-b04</uel.impl.version>
+      <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
    </properties>
 
    <dependencyManagement>
@@ -137,6 +138,19 @@
             </exclusion>
          </exclusions>
       </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.security</groupId>
+         <artifactId>seam-security-api</artifactId>
+         <version>${seam.security.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.security</groupId>
+         <artifactId>seam-security-impl</artifactId>
+         <version>${seam.security.version}</version>
+      </dependency>
+
    </dependencies>
    <build>
       <finalName>${project.artifactId}</finalName>

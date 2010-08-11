@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -16,8 +17,7 @@ public class User implements Serializable
    private static final long serialVersionUID = -4501716573185869164L;
    
    private Long id;
-   private String username;
-   private String passwordHash;
+   private IdentityObject identity;
    private String firstName;
    private String lastName;
    
@@ -32,24 +32,15 @@ public class User implements Serializable
       this.id = id;
    }
    
-   public String getUsername()
+   @OneToOne
+   public IdentityObject getIdentity()
    {
-      return username;
+      return identity;
    }
    
-   public String getPasswordHash()
+   public void setIdentity(IdentityObject identity)
    {
-      return passwordHash;
-   }
-   
-   public void setPasswordHash(String passwordHash)
-   {
-      this.passwordHash = passwordHash;
-   }
-   
-   public void setUsername(String username)
-   {
-      this.username = username;
+      this.identity = identity;
    }
    
    public String getFirstName()
