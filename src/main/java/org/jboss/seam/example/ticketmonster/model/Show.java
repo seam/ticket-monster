@@ -69,10 +69,15 @@ public class Show implements Serializable
       this.showDate = showDate;
    }
    
+   @ManyToOne
    public VenueLayout getSeatingConfig()
    {
       return seatingConfig;
    }
    
+   public void setSeatingConfig(VenueLayout seatingConfig)
+   {
+      this.seatingConfig = seatingConfig;
+   }
    
 }

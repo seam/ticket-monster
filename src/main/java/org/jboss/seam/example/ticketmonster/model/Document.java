@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Used to store rich text entries used for venue descriptions, event descriptions,
@@ -36,7 +36,7 @@ public class Document implements Serializable
       this.id = id;
    }
 
-   @OneToMany @JoinColumn(name = "REVISION_ID")
+   @OneToOne @JoinColumn(name = "REVISION_ID")
    public Revision getActiveRevision()
    {
       return activeRevision;
