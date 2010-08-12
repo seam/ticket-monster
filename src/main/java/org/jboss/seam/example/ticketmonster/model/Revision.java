@@ -3,6 +3,7 @@ package org.jboss.seam.example.ticketmonster.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
  * @author Shane Bryzak
  *
  */
+@Entity
 public class Revision implements Serializable
 {
    private static final long serialVersionUID = 6197879518040782042L;
