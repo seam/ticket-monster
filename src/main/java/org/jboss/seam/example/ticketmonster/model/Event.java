@@ -24,6 +24,7 @@ public class Event implements Serializable
    private Document description;
    private Date startDate;
    private Date endDate;
+   private EventCategory category;
 
    @Id @GeneratedValue
    public Long getId()
@@ -75,5 +76,16 @@ public class Event implements Serializable
    public void setEndDate(Date endDate)
    {
       this.endDate = endDate;
+   }
+   
+   @ManyToOne
+   public EventCategory getCategory()
+   {
+      return category;
+   }
+   
+   public void setCategory(EventCategory category)
+   {
+      this.category = category;
    }
 }

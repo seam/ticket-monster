@@ -29,6 +29,7 @@
       <uel.impl.version>2.1.2-b04</uel.impl.version>
       <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
       <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
+      <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
    </properties>
 
    <dependencyManagement>
@@ -78,6 +79,12 @@
             <groupId>org.jboss.seam.xml</groupId>
             <artifactId>seam-xml-config</artifactId>
             <version>${seam.xmlconfig.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.jboss.seam.persistence</groupId>
+            <artifactId>seam-persistence-impl</artifactId>
+            <version>${seam.persistence.version}</version>
          </dependency>
 
       </dependencies>
@@ -191,6 +198,17 @@
              <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
            </exclusion>
          </exclusions>         
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.persistence</groupId>
+         <artifactId>seam-persistence-impl</artifactId>
+         <exclusions>
+           <exclusion>
+             <groupId>javax.el</groupId>
+             <artifactId>el-api</artifactId>
+           </exclusion>
+         </exclusions>
       </dependency>
 
    </dependencies>
