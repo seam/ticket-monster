@@ -10,7 +10,7 @@
       http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
         
    <drools:RuleResources>
-     <s:overrides/>
+     <s:replaces/>
      <security:SecurityRulesConfig/>
      <drools:resources>
        <s:value>classpath;security-rules.drl;DRL</s:value>
@@ -36,7 +36,7 @@
    </security:RuleBasedPermissionResolver>
    
    <plidm:JpaIdentityStoreConfiguration>
-      <s:overrides/>
+      <s:replaces/>
       <plidm:identityClass>org.jboss.seam.example.ticketmonster.model.IdentityObject</plidm:identityClass>
       <plidm:credentialClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectCredential</plidm:credentialClass>
       <plidm:relationshipClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectRelationship</plidm:relationshipClass>
