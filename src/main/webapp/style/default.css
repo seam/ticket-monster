@@ -5,6 +5,10 @@ body {
   font-size: 12px;
 }
 
+h1 {
+  margin-top: 0px;
+}
+
 div#container {
   margin-left: auto;
   margin-right: auto;
@@ -23,11 +27,9 @@ div#main {
 
 div#header {
   height: 120px;
-  padding-top: 10px;
 }
 
 div.headerTitle {
-  color: #ffffff;
   font-size: 24px;
   font-weight: bold;
   float: left;
@@ -38,13 +40,13 @@ div.headerTitle {
 div.headerSearch {
   color: #ffffff;
   float: right;
+  margin-top: 30px;
 }
 
 div#menu {
-  background: url(menu_bg.png.jsf) top left repeat-x;
+  background: url(menu_bg.png) top left repeat-x;
   height: 30px;
-  padding-top: 10px;
-  color: #ffffff;
+  padding-top: 8px;
 }
 
 div#menu a, div#menu a:visited {
@@ -53,12 +55,12 @@ div#menu a, div#menu a:visited {
   font-weight: bold;
   margin-left: 12px;
   margin-right: 12px;
-  margin-top: auto;
-  margin-bottom: auto;
   font-size: 12px;
 }
 
 div#content {
+  margin-top: 0px;
   background-color: #ffffff;
   height: 600px;
+  padding: 4px;
 }
