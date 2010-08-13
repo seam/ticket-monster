@@ -88,6 +88,12 @@
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
+         <exclusions>
+           <exclusion>
+             <groupId>org.jboss.interceptor</groupId>
+             <artifactId>jboss-interceptor-api</artifactId>
+           </exclusion>
+         </exclusions>
       </dependency>
 
       <!-- EJB -->
@@ -179,6 +185,12 @@
       <dependency>
          <groupId>org.jboss.seam.xml</groupId>
          <artifactId>seam-xml-config</artifactId>
+         <exclusions>
+           <exclusion>
+             <groupId>org.jboss.spec.javax.interceptor</groupId>
+             <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+           </exclusion>
+         </exclusions>         
       </dependency>
 
    </dependencies>
