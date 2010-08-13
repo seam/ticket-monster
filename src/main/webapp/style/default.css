@@ -1,13 +1,60 @@
-body {
-  background: url(background.png) top left repeat-x;
-  margin: 0px;
-  font-family: helvetica, sans-serif;
-  font-size: 12px;
+/* CSS Reset styles */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
 }
 
-h1 {
-  margin-top: 0px;
+:focus {
+	outline: 0;
 }
+
+body {
+	line-height: 1;
+	color: black;
+  background: url(background.png) top left repeat-x;
+  margin: 0px;
+  font: 60% Arial,Helvetica,sans-serif;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+
+blockquote, q {
+	quotes: "" "";
+}
+
+/* Application styles */
 
 div#container {
   margin-left: auto;
@@ -45,21 +92,65 @@ div.headerSearch {
 
 div#menu {
   background: url(menu_bg.png) top left repeat-x;
-  height: 30px;
-  padding-top: 8px;
+  height: 32px;
+  position: relative;
 }
 
-div#menu a, div#menu a:visited {
-  color: #ffffff;
+div.menuItem {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  height: 32px;
+}
+
+div.menuItem a, div.menuItem a:visited {
+  padding-top: 10px;
+  display: block;
+  height: 22px;
+  text-align: center;
   text-decoration: none;
-  font-weight: bold;
-  margin-left: 12px;
-  margin-right: 12px;
-  font-size: 12px;
+  font-size: 1.1em;  
+  width: 98px;  
+  color: #ffffff;
+}
+
+div.menuItem a:hover {
+  padding-top: 10px;
+  display: block;
+  height: 22px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.1em;  
+  width: 98px;
+  color: #ffffff;
+  background: url(menu_highlight.png) top left repeat-x;
+}
+
+div#menuItem1 {
+  left: 0px;
+}
+
+div#menuItem2 {
+  left: 100px;
+}
+
+div#menuItem3 {
+  left: 200px;
+}
+
+div#menuItem4 {
+  left: 300px;
+}
+
+div#menuItem5 {
+  left: 400px;
+}
+
+div#menuItem6 {
+  left: 500px;
 }
 
 div#content {
-  margin-top: 0px;
   background-color: #ffffff;
   height: 600px;
   padding: 4px;
