@@ -5,7 +5,18 @@
    xmlns:h="http://java.sun.com/jsf/html"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
-      <h1>Hello World!</h1>
+   
+    <f:metadata>
+       <f:viewParam name="category" value="#{eventSearch.categoryId}"/>
+       <f:event type="preRenderView" listener="#{eventSearch.loadEvents}" />	
+    </f:metadata>   
+   
+      <ui:repeat value="#{eventSearch.events}" var="event">
+        <div>#{event.name}</div>
+        <div><h:outputText value="#{event.description.activeRevision.content}" escape="false"/></div>
+        
+      
+      </ui:repeat>
 
    </ui:define>
 </ui:composition>
