@@ -25,6 +25,7 @@ public class Event implements Serializable
    private Date startDate;
    private Date endDate;
    private EventCategory category;
+   private boolean major;
 
    @Id @GeneratedValue
    public Long getId()
@@ -87,5 +88,15 @@ public class Event implements Serializable
    public void setCategory(EventCategory category)
    {
       this.category = category;
+   }
+   
+   public boolean isMajor()
+   {
+      return major;
+   }
+   
+   public void setMajor(boolean major)
+   {
+      this.major = major;
    }
 }
