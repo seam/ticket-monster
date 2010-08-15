@@ -161,12 +161,20 @@
       <dependency>
          <groupId>org.jboss.seam.security</groupId>
          <artifactId>seam-security-api</artifactId>
+         <version>${seam.security.version}</version>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.seam.security</groupId>
          <artifactId>seam-security-impl</artifactId>
+         <version>${seam.security.version}</version>
       </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.seam.xml</groupId>
+         <artifactId>seam-xml-config</artifactId>
+         <version>${seam.xmlconfig.version}</version>
+      </dependency>      
 
       <dependency>
          <groupId>org.jboss.seam.xml</groupId>
