@@ -6,10 +6,14 @@ import java.util.List;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-import org.jboss.seam.example.ticketmonster.model.Document;
 import org.jboss.seam.example.ticketmonster.model.Event;
-import org.jboss.seam.example.ticketmonster.model.Revision;
+import org.jboss.seam.example.ticketmonster.model.EventCategory;
+import org.jboss.seam.example.ticketmonster.model.meta.Event_;
 
 /**
  * Event search actions handled here
@@ -19,7 +23,7 @@ import org.jboss.seam.example.ticketmonster.model.Revision;
  */
 public @Model class EventSearch
 {
-   //@Inject EntityManager entityManager;
+   @Inject EntityManager entityManager;
    
    private Long categoryId;
    
@@ -29,18 +33,31 @@ public @Model class EventSearch
    {
       // If there is no categoryId set, load major events
       
-      events = new ArrayList<Event>();
-           
-      Revision r = new Revision();
-      r.setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur imperdiet libero vel mi tincidunt sed dapibus tellus pretium. Nam a massa mi, id egestas dui. Mauris orci magna, congue vitae sodales quis, congue nec odio. In sagittis pretium malesuada. Vivamus eu nunc at lectus sodales fermentum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec dictum bibendum tincidunt. Nam ut dolor mauris. Sed massa orci, viverra non tristique eget, laoreet ut eros. Integer ante sapien, porta quis tincidunt vitae, varius quis elit. Nullam mi nisi, convallis sit amet consectetur dictum, scelerisque ut nisl. Etiam at erat eu diam lacinia mattis et sed ipsum.");
+      CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
+      CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
+      Root<Event> event = criteria.from(Event.class);
       
-      Document d = new Document();
-      d.setActiveRevision(r);     
-
-      Event e = new Event();
-      e.setDescription(d);
+      List<Predicate> predicates = new ArrayList<Predicate>();
       
-      events.add(e);
+      if (categoryId == null)
+      {
+         predicates.add(builder.equal(event.get(Event_.major),
+               true));
+      }
+      else
+      {
+         predicates.add(builder.equal(event.get(Event_.category), 
+               lookupCategory(categoryId)));
+      }
+      
+      criteria.where(predicates.toArray(new Predicate[0]));
+      
+      events = entityManager.createQuery(criteria).getResultList();            
+   }
+   
+   public EventCategory lookupCategory(Long categoryId)
+   {
+      return entityManager.find(EventCategory.class, categoryId);
    }
    
    public List<Event> getEvents()
