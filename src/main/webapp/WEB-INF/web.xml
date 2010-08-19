@@ -23,9 +23,4 @@
       <param-value>true</param-value>
    </context-param>
 
-   <!--persistence-unit-ref>
-      <persistence-unit-ref-name>ticketMonster/pu</persistence-unit-ref-name>
-      <persistence-unit-name>ticketMonster</persistence-unit-name>
-   </persistence-unit-ref-->
-
 </web-app>
