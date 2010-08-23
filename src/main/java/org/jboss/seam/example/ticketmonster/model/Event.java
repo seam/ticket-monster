@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -48,7 +49,7 @@ public class Event implements Serializable
       this.name = name;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "DOCUMENT_ID")
    public Document getDescription()
    {
       return description;
@@ -79,7 +80,7 @@ public class Event implements Serializable
       this.endDate = endDate;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "CATEGORY_ID")
    public EventCategory getCategory()
    {
       return category;

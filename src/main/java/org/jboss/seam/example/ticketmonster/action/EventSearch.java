@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.seam.example.ticketmonster.model.meta.Event_;
+import org.jboss.seam.example.ticketmonster.model.Event_;
 
 /**
  * Event search actions handled here
@@ -34,15 +34,15 @@ public @Model class EventSearch
       // If there is no categoryId set, load major events
       
       CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
-      CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
-      Root<Event> event = criteria.from(Event.class);
+      CriteriaQuery<Event> query = builder.createQuery(Event.class);
+      Root<Event> event = query.from(Event.class);
       
       List<Predicate> predicates = new ArrayList<Predicate>();
       
       if (categoryId == null)
       {
-         predicates.add(builder.equal(event.get(Event_.major),
-               true));
+         predicates.add(builder.equal(event.get(Event_.major),           // "major"),
+               Boolean.TRUE));
       }
       else
       {
@@ -50,9 +50,9 @@ public @Model class EventSearch
                lookupCategory(categoryId)));
       }
       
-      criteria.where(predicates.toArray(new Predicate[0]));
+      query.where(predicates.toArray(new Predicate[0]));
       
-      events = entityManager.createQuery(criteria).getResultList();            
+      events = entityManager.createQuery(query).getResultList();            
    }
    
    public EventCategory lookupCategory(Long categoryId)
