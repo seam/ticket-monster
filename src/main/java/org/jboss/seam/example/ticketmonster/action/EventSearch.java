@@ -62,6 +62,7 @@ public @Model class EventSearch
    
    public List<Event> getEvents()
    {
+      if (events == null) loadEvents();
       return events;
    }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/admin.xhtml">
+   
+   <ui:define name="content">
+     <div class="heading">Event Categories</div>
+
+     <h:dataTable value="#{categorySearch.categories}" var="cat" styleClass="grid" headerClass="header" rowClasses="odd,even">
+       <h:column width="auto">
+         <f:facet name="header">
+           Category
+         </f:facet>
+         #{cat.description}
+       </h:column>
+
+       <h:column>
+         <f:facet name="header">
+           Action
+         </f:facet>
+        
+         <a href="#">Delete</a>
+       </h:column>
+     </h:dataTable>
+
+   </ui:define>
+</ui:composition>

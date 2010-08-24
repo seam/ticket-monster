@@ -8,7 +8,6 @@
    
     <f:metadata>
        <f:viewParam name="category" value="#{eventSearch.categoryId}"/>
-       <f:event type="preRenderView" listener="#{eventSearch.loadEvents}" />	
     </f:metadata>   
    
       <ui:repeat value="#{eventSearch.events}" var="event">

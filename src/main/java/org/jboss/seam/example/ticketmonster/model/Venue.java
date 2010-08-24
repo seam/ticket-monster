@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * Represents a single venue
@@ -53,6 +55,7 @@ public class Venue implements Serializable
       this.address = address;
    }
    
+   @OneToOne @JoinColumn(name = "DESCRIPTION_ID")
    public Document getDescription()
    {
       return description;

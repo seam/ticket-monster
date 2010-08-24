@@ -8,5 +8,10 @@
       http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
    <!-- Write your navigation rules here. You are encouraged to use CDI for creating @Named managed beans. -->
+   
+   <navigation-rule>
+      <from-view-id>/admin/venues.xhtml</from-view-id>
+
+   </navigation-rule>
 
 </faces-config>
