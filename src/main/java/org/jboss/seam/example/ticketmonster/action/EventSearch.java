@@ -29,7 +29,7 @@ public @Model class EventSearch
    
    private List<Event> events;
    
-   public void loadEvents()
+   private void loadEvents()
    {
       // If there is no categoryId set, load major events
       
@@ -55,6 +55,12 @@ public @Model class EventSearch
       events = entityManager.createQuery(query).getResultList();            
    }
    
+   @SuppressWarnings("unchecked")
+   private void loadAllEvents()
+   {
+      events = (List<Event>) entityManager.createQuery("select e from Event e").getResultList();
+   }
+   
    public EventCategory lookupCategory(Long categoryId)
    {
       return entityManager.find(EventCategory.class, categoryId);
@@ -63,6 +69,12 @@ public @Model class EventSearch
    public List<Event> getEvents()
    {
       if (events == null) loadEvents();
+      return events;
+   }
+   
+   public List<Event> getAllEvents()
+   {
+      if (events == null) loadAllEvents();
       return events;
    }
 

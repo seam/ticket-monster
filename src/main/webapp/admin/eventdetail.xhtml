@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/admin.xhtml">
+   
+   <f:metadata>
+      <f:viewParam name="eventId" value="#{eventAction.eventId}"/>
+      <f:event type="preRenderView" listener="#{eventAction.loadEvent}"/>
+   </f:metadata>   
+   
+   <ui:define name="content">
+     <div class="heading">Event Details</div>
+
+     <h:form>
+       <div class="formRow">
+         <h:outputLabel for="name" value="Name"/>
+         <h:inputText id="name" value="#{eventAction.event.name}"/>
+       </div>
+
+       <div class="formRow">
+         <h:outputLabel for="category" value="Category"/>
+         <h:selectOneMenu id="category" value="#{eventAction.event.category}">
+           <f:selectItems value="#{categorySearch.categories}" 
+              var="cat" itemValue="#{cat}" itemLabel="#{cat.description}"/>
+           <f:converter binding="#{categorySearch.converter}"/>   
+         </h:selectOneMenu>
+       </div>
+             
+       <div class="formButtons">
+         <h:commandButton action="#{eventAction.save}" value="Save"/>
+         <h:commandButton action="#{eventAction.cancel}" value="Cancel"/>
+       </div>
+     </h:form>
+     
+   </ui:define>
+</ui:composition>

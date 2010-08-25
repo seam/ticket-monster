@@ -7,36 +7,48 @@
    <ui:define name="content">
      <div class="heading">Events</div>   
    
-     <h:dataTable value="#{eventSearch.events}" var="event" styleClass="grid" headerClass="header" rowClasses="odd,even">
-       <h:column width="auto">
-         <f:facet name="header">
-           Event
-         </f:facet>
-         <a href="#">#{event.name}</a>
-       </h:column>
+     <h:form>
+       <h:commandLink value="Create a new event" action="#{eventAction.createEvent}"/>
+   
+       <h:dataTable value="#{eventSearch.allEvents}" var="event" styleClass="grid" headerClass="header" rowClasses="odd,even">
+         <h:column width="auto">
+           <f:facet name="header">
+             Event
+           </f:facet>
+           <a href="eventdetail.jsf?eventId=#{event.id}">#{event.name}</a>
+         </h:column>
 
-       <h:column width="auto">
-         <f:facet name="header">
-           Start Date
-         </f:facet>
-         #{event.startDate}
-       </h:column>
+         <h:column width="auto">
+           <f:facet name="header">
+             Category
+           </f:facet>
+           #{event.category.description}
+         </h:column>
 
-       <h:column width="auto">
-         <f:facet name="header">
-           End Date
-         </f:facet>
-         #{event.endDate}
-       </h:column>
+         <h:column width="auto">
+           <f:facet name="header">
+             Start Date
+           </f:facet>
+           #{event.startDate}
+         </h:column>
+
+         <h:column width="auto">
+           <f:facet name="header">
+             End Date
+           </f:facet>
+           #{event.endDate}
+         </h:column>
+         
+         <h:column>
+           <f:facet name="header">
+             Action
+           </f:facet>
+          
+           <a href="#">Delete</a>
+         </h:column>
+       </h:dataTable>
        
-       <h:column>
-         <f:facet name="header">
-           Action
-         </f:facet>
-        
-         <a href="#">Delete</a>
-       </h:column>
-     </h:dataTable>
+     </h:form>
 
    </ui:define>
 </ui:composition>

@@ -3,6 +3,9 @@ package org.jboss.seam.example.ticketmonster.action;
 import java.util.List;
 
 import javax.enterprise.inject.Model;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,6 +26,23 @@ public @Model class CategorySearch
    
    private List<EventCategory> categories;
    
+   private class CategoryConverter implements Converter
+   {
+      @Override
+      public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
+      {
+         return entityManager.find(EventCategory.class, Long.valueOf(arg2));
+      }
+
+      @Override
+      public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
+      {
+         return ((EventCategory) arg2).getId().toString();
+      }      
+   }
+   
+   private CategoryConverter converter;
+   
    private void loadCategories()
    {
       CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
@@ -37,5 +57,11 @@ public @Model class CategorySearch
    {
       if (categories == null) loadCategories();
       return categories;
+   }
+   
+   public Converter getConverter()
+   {
+      if (converter == null) converter = new CategoryConverter();
+      return converter;
    }
 }

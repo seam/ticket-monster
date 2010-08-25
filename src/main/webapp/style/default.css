@@ -14,7 +14,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	outline: 0;
 	font-weight: inherit;
 	font-style: inherit;
-	font-size: 100%;
 	font-family: inherit;
 	vertical-align: baseline;
 }
@@ -28,7 +27,7 @@ body {
 	color: black;
   background: url(background.png) top left repeat-x;
   margin: 0px;
-  font: 80% Arial,Helvetica,sans-serif;
+  font: 60% Arial,Helvetica,sans-serif;
 }
 
 ol, ul {

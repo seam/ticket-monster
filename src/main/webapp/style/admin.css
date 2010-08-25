@@ -130,4 +130,33 @@ tr.even {
   background-color: #E9F5FF;
 }
 
+/** form styles */
+
+/* General form styles */
+
+div.formRow {
+  padding: 3px 4px 3px 2px;  
+  clear: both;
+}
+
+div.formRow label {
+  float: left;
+  width: 120px; 
+  padding: 2px 2px 2px 2px;
+}
+
+div.formRow input[type='text'] {
+  width: 240px;
+}
+
+div.formRow input[type='password'] {
+  width: 120px;
+}
+
+div.validationError {
+  margin-left: 120px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
 

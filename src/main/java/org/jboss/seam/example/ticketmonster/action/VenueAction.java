@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
+import org.jboss.seam.persistence.transaction.Transactional;
 
 /**
  * Venue action bean
@@ -25,12 +26,41 @@ public @Named @ConversationScoped class VenueAction implements Serializable
    
    private Long venueId;
    private Venue venue;   
+   
+   public void createVenue()
+   {
+      conversation.begin();
+      venue = new Venue();
+   }
  
    public void loadVenue()
    {
-      conversation.begin();
+      // Only load the venue if a venueId has been provided
+      if (venueId != null)
+      {      
+         conversation.begin();      
+         venue = entityManager.find(Venue.class, venueId);
+      }
+   }
+   
+   public @Transactional String save()
+   {
+      if (venue.getId() != null)
+      {
+         entityManager.merge(venue);
+      }
+      else
+      {
+         entityManager.persist(venue);
+      }      
       
-      venue = entityManager.find(Venue.class, venueId); 
+      conversation.end();
+      return "success";
+   }
+   
+   public void cancel()
+   {
+      conversation.end();
    }
    
    public Venue getVenue()

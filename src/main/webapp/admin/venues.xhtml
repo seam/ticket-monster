@@ -10,6 +10,8 @@
 
      <h:form>
      
+       <h:commandLink value="Create a new venue" action="#{venueAction.createVenue}"/>
+     
        <h:dataTable value="#{venueSearch.venues}" var="venue" styleClass="grid" headerClass="header" rowClasses="odd,even">
          <h:column width="auto">
            <f:facet name="header">

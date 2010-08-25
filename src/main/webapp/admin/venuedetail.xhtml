@@ -18,6 +18,16 @@
          <h:outputLabel for="name" value="Name"/>
          <h:inputText id="name" value="#{venueAction.venue.name}"/>
        </div>
+       
+       <div class="formRow">
+         <h:outputLabel for="address" value="Address"/>
+         <h:inputText id="address" value="#{venueAction.venue.address}"/>
+       </div>
+       
+       <div class="formButtons">
+         <h:commandButton action="#{venueAction.save}" value="Save"/>
+         <h:commandButton action="#{venueAction.cancel}" value="Cancel"/>
+       </div>
      </h:form>
      
    </ui:define>
