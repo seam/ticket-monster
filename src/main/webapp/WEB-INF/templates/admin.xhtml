@@ -1,29 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:ui="http://java.sun.com/jsf/facelets">
-  <h:head>
-     <title>Ticket Monster Admin</title>
-     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     <link rel="stylesheet" href="../style/admin.css"/>
-  </h:head>
-  <h:body>
-    <div id="header">
-      Ticket Monster Administration
-    </div>
+   contentType="text/html"> 
+  <html>
+    <h:head>
+       <title>Ticket Monster Admin</title>
+       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link rel="stylesheet" href="../style/admin.css"/>
+       <ui:insert name="head"/>
+    </h:head>
+    <h:body>
+      <div id="header">
+        Ticket Monster Administration
+      </div>
 
-    <div id="menu">
-      <div><a href="home.jsf">Events</a></div>
-      <div><a href="categories.jsf">Event Categories</a></div>
-      <div><a href="venues.jsf">Venues</a></div>
-    </div>
-      
-    <div id="content">
-      <ui:insert name="content"/>
-    </div>
+      <div id="menu">
+        <div><a href="home.jsf">Events</a></div>
+        <div><a href="categories.jsf">Event Categories</a></div>
+        <div><a href="venues.jsf">Venues</a></div>
+      </div>
+        
+      <div id="content">
+        <ui:insert name="content"/>
+      </div>
 
-  </h:body>
-</html>
-
+    </h:body>
+  </html>
+</f:view>
 

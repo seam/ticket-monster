@@ -10,10 +10,14 @@
       <f:event type="preRenderView" listener="#{eventAction.loadEvent}"/>
    </f:metadata>   
    
+   <ui:define name="head">
+     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+   </ui:define>   
+   
    <ui:define name="content">
      <div class="heading">Event Details</div>
 
-     <h:form>
+     <h:form id="eventdetails">
        <div class="formRow">
          <h:outputLabel for="name" value="Name"/>
          <h:inputText id="name" value="#{eventAction.event.name}"/>
@@ -26,6 +30,30 @@
               var="cat" itemValue="#{cat}" itemLabel="#{cat.description}"/>
            <f:converter binding="#{categorySearch.converter}"/>   
          </h:selectOneMenu>
+       </div>
+       
+       <div class="formRow">
+         <h:outputLabel for="major" value="Major event"/>
+         <h:selectBooleanCheckbox id="major" value="#{eventAction.event.major}"/>
+       </div>
+       
+       <div>         
+         <div>
+           <h:inputTextarea id="description" value="#{eventAction.description}"/>
+         </div>            
+         
+          <script type="text/javascript">
+            CKEDITOR.config.removePlugins = "elementspath";
+            CKEDITOR.config.toolbarCanCollapse = false;
+            CKEDITOR.config.height = 240;
+            var editor = CKEDITOR.replace("eventdetails:description"); //,
+/*            {
+			        toolbar : [ [ '-', 'Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', 
+			          '-','Link', 'Unlink', '-', 'ImageButton' ] ]
+			      });*/
+					
+          </script>         
+       
        </div>
              
        <div class="formButtons">

@@ -1,6 +1,7 @@
 package org.jboss.seam.example.ticketmonster.action;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -8,8 +9,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.example.ticketmonster.model.Document;
 import org.jboss.seam.example.ticketmonster.model.Event;
-import org.jboss.seam.example.ticketmonster.model.Venue;
+import org.jboss.seam.example.ticketmonster.model.Revision;
 import org.jboss.seam.persistence.transaction.Transactional;
 
 /**
@@ -26,12 +28,13 @@ public @Named @ConversationScoped class EventAction implements Serializable
    @Inject Conversation conversation;
    
    private Event event;
+   private String description;
    private Long eventId;
    
    public void createEvent()
    {
       conversation.begin();
-      event = new Event();
+      event = new Event();      
    }
    
    public void loadEvent()
@@ -41,6 +44,7 @@ public @Named @ConversationScoped class EventAction implements Serializable
       {      
          conversation.begin();      
          event = entityManager.find(Event.class, eventId);
+         description = event.getDescription().getActiveRevision().getContent();
       }
    }   
    
@@ -50,10 +54,40 @@ public @Named @ConversationScoped class EventAction implements Serializable
       if (event.getId() != null)
       {
          entityManager.merge(event);
+         
+         if (!description.equals(event.getDescription().getActiveRevision().getContent()))
+         {
+            Revision rev = new Revision();
+            rev.setContent(description);
+            rev.setDocument(event.getDescription());
+            rev.setCreated(new Date());
+            
+            entityManager.persist(rev);
+            event.getDescription().setActiveRevision(rev);
+            entityManager.merge(event.getDescription());            
+         }
       }
       else
       {
+         Document doc = new Document();
+         event.setDescription(doc);         
+         
+         if (description != null)
+         {
+            Revision rev = new Revision();
+            rev.setContent(description);
+            rev.setDocument(event.getDescription());
+            doc.setActiveRevision(rev);
+            entityManager.persist(doc);
+            entityManager.persist(rev);
+         }
+         else
+         {
+            entityManager.persist(doc);
+         }
+              
          entityManager.persist(event);
+
       }
       
       conversation.end();
@@ -68,6 +102,16 @@ public @Named @ConversationScoped class EventAction implements Serializable
    public Event getEvent()
    {
       return event;
+   }
+   
+   public String getDescription()
+   {
+      return description;
+   }
+   
+   public void setDescription(String description)
+   {
+      this.description = description;
    }
    
    public Long getEventId()

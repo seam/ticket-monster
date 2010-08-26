@@ -41,7 +41,7 @@ public @Model class EventSearch
       
       if (categoryId == null)
       {
-         predicates.add(builder.equal(event.get(Event_.major),           // "major"),
+         predicates.add(builder.equal(event.get(Event_.major),
                Boolean.TRUE));
       }
       else

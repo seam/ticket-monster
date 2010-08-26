@@ -12,9 +12,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	padding: 0;
 	border: 0;
 	outline: 0;
-	font-weight: inherit;
+	font-size: 100%;
+	/*font-weight: inherit;
 	font-style: inherit;
-	font-family: inherit;
+	font-family: inherit; */
 	vertical-align: baseline;
 }
 
@@ -27,7 +28,7 @@ body {
 	color: black;
   background: url(background.png) top left repeat-x;
   margin: 0px;
-  font: 60% Arial,Helvetica,sans-serif;
+  font-family: Arial,Helvetica,sans-serif;
 }
 
 ol, ul {
@@ -49,7 +50,7 @@ q:before, q:after {
 	content: "";
 }
 
-blockquote, q {
+blockquote, q {http://localhost:8080/ticket-monster/style/default.css
 	quotes: "" "";
 }
 
@@ -108,7 +109,7 @@ div.menuItem a, div.menuItem a:visited {
   height: 22px;
   text-align: center;
   text-decoration: none;
-  font-size: 1.1em;  
+  font-size: 11px;  
   width: 98px;  
   color: #ffffff;
 }
@@ -119,7 +120,7 @@ div.menuItem a:hover {
   height: 22px;
   text-align: center;
   text-decoration: none;
-  font-size: 1.1em;  
+  font-size: 11px;    
   width: 98px;
   color: #ffffff;
   background: url(menu_highlight.png) top left repeat-x;
@@ -153,4 +154,10 @@ div#content {
   background-color: #ffffff;
   height: 600px;
   padding: 4px;
+}
+
+div.eventdetail {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 80%;
 }
