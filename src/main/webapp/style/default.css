@@ -140,7 +140,8 @@ div#menuItem6 {
 div#content {
   background-color: #ffffff;
   height: 600px;
-  padding: 4px;
+  padding: 4px 12px 12px 12px;
+  margin-bottom: 24px;
 }
 
 div.eventdetail {
