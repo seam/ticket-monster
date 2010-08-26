@@ -23,8 +23,8 @@ public class DocumentResource implements Serializable
    
    private Long id;
    private Document document;
-   private String title;
-   private String resourceType;
+   private String key;
+   private String contentType;
    private byte[] data;
    
    @Id @GeneratedValue
@@ -49,24 +49,24 @@ public class DocumentResource implements Serializable
       this.document = document;
    }
    
-   public String getTitle()
+   public String getKey()
    {
-      return title;
+      return key;
    }
    
-   public void setTitle(String title)
+   public void setKey(String key)
    {
-      this.title = title;
+      this.key = key;
    }
    
-   public String getResourceType()
+   public String getContentType()
    {
-      return resourceType;
+      return contentType;
    }
    
-   public void setResourceType(String resourceType)
+   public void setContentType(String contentType)
    {
-      this.resourceType = resourceType;
+      this.contentType = contentType;
    }
    
    @Lob

@@ -22,6 +22,16 @@
       <param-name>facelets.DEVELOPMENT</param-name>
       <param-value>true</param-value>
    </context-param>
+   
+    <servlet>
+        <servlet-name>Document Resource Servlet</servlet-name>
+        <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Document Resource Servlet</servlet-name>
+        <url-pattern>/document/resource/*</url-pattern>
+    </servlet-mapping>   
 
    <!--persistence-unit-ref>
       <persistence-unit-ref-name>ticketMonster/pu</persistence-unit-ref-name>

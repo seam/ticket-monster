@@ -31,6 +31,7 @@
       <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
       <infinispan.version>4.1.0.CR2</infinispan.version>
+      <servlet.version>2.5</servlet.version>
    </properties>
 
    <dependencyManagement>
@@ -122,6 +123,13 @@
          <groupId>javax.faces</groupId>
          <artifactId>jsf-api</artifactId>
          <scope>provided</scope>
+      </dependency>
+
+      <!-- Servlet -->
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>servlet-api</artifactId>
+         <version>${servlet.version}</version>
       </dependency>
 
       <!-- Seam Faces -->
