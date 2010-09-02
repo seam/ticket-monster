@@ -338,6 +338,23 @@
          <id>jboss-6</id>
          <dependencies>
          </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-war-plugin</artifactId>
+                 <configuration>
+                   <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                   <webResources>
+                     <resource>
+                        <directory>src/main/webapp-jboss-6</directory>
+                     </resource>
+                   </webResources>
+                   <webXml>src/main/webapp-jboss-6/WEB-INF/web.xml</webXml>
+                 </configuration>
+               </plugin>
+            </plugins>
+         </build>
         </profile>
       <profile>
          <id>jboss-public-repository</id>

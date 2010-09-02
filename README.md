@@ -6,7 +6,7 @@ JBoss AS 6
 
 To deploy the application to JBoss AS 6, run:
 
-  mvn -U clean package jboss:hard-deploy
+  mvn -U clean package jboss:hard-deploy -Pjboss-6
 
 To undeploy, run
 
@@ -18,11 +18,11 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-  mvn -U clean package jboss:hard-deploy
+  mvn -U clean package jboss:hard-deploy -Pjboss-6
 
 To undeploy, run
 
-  mvn jboss:hard-undeploy  
+  mvn jboss:hard-undeploy
 
 Eclipse
 -------
