@@ -24,6 +24,7 @@
       <jboss.domain>default</jboss.domain>
       <!-- The version of Weld extensions in use -->
       <weld.extensions.version>1.0.0-CR2</weld.extensions.version>
+      <weld.version>1.1.0.Beta1</weld.version>
       <junit.version>4.8.1</junit.version>
       <hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
       <uel.impl.version>2.1.2-b04</uel.impl.version>
@@ -63,6 +64,13 @@
             <artifactId>el-impl</artifactId>
             <scope>runtime</scope>
             <version>${uel.impl.version}</version>
+         </dependency>
+         
+         <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <classifier>jboss5</classifier>
+            <version>${weld.version}</version>
          </dependency>
 
       </dependencies>
@@ -263,6 +271,33 @@
    </build>
 
    <profiles>
+   	  <profile>
+         <id>jboss-eap51</id>
+   	     <dependencies>
+            <dependency>
+               <groupId>org.jboss.weld.servlet</groupId>
+               <artifactId>weld-servlet</artifactId>
+               <classifier>jboss5</classifier>
+            </dependency>  
+         </dependencies>
+         <build>
+            <plugins>
+               <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-war-plugin</artifactId>
+                 <configuration>
+                   <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                   <webXml>src/main/webapp-jboss-eap51/WEB-INF/web.xml</webXml>
+                 </configuration>
+               </plugin>
+            </plugins>
+         </build>
+   	  </profile>
+      <profile>
+         <id>jboss-6</id>
+         <dependencies>
+         </dependencies>
+        </profile>
       <profile>
          <id>jboss-public-repository</id>
          <activation>
