@@ -22,7 +22,7 @@
       -->
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
       <jboss.domain>default</jboss.domain>
-      <!-- The version of Weld extensions in use -->
+      <!-- The version of Weld extensions in use (this is out of date) -->
       <weld.extensions.version>1.0.0-CR2</weld.extensions.version>
       <weld.version>1.1.0.Beta1</weld.version>
       <junit.version>4.8.1</junit.version>
@@ -138,6 +138,7 @@
          <groupId>javax.servlet</groupId>
          <artifactId>servlet-api</artifactId>
          <version>${servlet.version}</version>
+         <scope>provided</scope>
       </dependency>
 
       <!-- Seam Faces -->
@@ -235,6 +236,14 @@
            <exclusion>
              <groupId>org.jboss.javaee</groupId>
              <artifactId>jboss-transaction-api</artifactId>
+           </exclusion>
+           <exclusion>
+           	<artifactId>rhq-pluginAnnotations</artifactId>
+           	<groupId>org.rhq.helpers</groupId>
+           </exclusion>
+           <exclusion>
+           	<artifactId>jboss-common-core</artifactId>
+           	<groupId>org.jboss</groupId>
            </exclusion>
          </exclusions>
       </dependency>
