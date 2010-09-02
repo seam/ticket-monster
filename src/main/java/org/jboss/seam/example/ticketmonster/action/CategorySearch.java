@@ -8,9 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
 
@@ -45,12 +42,7 @@ public @Model class CategorySearch
    
    private void loadCategories()
    {
-      CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
-      CriteriaQuery<EventCategory> query = builder.createQuery(EventCategory.class);
-
-      Root<EventCategory> venue = query.from(EventCategory.class);      
-            
-      categories = entityManager.createQuery(query).getResultList();         
+      categories = entityManager.createQuery("select c from EventCategory c").getResultList();         
    }
    
    public List<EventCategory> getCategories()

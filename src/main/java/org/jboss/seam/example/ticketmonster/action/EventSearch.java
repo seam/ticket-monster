@@ -1,19 +1,14 @@
 package org.jboss.seam.example.ticketmonster.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.seam.example.ticketmonster.model.Event_;
 
 /**
  * Event search actions handled here
@@ -31,28 +26,22 @@ public @Model class EventSearch
    
    private void loadEvents()
    {
-      // If there is no categoryId set, load major events
+      Query query;
       
-      CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
-      CriteriaQuery<Event> query = builder.createQuery(Event.class);
-      Root<Event> event = query.from(Event.class);
-      
-      List<Predicate> predicates = new ArrayList<Predicate>();
-      
-      if (categoryId == null)
+            		
+      if (categoryId != null)
       {
-         predicates.add(builder.equal(event.get(Event_.major),
-               Boolean.TRUE));
+         query = entityManager.createQuery(
+            "select e from Event e where e.category = :category")
+            .setParameter("category", lookupCategory(categoryId));
       }
       else
       {
-         predicates.add(builder.equal(event.get(Event_.category), 
-               lookupCategory(categoryId)));
+         query = entityManager.createQuery(
+            "select e from Event e where e.major = true");
       }
-      
-      query.where(predicates.toArray(new Predicate[0]));
-      
-      events = entityManager.createQuery(query).getResultList();            
+           
+      events = query.getResultList();            
    }
    
    @SuppressWarnings("unchecked")
