@@ -1,15 +1,10 @@
 package org.jboss.seam.example.ticketmonster.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
 
@@ -26,14 +21,8 @@ public @Model class VenueSearch
    private List<Venue> venues;
    
    private void loadVenues()
-   {
-      CriteriaBuilder builder = entityManager.getCriteriaBuilder();      
-      CriteriaQuery<Venue> query = builder.createQuery(Venue.class);
-
-      Root<Venue> venue = query.from(Venue.class);      
-      //List<Predicate> predicates = new ArrayList<Predicate>();
-            
-      venues = entityManager.createQuery(query).getResultList();         
+   {           
+      venues = entityManager.createQuery("select v from Venue v").getResultList();         
    }
    
    public List<Venue> getVenues()
