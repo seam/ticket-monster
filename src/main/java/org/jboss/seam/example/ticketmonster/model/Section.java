@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * A section is a specific area within a venue layout.  A venue layout may 
@@ -34,6 +36,11 @@ public class Section implements Serializable
     * The total seating capacity of the section
     */
    private int capacity;
+   
+   /**
+    * The layout to which this section belongs
+    */
+   private VenueLayout layout;
    
    @Id @GeneratedValue
    public Long getId()
@@ -74,5 +81,16 @@ public class Section implements Serializable
    public void setCapacity(int capacity)
    {
       this.capacity = capacity;
+   }
+   
+   @ManyToOne @JoinColumn(name = "LAYOUT_ID")
+   public VenueLayout getLayout()
+   {
+      return layout;
+   }
+   
+   public void setLayout(VenueLayout layout)
+   {
+      this.layout = layout;
    }
 }

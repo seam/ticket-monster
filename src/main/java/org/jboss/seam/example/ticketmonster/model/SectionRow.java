@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Represents a single row of seats within a section.  May also be used to 
@@ -25,7 +27,8 @@ public class SectionRow implements Serializable
    
    private Long id;
    private String name;
-   private int capacity;   
+   private int capacity;
+   private Section section;
    
    @Id @GeneratedValue
    public Long getId()
@@ -56,5 +59,16 @@ public class SectionRow implements Serializable
    public void setCapacity(int capacity)
    {
       this.capacity = capacity;
+   }
+   
+   @ManyToOne @JoinColumn(name = "SECTION_ID")
+   public Section getSection()
+   {
+      return section;
+   }
+   
+   public void setSection(Section section)
+   {
+      this.section = section;
    }
 }

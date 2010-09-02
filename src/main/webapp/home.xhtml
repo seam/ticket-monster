@@ -9,18 +9,56 @@
     <f:metadata>
        <f:viewParam name="category" value="#{eventSearch.categoryId}"/>
     </f:metadata>   
-   
-      <ui:repeat value="#{eventSearch.events}" var="event">
-        <div class="eventdetail">
-          <h:outputText value="#{event.description.activeRevision.content}" escape="false"/>
-        </div>
-        <div style="float:left;margin-left:8px">
-          <h:button image="/style/buytickets.png"/>
-        </div>
-        <br style="clear:both"/>
+    
+    <script type="text/javascript">
+      // <![CDATA[
+      // Scans the event description div for images and hyperlinks them to
+      // the event view page, if they're not already linked
+      function scanAndLinkImages(divId, eventId) {        
+        var div = document.getElementById(divId);
+        var href = "viewevent.jsf?eventId=" + eventId;
+        var images = new Array();
+        recursiveScanChildren(div, images);       
         
+        for (var i = 0; i < images.length; i++) {
+          var a = document.createElement("a");
+          a.href = href;
+          images[i].parentNode.insertBefore(a, images[i]);
+          images[i].parentNode.removeChild(images[i]);
+          a.appendChild(images[i]);
+        }        
+      }
       
-      </ui:repeat>
+      function recursiveScanChildren(e, images) {        
+        if (e.tagName.toUpperCase() == "A") return;
+        for (var i = 0; i < e.children.length; i++) {
+          if (e.children[i].tagName.toUpperCase() == "IMG") {
+            images.push(e.children[i]);
+          }
+          else {
+            recursiveScanChildren(e.children[i], images);
+          }
+        }      
+      }
+      
+      // ]]>
+    </script>
+   
+    <ui:repeat value="#{eventSearch.events}" var="event">
+
+      <div id="eventdetail_#{event.id}" class="eventdetail">
+        <h:outputText value="#{event.description.activeRevision.content}" escape="false"/>
+      </div>
+      <div style="float:left;margin-left:8px">
+        <a href="viewevent.jsf?eventId=#{event.id}"><img src="style/buytickets.png"/></a>
+      </div>
+      <br style="clear:both"/>
+      
+      <script type="text/javascript">
+        scanAndLinkImages("eventdetail_#{event.id}", #{event.id});
+      </script>
+          
+    </ui:repeat>
 
    </ui:define>
 </ui:composition>
