@@ -323,6 +323,11 @@
                  <artifactId>maven-war-plugin</artifactId>
                  <configuration>
                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                   <webResources>
+                     <resource>
+                        <directory>src/main/webapp-jboss-eap51</directory>
+                     </resource>
+                   </webResources>
                    <webXml>src/main/webapp-jboss-eap51/WEB-INF/web.xml</webXml>
                  </configuration>
                </plugin>
