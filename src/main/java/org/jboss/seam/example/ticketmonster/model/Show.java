@@ -69,7 +69,7 @@ public class Show implements Serializable
       this.showDate = showDate;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "LAYOUT_ID")
    public VenueLayout getSeatingConfig()
    {
       return seatingConfig;
