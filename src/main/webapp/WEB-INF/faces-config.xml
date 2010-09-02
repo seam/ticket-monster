@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.0"
+<faces-config version="1.2"
    xmlns="http://java.sun.com/xml/ns/javaee"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="
       http://java.sun.com/xml/ns/javaee
-      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+      http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+      
+   <application>
+      <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+   </application>
       
    <navigation-rule>
       <from-view-id>/admin/home.xhtml</from-view-id>
 
       <navigation-case>
          <from-action>#{eventAction.createEvent}</from-action>
-         <if>#{true}</if>
          <to-view-id>/admin/eventdetail.xhtml</to-view-id>
          <!-- adding a redirect here breaks it? -->
          <!--redirect/-->
@@ -23,7 +26,6 @@
 
       <navigation-case>
          <from-action>#{venueAction.createVenue}</from-action>
-         <if>#{true}</if>
          <to-view-id>/admin/venuedetail.xhtml</to-view-id>
          <!-- adding a redirect here breaks it? -->
          <!--redirect/-->
@@ -42,7 +44,6 @@
       
       <navigation-case>
          <from-action>#{venueAction.cancel}</from-action>
-         <if>#{true}</if>
          <to-view-id>/admin/venues.xhtml</to-view-id>
          <redirect />
       </navigation-case>      
@@ -61,7 +62,6 @@
       
       <navigation-case>
          <from-action>#{eventAction.cancel}</from-action>
-         <if>#{true}</if>
          <to-view-id>/admin/home.xhtml</to-view-id>
          <redirect />
       </navigation-case>      

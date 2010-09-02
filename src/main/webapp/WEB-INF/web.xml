@@ -23,6 +23,11 @@
       <param-value>true</param-value>
    </context-param>
    
+   <context-param>
+      <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+      <param-value>.xhtml</param-value>
+   </context-param>
+   
     <servlet>
         <servlet-name>Document Resource Servlet</servlet-name>
         <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>

@@ -6,10 +6,6 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
    
-    <f:metadata>
-       <f:viewParam name="eventId" value="#{eventDetail.eventId}"/>
-    </f:metadata>   
-   
     <div class="eventdetail">
       <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
     </div>
