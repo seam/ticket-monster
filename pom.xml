@@ -261,6 +261,28 @@
                <target>1.6</target>
             </configuration>
          </plugin>
+         
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <executions>
+               <execution>
+                  <!-- Disable the default execution, we are going to explode it -->
+                  <id>default-war</id>
+                  <phase>none</phase>
+               </execution>
+               <execution>
+                  <id>package-exploded</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>exploded</goal>
+                  </goals>   
+                  <configuration>
+                     <webappDirectory>${project.build.directory}/${project.build.finalName}.war</webappDirectory>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
 
          <!-- Configure the JBoss AS Maven deploy plugin -->
          <plugin>
