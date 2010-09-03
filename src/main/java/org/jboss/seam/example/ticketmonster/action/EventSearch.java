@@ -3,6 +3,7 @@ package org.jboss.seam.example.ticketmonster.action;
 import java.util.List;
 
 import javax.enterprise.inject.Model;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -19,16 +20,17 @@ import org.jboss.seam.example.ticketmonster.model.EventCategory;
 public @Model class EventSearch
 {
    @Inject EntityManager entityManager;
-   
-   private Long categoryId;
-   
+      
    private List<Event> events;
    
    private void loadEvents()
    {
+      Object r = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      
       Query query;
       
             		
+      Long categoryId = 123L;
       if (categoryId != null)
       {
          query = entityManager.createQuery(
@@ -65,15 +67,5 @@ public @Model class EventSearch
    {
       if (events == null) loadAllEvents();
       return events;
-   }
-
-   public Long getCategoryId()
-   {
-      return categoryId;
-   }
-   
-   public void setCategoryId(Long categoryId)
-   {
-      this.categoryId = categoryId;
    }
 }
