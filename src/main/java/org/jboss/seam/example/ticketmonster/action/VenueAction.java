@@ -62,9 +62,10 @@ public @Named @ConversationScoped class VenueAction implements Serializable
       return "success";
    }
    
-   public void cancel()
+   public String cancel()
    {
       conversation.end();
+      return "cancel";
    }
    
    public Venue getVenue()

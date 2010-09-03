@@ -96,9 +96,10 @@ public @Named @ConversationScoped class EventAction implements Serializable
       return "success";
    }
    
-   public void cancel()
+   public String cancel()
    {
       conversation.end();
+      return "cancel";
    }   
 
    public Event getEvent()
