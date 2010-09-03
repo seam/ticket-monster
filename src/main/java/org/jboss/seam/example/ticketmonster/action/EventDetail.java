@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
+import org.jboss.seam.servlet.http.HttpParam;
 
 /**
  * Provides details for an event.
@@ -14,25 +15,15 @@ import org.jboss.seam.example.ticketmonster.model.Event;
  */
 public @Model class EventDetail
 {
-   @Inject EntityManager entityManager;
-   
-   private Long eventId;
-   
+   @Inject EntityManager entityManager;   
+   @Inject @HttpParam("eventId") String eventId;
+     
    private Event event;
-   
-   public Long getEventId()
-   {
-      return eventId;
-   }
-   
-   public void setEventId(Long eventId)
-   {
-      this.eventId = eventId;
-   }
-   
+     
    private void loadEvent()
    {
-      event = entityManager.find(Event.class, eventId);
+      Long id = eventId != null ? Long.valueOf(eventId) : null;
+      event = entityManager.find(Event.class, id);
    }
    
    public Event getEvent()

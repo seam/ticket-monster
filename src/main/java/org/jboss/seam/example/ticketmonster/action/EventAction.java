@@ -13,6 +13,7 @@ import org.jboss.seam.example.ticketmonster.model.Document;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.Revision;
 import org.jboss.seam.persistence.transaction.Transactional;
+import org.jboss.seam.servlet.http.HttpParam;
 
 /**
  * Event related operations
@@ -26,10 +27,10 @@ public @Named @ConversationScoped class EventAction implements Serializable
    
    @Inject EntityManager entityManager;
    @Inject Conversation conversation;
+   @Inject @HttpParam("eventId") String eventId;
    
    private Event event;
    private String description;
-   private Long eventId;
    
    public void createEvent()
    {
@@ -39,11 +40,10 @@ public @Named @ConversationScoped class EventAction implements Serializable
    
    public void loadEvent()
    {
-      // Only load the venue if a venueId has been provided
       if (eventId != null)
       {      
          conversation.begin();      
-         event = entityManager.find(Event.class, eventId);
+         event = entityManager.find(Event.class, Long.valueOf(eventId));
          description = event.getDescription().getActiveRevision().getContent();
       }
    }   
@@ -101,6 +101,7 @@ public @Named @ConversationScoped class EventAction implements Serializable
 
    public Event getEvent()
    {
+      if (event == null) loadEvent();
       return event;
    }
    
@@ -112,15 +113,5 @@ public @Named @ConversationScoped class EventAction implements Serializable
    public void setDescription(String description)
    {
       this.description = description;
-   }
-   
-   public Long getEventId()
-   {
-      return eventId;
-   }
-   
-   public void setEventId(Long eventId)
-   {
-      this.eventId = eventId;
    }
 }

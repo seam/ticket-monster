@@ -31,6 +31,7 @@
       <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
       <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
+      <seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
       <infinispan.version>4.1.0.CR2</infinispan.version>
       <servlet.version>2.5</servlet.version>
       <faces.version>1.2_13</faces.version>
@@ -223,6 +224,12 @@
              <artifactId>el-api</artifactId>
            </exclusion>
          </exclusions>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.servlet</groupId>
+         <artifactId>seam-servlet</artifactId>
+         <version>${seam.servlet.version}</version>
       </dependency>
 
       <dependency>

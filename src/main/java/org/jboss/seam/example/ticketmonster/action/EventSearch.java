@@ -3,13 +3,12 @@ package org.jboss.seam.example.ticketmonster.action;
 import java.util.List;
 
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
+import org.jboss.seam.servlet.http.HttpParam;
 
 /**
  * Event search actions handled here
@@ -19,31 +18,22 @@ import org.jboss.seam.example.ticketmonster.model.EventCategory;
  */
 public @Model class EventSearch
 {
-   @Inject EntityManager entityManager;
+   @Inject EntityManager entityManager;   
+   @Inject @HttpParam("category") String category;
       
    private List<Event> events;
    
+   @SuppressWarnings("unchecked")
    private void loadEvents()
-   {
-      Object r = FacesContext.getCurrentInstance().getExternalContext().getRequest();
-      
-      Query query;
-      
-            		
-      Long categoryId = 123L;
-      if (categoryId != null)
-      {
-         query = entityManager.createQuery(
-            "select e from Event e where e.category = :category")
-            .setParameter("category", lookupCategory(categoryId));
-      }
-      else
-      {
-         query = entityManager.createQuery(
-            "select e from Event e where e.major = true");
-      }
-           
-      events = query.getResultList();            
+   {                         
+      events = (category != null) ? 
+            (List<Event>) entityManager.createQuery(
+               "select e from Event e where e.category = :category")
+               .setParameter("category", lookupCategory(Long.valueOf(category)))
+               .getResultList() :
+            (List<Event>) entityManager.createQuery(
+               "select e from Event e where e.major = true")
+               .getResultList();           
    }
    
    @SuppressWarnings("unchecked")

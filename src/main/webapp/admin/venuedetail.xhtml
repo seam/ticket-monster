@@ -5,11 +5,6 @@
    xmlns:h="http://java.sun.com/jsf/html"
    template="/WEB-INF/templates/admin.xhtml">
    
-   <f:metadata>
-      <f:viewParam name="venueId" value="#{venueAction.venueId}"/>
-      <f:event type="preRenderView" listener="#{venueAction.loadVenue}"/>
-   </f:metadata>   
-   
    <ui:define name="content">
      <div class="heading">Venue Details</div>
 
