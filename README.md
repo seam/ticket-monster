@@ -6,12 +6,23 @@ JBoss AS 6
 
 To deploy the application to JBoss AS 6, run:
 
-  mvn -U clean package jboss:hard-deploy
+  mvn -U clean package jboss:hard-deploy -Pjboss-6
 
 To undeploy, run
 
   mvn jboss:hard-undeploy
   
+  
+JBoss EAP 5.1
+-------------
+
+To deploy the application to JBoss EAP 5.1, run:
+
+  mvn -U clean package jboss:hard-deploy -Pjboss-6
+
+To undeploy, run
+
+  mvn jboss:hard-undeploy
 
 Eclipse
 -------
@@ -35,3 +46,6 @@ You can easily deploy the application to a JBoss AS server in Eclipse.
 * Set up the JBoss AS server
 * Tell JBoss Tools to deploy the ticketmonster-ds.xml file (_Mark as Deployable_ and then (_Run As -> Run on Server_)
 * Tell JBoss Tools to deploy the example (_Run As -> Run on Server_)
+
+_Currently we are experiencing some problems deploying the app on eap51 from Eclipse, so please use
+the command line!_

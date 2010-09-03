@@ -1,9 +1,10 @@
 package org.jboss.seam.example.ticketmonster.producer;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 import org.jboss.seam.persistence.SeamManaged;
 
@@ -13,11 +14,19 @@ import org.jboss.seam.persistence.SeamManaged;
  * @author Shane Bryzak
  *
  */
-public class EntityManagerProducer
+@Alternative
+public class JBossEAP51Resources
 {
-   @PersistenceUnit
+   @Resource(mappedName="java:/ticketMonsterEntityManagerFactory")
+   private EntityManagerFactory emf;
+   
+   
    @RequestScoped
    @Produces
    @SeamManaged
-   EntityManagerFactory emf; 
+   @Alternative
+   public EntityManagerFactory createEmf()
+   {
+      return emf;
+   }
 }
