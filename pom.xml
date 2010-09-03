@@ -307,8 +307,9 @@
                <jbossHome>${jboss.home}</jbossHome>
                <serverName>${jboss.domain}</serverName>
                <fileNames>
-                  <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
+                  <!-- Ordering matters, we need the -ds to be copied first ;-) -->
                   <fileName>ticketmonster-ds.xml</fileName>
+                  <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
                </fileNames>
             </configuration>
          </plugin>
