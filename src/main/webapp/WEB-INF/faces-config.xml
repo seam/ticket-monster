@@ -43,7 +43,7 @@
       </navigation-case>
       
       <navigation-case>
-         <from-action>#{venueAction.cancel}</from-action>
+         <from-outcome>cancel</from-outcome>
          <to-view-id>/admin/venues.xhtml</to-view-id>
          <redirect />
       </navigation-case>      
@@ -61,7 +61,7 @@
       </navigation-case>
       
       <navigation-case>
-         <from-action>#{eventAction.cancel}</from-action>
+         <from-outcome>cancel</from-outcome>
          <to-view-id>/admin/home.xhtml</to-view-id>
          <redirect />
       </navigation-case>      

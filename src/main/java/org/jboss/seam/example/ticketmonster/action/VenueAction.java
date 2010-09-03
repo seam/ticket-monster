@@ -34,14 +34,17 @@ public @Named @ConversationScoped class VenueAction implements Serializable
       venue = new Venue();
    }
  
-   public void loadVenue()
+   public boolean isLoadVenue()
    {
       // Only load the venue if a venueId has been provided
-      if (venueId != null)
+      if (venue == null && venueId != null && conversation.isTransient())
       {      
          conversation.begin();      
          venue = entityManager.find(Venue.class, Long.valueOf(venueId));
       }
+      
+      // A hack, ignore this
+      return false;
    }
    
    public @Transactional String save()
@@ -59,14 +62,14 @@ public @Named @ConversationScoped class VenueAction implements Serializable
       return "success";
    }
    
-   public void cancel()
+   public String cancel()
    {
       conversation.end();
+      return "cancel";
    }
    
    public Venue getVenue()
    {
-      if (venue == null) loadVenue();
       return venue;
    }
    

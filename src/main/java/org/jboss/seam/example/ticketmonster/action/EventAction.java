@@ -38,14 +38,16 @@ public @Named @ConversationScoped class EventAction implements Serializable
       event = new Event();      
    }
    
-   public void loadEvent()
+   public boolean isLoadEvent()
    {
-      if (eventId != null)
+      if (event == null && eventId != null && conversation.isTransient())
       {      
          conversation.begin();      
          event = entityManager.find(Event.class, Long.valueOf(eventId));
          description = event.getDescription().getActiveRevision().getContent();
       }
+      
+      return false;
    }   
    
    @Transactional
@@ -94,14 +96,14 @@ public @Named @ConversationScoped class EventAction implements Serializable
       return "success";
    }
    
-   public void cancel()
+   public String cancel()
    {
       conversation.end();
+      return "cancel";
    }   
 
    public Event getEvent()
    {
-      if (event == null) loadEvent();
       return event;
    }
    

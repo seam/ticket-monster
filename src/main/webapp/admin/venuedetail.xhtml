@@ -6,6 +6,9 @@
    template="/WEB-INF/templates/admin.xhtml">
    
    <ui:define name="content">
+     <!-- This is our page action hack -->
+     <ui:fragment rendered="#{venueAction.loadVenue}"/>   
+   
      <div class="heading">Venue Details</div>
 
      <h:form>
