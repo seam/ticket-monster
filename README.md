@@ -18,7 +18,7 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-  mvn -U clean package jboss:hard-deploy -Pjboss-6
+  mvn -U clean package jboss:hard-deploy -Peap-51
 
 To undeploy, run
 
@@ -39,12 +39,12 @@ _Import Projects -> Import Maven Project_ and the project will automatically set
 classpath and have CDI and JSF support added.
 
 You should enable the maven profile for the target server. Go to _Properties -> Maven -> Active Profiles_;
-to work with work with JBoss EAP 5.1 enter "jboss-eap51", or for JBoss AS 6 enter "jboss-6".
+to work with work with JBoss EAP 5.1 enter "eap-51", or for JBoss AS 6 enter "jboss-6".
 
 Unfortunately, m2eclipse doesn't support alternative locations for web.xml or additional web
 resources, so we have to tell eclipse about this ourselves. Go to  _Properties -> Module Assembly_
-and then hit _Add Folder..._. If you are using JBoss EAP 5.1, you need to add "src/main/webapp-jboss-eap51"
-or for JBoss AS 6, you need to add "src/main/webapp-jboss-6".
+and then hit _Add Folder..._. If you are using JBoss EAP 5.1, you need to add "src/eap-51/webapp"
+or for JBoss AS 6, you need to add "src/jboss-6/webapp".
 
 You can easily deploy the application to a JBoss AS server in Eclipse.
 
