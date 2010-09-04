@@ -38,6 +38,12 @@
         <url-pattern>/document/resource/*</url-pattern>
     </servlet-mapping>
     
+   <context-param>
+      <param-name>facelets.LIBRARIES</param-name>
+      <param-value>/WEB-INF/taglib.xml</param-value>
+   </context-param>
+   
+    
    <listener>
       <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
    </listener>

@@ -3,6 +3,7 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:monster="http://jboss.org/seam/example/ticketmonster"
    template="/WEB-INF/templates/admin.xhtml">
    
    <ui:define name="head">
@@ -26,9 +27,8 @@
            <div class="formRow">
              <h:outputLabel for="category" value="Category"/>
              <h:selectOneMenu id="category" 
-                 value="#{eventAction.event.category}" 
-                 converter="#{categorySearch.converter}">
-               <f:selectItems value="#{categorySearch.categories}" 
+                 value="#{eventAction.event.category}">
+               <f:selectItems value="#{monster:convertCategories(categorySearch.categories)}" 
                   var="cat" itemValue="#{cat}" itemLabel="#{cat.description}"/>
              </h:selectOneMenu>
            </div>

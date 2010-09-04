@@ -28,6 +28,11 @@
       <param-value>.xhtml</param-value>
    </context-param>
    
+   <context-param>
+      <param-name>facelets.LIBRARIES</param-name>
+      <param-value>/WEB-INF/taglib.xml</param-value>
+   </context-param>
+   
     <servlet>
         <servlet-name>Document Resource Servlet</servlet-name>
         <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
