@@ -52,6 +52,3 @@ You can easily deploy the application to a JBoss AS server in Eclipse.
 * Tell JBoss Tools to deploy the ticketmonster-ds.xml file (_Mark as Deployable_ and then 
   (_Run As -> Run on Server_)
 * Tell JBoss Tools to deploy the example (_Run As -> Run on Server_)
-
-_Currently we are experiencing some problems deploying the app on eap51 from Eclipse, so please use
-the command line!_
