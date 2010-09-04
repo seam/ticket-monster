@@ -8,5 +8,7 @@
       <class>org.jboss.seam.example.ticketmonster.producer.EE6Resources</class>
    </alternatives>
    <decorators/>
-   <interceptors/>
+   <interceptors>
+      <class>org.jboss.seam.persistence.transaction.TransactionInterceptor</class>
+   </interceptors>
 </beans>

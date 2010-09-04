@@ -6,7 +6,10 @@
       http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
    <alternatives>
       <class>org.jboss.seam.example.ticketmonster.producer.JBossEAP51Resources</class>
+      <class>org.jboss.seam.persistence.transaction.SeSynchronizations</class>
    </alternatives>
    <decorators/>
-   <interceptors/>
+   <interceptors>
+      <class>org.jboss.seam.persistence.transaction.TransactionInterceptor</class>
+   </interceptors>
 </beans>
