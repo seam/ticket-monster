@@ -69,7 +69,7 @@
             <scope>runtime</scope>
             <version>${uel.impl.version}</version>
          </dependency>
-         
+
          <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
@@ -87,10 +87,10 @@
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
          <exclusions>
-           <exclusion>
-             <groupId>org.jboss.interceptor</groupId>
-             <artifactId>jboss-interceptor-api</artifactId>
-           </exclusion>
+            <exclusion>
+               <groupId>org.jboss.interceptor</groupId>
+               <artifactId>jboss-interceptor-api</artifactId>
+            </exclusion>
          </exclusions>
       </dependency>
 
@@ -147,17 +147,17 @@
       </dependency>
 
       <!-- Seam Faces -->
-      <!--dependency>
-         <groupId>org.jboss.seam.faces</groupId>
-         <artifactId>seam-faces</artifactId>
-         <version>3.0.0-SNAPSHOT</version>
-         <exclusions>
-            <exclusion>
-               <groupId>org.jboss.weld</groupId>
-               <artifactId>weld-extensions</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency-->
+      <!--      <dependency>-->
+      <!--         <groupId>org.jboss.seam.faces</groupId>-->
+      <!--         <artifactId>seam-faces</artifactId>-->
+      <!--         <version>3.0.0-SNAPSHOT</version>-->
+      <!--         <exclusions>-->
+      <!--            <exclusion>-->
+      <!--               <groupId>org.jboss.weld</groupId>-->
+      <!--               <artifactId>weld-extensions</artifactId>-->
+      <!--            </exclusion>-->
+      <!--         </exclusions>-->
+      <!--      </dependency>-->
 
       <!-- JPA -->
       <dependency>
@@ -197,23 +197,23 @@
          <artifactId>seam-security-impl</artifactId>
          <version>${seam.security.version}</version>
          <exclusions>
-           <exclusion>
-             <groupId>javax.persistence</groupId>
-             <artifactId>persistence-api</artifactId>
-           </exclusion>
+            <exclusion>
+               <groupId>javax.persistence</groupId>
+               <artifactId>persistence-api</artifactId>
+            </exclusion>
          </exclusions>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.seam.xml</groupId>
          <artifactId>seam-xml-config</artifactId>
          <version>${seam.xmlconfig.version}</version>
          <exclusions>
-           <exclusion>
-             <groupId>org.jboss.spec.javax.interceptor</groupId>
-             <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
-           </exclusion>
-         </exclusions>         
+            <exclusion>
+               <groupId>org.jboss.spec.javax.interceptor</groupId>
+               <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
 
       <dependency>
@@ -221,10 +221,10 @@
          <artifactId>seam-persistence-impl</artifactId>
          <version>${seam.persistence.version}</version>
          <exclusions>
-           <exclusion>
-             <groupId>javax.el</groupId>
-             <artifactId>el-api</artifactId>
-           </exclusion>
+            <exclusion>
+               <groupId>javax.el</groupId>
+               <artifactId>el-api</artifactId>
+            </exclusion>
          </exclusions>
       </dependency>
 
@@ -239,25 +239,25 @@
          <artifactId>infinispan-core</artifactId>
          <version>${infinispan.version}</version>
          <exclusions>
-           <exclusion>
-             <groupId>log4j</groupId>
-             <artifactId>log4j</artifactId>
-           </exclusion>
-           <exclusion>
-             <groupId>org.jboss.javaee</groupId>
-             <artifactId>jboss-transaction-api</artifactId>
-           </exclusion>
-           <exclusion>
-           	<artifactId>rhq-pluginAnnotations</artifactId>
-           	<groupId>org.rhq.helpers</groupId>
-           </exclusion>
-           <exclusion>
-           	<artifactId>jboss-common-core</artifactId>
-           	<groupId>org.jboss</groupId>
-           </exclusion>
+            <exclusion>
+               <groupId>log4j</groupId>
+               <artifactId>log4j</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>org.jboss.javaee</groupId>
+               <artifactId>jboss-transaction-api</artifactId>
+            </exclusion>
+            <exclusion>
+               <artifactId>rhq-pluginAnnotations</artifactId>
+               <groupId>org.rhq.helpers</groupId>
+            </exclusion>
+            <exclusion>
+               <artifactId>jboss-common-core</artifactId>
+               <groupId>org.jboss</groupId>
+            </exclusion>
          </exclusions>
       </dependency>
-      
+
       <dependency>
          <groupId>com.sun.facelets</groupId>
          <artifactId>jsf-facelets</artifactId>
@@ -277,7 +277,7 @@
                <target>1.6</target>
             </configuration>
          </plugin>
-         
+
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
@@ -292,7 +292,7 @@
                   <phase>package</phase>
                   <goals>
                      <goal>exploded</goal>
-                  </goals>   
+                  </goals>
                   <configuration>
                      <webappDirectory>${project.build.directory}/${project.build.finalName}.war</webappDirectory>
                   </configuration>
