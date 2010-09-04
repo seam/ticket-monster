@@ -315,10 +315,55 @@
                </fileNames>
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>ec2-maven-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <configuration>
+               <accessKeyId>${aws.accessKeyId}</accessKeyId>
+               <secretAccessKey>${aws.secretAccessKey}</secretAccessKey>
+               <launchConfigurations>
+                  <launchConfiguration>
+
+                     <!-- EC2 API parameters -->
+                     <imageId>ami-814fa4e8</imageId>
+                     <minCount>1</minCount>
+                     <maxCount>1</maxCount>
+                     <keyName>ticketmonster</keyName>
+                     <securityGroup>
+                        <group>jboss-as-single</group>
+                     </securityGroup>
+                     <keyName>${ticketmonster.keyname}</keyName>
+                     <wait>true</wait>
+                     <terminate>false</terminate>
+                     <elasticIp>${ticketmonster.elasticIp}</elasticIp>
+                  </launchConfiguration>
+               </launchConfigurations>
+            </configuration>
+         </plugin>
       </plugins>
    </build>
 
    <profiles>
+      <profile>
+         <id>dist</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-assembly-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>distribution</id>
+                        <configuration>
+                           <finalName>${project.build.finalName}</finalName>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
       <profile>
          <id>eap-51</id>
          <dependencies>
