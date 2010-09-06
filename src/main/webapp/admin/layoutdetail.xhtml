@@ -18,6 +18,8 @@
       </script>     
    
      <div class="heading">Layout Details</div>
+     
+     <h:messages globalOnly="true" errorClass="errorMessage" showDetail="true"/>
 
      <h:form>
        <div class="formRow">
@@ -26,13 +28,19 @@
        </div>
        
        <div class="formRow">
-         <h:outputLabel for="capacity" value="Capacity"/>
+         <h:outputLabel for="capacity" value="Total capacity"/>
          <h:inputText id="capacity" value="#{layoutAction.layout.capacity}"/>
        </div>
        
        <h:commandButton value="Add Section" action="#{layoutAction.addSection}"/>
        
-       <h:dataTable style="width:600px" value="#{layoutAction.sections}" var="section" styleClass="grid" headerClass="header" rowClasses="odd,even">
+       <h:dataTable style="width:600px" 
+          value="#{layoutAction.sections}" 
+          var="section" 
+          styleClass="grid" 
+          headerClass="header" 
+          footerClass="footer" 
+          rowClasses="odd,even">
          <h:column width="auto">
            <f:facet name="header">
              Name
@@ -43,11 +51,17 @@
            <f:facet name="header">
              Description
            </f:facet>
+           <f:facet name="footer">
+             Total
+           </f:facet>           
            #{section.description}
          </h:column>
          <h:column width="auto">
            <f:facet name="header">
              Capacity
+           </f:facet>
+           <f:facet name="footer">
+             #{layoutAction.sectionCapacityTotal}
            </f:facet>
            #{section.capacity}
          </h:column>

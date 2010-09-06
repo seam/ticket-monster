@@ -6,14 +6,17 @@ import java.util.List;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.inject.Instance;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
-import org.jboss.seam.persistence.ManagedPersistenceContext;
 import org.jboss.seam.persistence.FlushModeType;
+import org.jboss.seam.persistence.ManagedPersistenceContext;
 import org.jboss.seam.persistence.transaction.Transactional;
 import org.jboss.seam.servlet.http.HttpParam;
 
@@ -27,9 +30,10 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    private static final long serialVersionUID = 2646300975197236221L;
    
    @Inject Conversation conversation;
-   @Inject EntityManager entityManager;
+   @Inject Instance<EntityManager> entityManagerInstance;
    @Inject @HttpParam("layoutId") String layoutId;
    
+   private EntityManager entityManager;
    private VenueLayout layout;   
    private List<Section> sections;
    private Section section;
@@ -43,12 +47,13 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
  
    @SuppressWarnings("unchecked")
    public boolean isLoadLayout()
-   {
-      ((ManagedPersistenceContext) entityManager).changeFlushMode(FlushModeType.MANUAL);
-      
+   {      
       // Only load the layout if a layoutId has been provided
       if (layout == null && layoutId != null && conversation.isTransient())
       {      
+         entityManager = entityManagerInstance.get();
+         ((ManagedPersistenceContext) entityManager).changeFlushMode(FlushModeType.MANUAL);         
+         
          conversation.begin();      
          layout = entityManager.find(VenueLayout.class, Long.valueOf(layoutId));
          
@@ -82,6 +87,15 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
       }
    }
    
+   public Long getSectionCapacityTotal()
+   {
+      long total = 0;
+      
+      for (Section s : sections) total += s.getCapacity();
+      
+      return total;
+   }
+   
    public String saveSection()
    {
       section.setLayout(layout);
@@ -91,6 +105,14 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    
    public @Transactional String save()
    {
+      if (layout.getCapacity() != getSectionCapacityTotal())
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+               FacesMessage.SEVERITY_ERROR, "Capacity mismatch", 
+               "The layout capacity you have entered must equal the section capacity total.  Please correct this before saving."));
+         return null;
+      }
+      
       if (layout.getId() != null)
       {
          entityManager.merge(layout);

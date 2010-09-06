@@ -118,8 +118,13 @@ th.header {
   background: url(table_header.png) top left repeat-x;
   color: #ffffff;
   padding: 3px 3px 3px 3px;
-  font-size: 80%;
   font-weight: bold;
+}
+
+td.footer {
+  color: #333333;
+  font-weight: bold;
+  padding: 3px 3px 3px 3px; 
 }
 
 tr.odd {
@@ -159,4 +164,7 @@ div.validationError {
   color: #ff0000;
 }
 
-
+.errorMessage {
+  font-weight: bold;
+  color: #ff0000; 
+}
