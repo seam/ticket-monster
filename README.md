@@ -13,8 +13,8 @@ To undeploy, run
   `mvn jboss:hard-undeploy`
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
-  
-  
+
+
 JBoss EAP 5.1
 -------------
 
@@ -162,5 +162,3 @@ You can easily deploy the application to a JBoss AS server in Eclipse.
 
 Note that with EAP 5.1 you may encounter JBPAPP-4490 - publishing to the server when it is stopped seems
 to work around this.
-
-
