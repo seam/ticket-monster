@@ -34,19 +34,19 @@ EC2
 
 You'll need to create yourself an AWS account, and [sign up for EC2](see http://aws.amazon.com).
 Having done this, it's best to register an Elastic IP (so that you can always get the same
-IP address when creating an instance). You also need to create a security group that allows 
-access to JBoss AS on port 8080, and you'll also want ssh access. Call this group 
-"jboss-as-single". Next, create a key-pair to allow ssh access, and download this to your home
-directory.
+IP address when creating an instance - however an Elastic IP will cost you more). You also need
+to create a security group that allows access to JBoss AS on port 8080, and you'll also want ssh
+access. Call this group "jboss-as-single". Next, create a key-pair to allow ssh access, and 
+download this to your home directory.
 
 To make it easier to find the machine on the net, it's nice to create a `ticketmonster` alias 
-in your `hosts` file.  
+in your `hosts` file.
 
 It also helps to set up an SSH alias. For example:
 
 `Host ticketmonster
    IdentityFile # /path/to/your/key-pair.pem
-   User root
+   User jboss
    CheckHostIP no
    StrictHostKeyChecking no`
    
@@ -64,7 +64,7 @@ JBoss EAP 5.1 on EC2
 --------------------
 
 You can easily start an EC2 instance, pre-configured with EAP 5.1. You need to configure some
-(user-specific) settings. Add this profile to your `/.m2/settings.xml`:
+(user-specific) settings. Add these profiles to your `/.m2/settings.xml`:
 
 `      <profile>
          <id>ticketmonster-aws</id>
@@ -75,16 +75,28 @@ You can easily start an EC2 instance, pre-configured with EAP 5.1. You need to c
             </property>
          </activation>
          <properties>
-         	<!-- Your AWS Access Key ID -->
-            <aws.accessKeyId></aws.accessKeyId>
-            <!-- Your AWS Secret Access Key-->
-            <aws.secretAccessKey></aws.secretAccessKey>
             <!-- The Elastic IP you want associated with the instance -->
             <ticketmonster.elasticIp></ticketmonster.elasticIp>
             <!-- The name of the key that the instance should use -->
             <ticketmonster.keyName></ticketmonster.keyName>
          </properties>
-      </profile>`
+      </profile>
+      <profile>
+         <id>aws</id>
+         <activation>
+            <property>
+               <name>aws</name>
+               <value>!false</value>
+            </property>
+         </activation>
+         <properties>
+            <!-- Your AWS Access Key ID -->
+            <aws.accessKeyId>AKIAIVECQR7NIHPUTLXA</aws.accessKeyId>
+            <!-- Your AWS Secret Access Key-->
+            <aws.secretAccessKey>wAMNIWYStJnCOQ5CrRHTAbnSAlcDFKrwrIqUy/aP</aws.secretAccessKey>
+         </properties>
+      </profile>
+`
   
 You can then start the EC2 instance using:
 
@@ -102,9 +114,11 @@ Then, we need transfer this to the instance:
 
   `scp target/ticket-monster-war.zip ticketmonster:`
   
-Next, we need to unzip this into the JBoss AS deploy directory. Having ssh'd to the machine:
+Next, we need to unzip this and move it into the JBoss AS deploy directory. Having ssh'd to the 
+machine:
 
-  `unzip ticket-monster-war.zip -d /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/`
+  `unzip ticket-monster-war.zip -d /tmp/ticketmonster 
+   mv /tmp/ticketmonster /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/`
   
 And then, check to see whether the app has started:
 
