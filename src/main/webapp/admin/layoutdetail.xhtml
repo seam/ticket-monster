@@ -31,47 +31,53 @@
          <h:outputLabel for="capacity" value="Total capacity"/>
          <h:inputText id="capacity" value="#{layoutAction.layout.capacity}"/>
        </div>
+              
+       <div style="width:600px">
+         <h:dataTable 
+            value="#{layoutAction.sections}" 
+            var="section" 
+            styleClass="grid" 
+            headerClass="header" 
+            footerClass="footer" 
+            rowClasses="odd,even">
+           <h:column width="auto">
+             <f:facet name="header">
+               Name
+             </f:facet>
+             <h:commandLink value="#{section.name}" action="#{layoutAction.editSection(section)}"/>
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Description
+             </f:facet>
+             <f:facet name="footer">
+               Total
+             </f:facet>           
+             #{section.description}
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Capacity
+             </f:facet>
+             <f:facet name="footer">
+               #{layoutAction.sectionCapacityTotal}
+             </f:facet>
+             #{section.capacity}
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Action
+             </f:facet>
+             <h:commandLink value="Remove" onclick="return confirmDelete()" action="#{layoutAction.removeSection(section)}"/>
+           </h:column>
+         </h:dataTable>     
+         
+         <div style="float:right">
+           <h:commandButton value="Add Section" action="#{layoutAction.addSection}"/>                
+         </div>
        
-       <h:commandButton value="Add Section" action="#{layoutAction.addSection}"/>
-       
-       <h:dataTable style="width:600px" 
-          value="#{layoutAction.sections}" 
-          var="section" 
-          styleClass="grid" 
-          headerClass="header" 
-          footerClass="footer" 
-          rowClasses="odd,even">
-         <h:column width="auto">
-           <f:facet name="header">
-             Name
-           </f:facet>
-           <h:commandLink value="#{section.name}" action="#{layoutAction.editSection(section)}"/>
-         </h:column>
-         <h:column width="auto">
-           <f:facet name="header">
-             Description
-           </f:facet>
-           <f:facet name="footer">
-             Total
-           </f:facet>           
-           #{section.description}
-         </h:column>
-         <h:column width="auto">
-           <f:facet name="header">
-             Capacity
-           </f:facet>
-           <f:facet name="footer">
-             #{layoutAction.sectionCapacityTotal}
-           </f:facet>
-           #{section.capacity}
-         </h:column>
-         <h:column width="auto">
-           <f:facet name="header">
-             Action
-           </f:facet>
-           <h:commandLink value="Remove" onclick="return confirmDelete()" action="#{layoutAction.removeSection(section)}"/>
-         </h:column>
-       </h:dataTable>              
+         <hr style="clear:both"/>
+       </div>
        
        <div class="formButtons">
          <h:commandButton action="#{layoutAction.save}" value="Save Layout"/>
