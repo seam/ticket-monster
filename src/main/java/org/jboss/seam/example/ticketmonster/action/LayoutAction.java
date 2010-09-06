@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
+import org.jboss.seam.persistence.ManagedPersistenceContext;
+import org.jboss.seam.persistence.FlushModeType;
 import org.jboss.seam.persistence.transaction.Transactional;
 import org.jboss.seam.servlet.http.HttpParam;
 
@@ -42,6 +44,8 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    @SuppressWarnings("unchecked")
    public boolean isLoadLayout()
    {
+      ((ManagedPersistenceContext) entityManager).changeFlushMode(FlushModeType.MANUAL);
+      
       // Only load the layout if a layoutId has been provided
       if (layout == null && layoutId != null && conversation.isTransient())
       {      
@@ -108,6 +112,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
          }
       }
       
+      entityManager.flush();
       conversation.end();
       return "success";
    }
