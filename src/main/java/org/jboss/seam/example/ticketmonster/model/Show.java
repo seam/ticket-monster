@@ -24,7 +24,7 @@ public class Show implements Serializable
    private Event event;
    private Venue venue;
    private Date showDate;   
-   private VenueLayout seatingConfig;
+   private VenueLayout venueLayout;
    
    @Id @GeneratedValue
    public Long getId()
@@ -70,14 +70,14 @@ public class Show implements Serializable
    }
    
    @ManyToOne @JoinColumn(name = "LAYOUT_ID")
-   public VenueLayout getSeatingConfig()
+   public VenueLayout getVenueLayout()
    {
-      return seatingConfig;
+      return venueLayout;
    }
    
-   public void setSeatingConfig(VenueLayout seatingConfig)
+   public void setVenueLayout(VenueLayout venueLayout)
    {
-      this.seatingConfig = seatingConfig;
+      this.venueLayout = venueLayout;
    }
    
 }

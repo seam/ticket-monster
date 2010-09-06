@@ -7,8 +7,19 @@ insert into Revision (id, document_id, created, createdBy, modified, modifiedBy,
 insert into Venue (id, name, address, description_id) values (1, 'City Central Concert Hall', '123 Main St, Metropolis', 50);
 update Document set revision_id = 50 where id = 50;
 
+insert into VenueLayout (id, venue_id, name, capacity) values (1, 1, 'Default Layout', 30000);
+
 insert into Venue (id, name, address, description_id) values (2, 'Sydney Opera House', 'Macquarie St Sydney', 51);
 update Document set revision_id = 51 where id = 51;
+
+insert into VenueLayout (id, venue_id, name, capacity) values (2, 2, 'Default Layout', 18000);
+insert into Section (id, name, description, capacity, layout_id) values (100, 'S1', 'Front left', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (101, 'S2', 'Front centre', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (102, 'S3', 'Front right', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (103, 'S4', 'Rear left', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (104, 'S5', 'Rear centre', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (105, 'S6', 'Rear right', 2500, 2);
+insert into Section (id, name, description, capacity, layout_id) values (106, 'S7', 'Balcony', 3000, 2);
 
 insert into Document (id) values (100);
 
@@ -34,3 +45,5 @@ insert into eventcategory (id, description) values (5, 'Comedy');
 
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (1, 'Rock concert of the decade', 100, '2011-01-01', '2011-02-01', 1, true);
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (2, 'Shane''s Sock Puppets', 101, '2011-01-01', '2011-02-01', 2, true);
+
+insert into show (id, event_id, venue_id, showdate, layout_id) values (1, 1, 1, '2011-01-01', 1);

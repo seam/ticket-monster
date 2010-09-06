@@ -68,6 +68,51 @@
       
    </navigation-rule>
    
+   <navigation-rule>
+      <from-view-id>/admin/layoutdetail.xhtml</from-view-id>
+      
+      <navigation-case>
+         <from-action>#{layoutAction.save}</from-action>
+         <from-outcome>success</from-outcome>
+         <to-view-id>/admin/venues.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+      
+      <navigation-case>
+         <from-outcome>cancel</from-outcome>
+         <to-view-id>/admin/venues.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>      
+      
+      <navigation-case>
+         <from-action>#{layoutAction.addSection}</from-action>
+         <from-outcome>success</from-outcome>
+         <to-view-id>/admin/sectiondetail.xhtml</to-view-id>
+      </navigation-case>
+      
+      <navigation-case>
+         <from-action>#{layoutAction.editSection(section)}</from-action>
+         <from-outcome>success</from-outcome>
+         <to-view-id>/admin/sectiondetail.xhtml</to-view-id>
+      </navigation-case>
+      
+   </navigation-rule>   
+   
+   <navigation-rule>
+      <from-view-id>/admin/sectiondetail.xhtml</from-view-id>
+       
+      <navigation-case>
+         <from-action>#{layoutAction.saveSection}</from-action>
+         <from-outcome>success</from-outcome>
+         <to-view-id>/admin/layoutdetail.xhtml</to-view-id>
+      </navigation-case>
+      
+      <navigation-case>
+         <from-outcome>cancel</from-outcome>
+         <to-view-id>/admin/layoutdetail.xhtml</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   
    <converter>
       <converter-for-class>org.jboss.seam.example.ticketmonster.model.EventCategory</converter-for-class>
       <converter-class>org.jboss.seam.example.ticketmonster.jsf.CategoryConverter</converter-class>

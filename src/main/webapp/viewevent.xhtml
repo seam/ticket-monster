@@ -9,6 +9,25 @@
     <div class="eventdetail">
       <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
     </div>
+    
+    <br style="clear:both"/>
+    
+    <h:form>
+      <div class="ticketbooking">
+        <div>
+          <span>Venue: </span>
+          <h:selectOneMenu value="#{eventDetail.selectedVenue}">
+            <f:selectItems value="#{eventDetail.venues}"
+               var="venue" itemValue="#{venue}" itemLabel="#{venue.name}"/>
+          </h:selectOneMenu>
+          
+          <span>Date: </span>
+          
+        </div>
+      
+      </div>
+    
+    </h:form>
 
    </ui:define>
 </ui:composition>
