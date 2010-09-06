@@ -90,7 +90,8 @@ You can then start the EC2 instance using:
 
   `mvn ec2:start`
   
-The plugin will wait for the instance to start.
+The plugin will wait for the instance to start. JBoss AS is installed as a service, so will start
+automatically.
 
 The easiest way to transfer the app to your EC2 instance is to use `scp`. First, we need to generate
 a zip to copy across:
@@ -105,13 +106,9 @@ Next, we need to unzip this into the JBoss AS deploy directory. Having ssh'd to 
 
   `unzip ticket-monster-war.zip -d /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/`
   
-Due to a bug in the AMI, we need to clear out the data directory of the JBoss AS instance:
+And then, check to see whether the app has started:
 
-  `rm -rf /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/data/`
-  
-And then, start JBoss AS:
-
-  `/opt/jboss-eap-5.1.0.Beta/jboss-as/bin/run.sh`
+  `tail -f /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/logs/server.log`
   
 The `deploy-on-ec2.sh` script, in the project directory, will package up the zip, transfer it to
 the EC2 instance, unzip, and start the JBoss instance for you.
