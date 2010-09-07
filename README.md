@@ -6,11 +6,11 @@ JBoss AS 6
 
 To deploy the application to JBoss AS 6, run:
 
-  `mvn -U clean package jboss:hard-deploy -Pjboss-6`
+    mvn -U clean package jboss:hard-deploy -Pjboss-6
 
 To undeploy, run
 
-  `mvn jboss:hard-undeploy`
+    mvn jboss:hard-undeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
 
@@ -20,11 +20,11 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-  `mvn -U clean package jboss:hard-deploy -Peap-51`
+    mvn -U clean package jboss:hard-deploy -Peap-51
 
 To undeploy, run
 
-  `mvn jboss:hard-undeploy`
+    mvn jboss:hard-undeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
 
@@ -44,15 +44,15 @@ in your `hosts` file.
 
 It also helps to set up an SSH alias. For example:
 
-`Host ticketmonster
-   IdentityFile # /path/to/your/key-pair.pem
-   User jboss
-   CheckHostIP no
-   StrictHostKeyChecking no`
+    Host ticketmonster
+      IdentityFile # /path/to/your/key-pair.pem
+      User jboss
+      CheckHostIP no
+      StrictHostKeyChecking no`
    
 You can then easily ssh to the instance 
 
-  `ssh ticketmonster`
+    ssh ticketmonster
 
 If this doesn't work to start with, try again in a couple of minutes.
 
@@ -66,7 +66,7 @@ JBoss EAP 5.1 on EC2
 You can easily start an EC2 instance, pre-configured with EAP 5.1. You need to configure some
 (user-specific) settings. Add these profiles to your `/.m2/settings.xml`:
 
-`      <profile>
+      <profile>
          <id>ticketmonster-aws</id>
          <activation>
             <property>
@@ -96,11 +96,11 @@ You can easily start an EC2 instance, pre-configured with EAP 5.1. You need to c
             <aws.secretAccessKey>wAMNIWYStJnCOQ5CrRHTAbnSAlcDFKrwrIqUy/aP</aws.secretAccessKey>
          </properties>
       </profile>
-`
+
   
 You can then start the EC2 instance using:
 
-  `mvn ec2:start`
+    mvn ec2:start
   
 The plugin will wait for the instance to start. JBoss AS is installed as a service, so will start
 automatically.
@@ -108,21 +108,21 @@ automatically.
 The easiest way to transfer the app to your EC2 instance is to use `scp`. First, we need to generate
 a zip to copy across:
 
-  `mvn clean package -Pdist,eap-51`
+    mvn clean package -Pdist,eap-51
 
 Then, we need transfer this to the instance:
 
-  `scp target/ticket-monster-war.zip ticketmonster:`
+    scp target/ticket-monster-war.zip ticketmonster:
   
 Next, we need to unzip this and move it into the JBoss AS deploy directory. Having ssh'd to the 
 machine:
 
-  `unzip ticket-monster-war.zip -d /tmp/ticketmonster 
-   mv /tmp/ticketmonster /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/`
+    unzip ticket-monster-war.zip -d /tmp/ticketmonster 
+     mv /tmp/ticketmonster /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/
   
 And then, check to see whether the app has started:
 
-  `tail -f /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/logs/server.log`
+    tail -f /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/logs/server.log
   
 The `deploy-on-ec2.sh` script, in the project directory, will package up the zip, transfer it to
 the EC2 instance, unzip, and start the JBoss instance for you.
