@@ -24,8 +24,10 @@
       
       function venueSelected(ctl) {
         var venueId = ctl.options[ctl.selectedIndex].value;
-        var eventDetail = Seam.createBean("eventDetail");
-        eventDetail.getShows(eventId, venueId, showCallback);
+        if (venueId != null && "" != venueId) {
+          var eventDetail = Seam.createBean("eventDetail");
+          eventDetail.getShows(eventId, venueId, showCallback);
+        }
       }
       
       function showCallback(shows) {
