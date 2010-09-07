@@ -125,6 +125,7 @@ td.footer {
   color: #333333;
   font-weight: bold;
   padding: 3px 3px 3px 3px; 
+  border-top: 1px solid #000000;
 }
 
 tr.odd {

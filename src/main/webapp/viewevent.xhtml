@@ -12,22 +12,69 @@
     
     <br style="clear:both"/>
     
-    <h:form>
-      <div class="ticketbooking">
-        <div>
-          <span>Venue: </span>
-          <h:selectOneMenu value="#{eventDetail.selectedVenue}">
-            <f:selectItems value="#{eventDetail.venues}"
-               var="venue" itemValue="#{venue}" itemLabel="#{venue.name}"/>
-          </h:selectOneMenu>
-          
-          <span>Date: </span>
-          
-        </div>
-      
-      </div>
+    <script src="seam/resource/remoting/resource/remote.js"/>
+    <script src="seam/resource/remoting/interface.js?eventDetail"/>
     
-    </h:form>
+    <script type="text/javascript">
+      // <![CDATA[
+      
+      var eventId = #{eventDetail.event.id};
+      var monthNames = ["January", "February", "March", "April", "May", "June",
+         "July", "August", "September", "October", "November", "December"];
+      
+      function venueSelected(ctl) {
+        var venueId = ctl.options[ctl.selectedIndex].value;
+        var eventDetail = Seam.createBean("eventDetail");
+        eventDetail.getShows(eventId, venueId, showCallback);
+      }
+      
+      function showCallback(shows) {
+        var ctl = document.getElementById("eventDate");
+        while (ctl.options.length > 0) ctl.remove(0);
+        
+        for (var i = 0; i < shows.length; i++) {
+          var show = shows[i];
+          var option = document.createElement("option");
+          option.value = show.id;
+          var prettyDate = show.showDate.getDate() + " " +
+            monthNames[show.showDate.getMonth()] + " " +
+            show.showDate.getFullYear();
+          option.text = prettyDate;
+          ctl.add(option, null);
+        }
+      }
+      
+      
+      // ]]>
+    
+    </script>
+    
+    <div class="ticketbooking">
+      <h3>Buy Tickets</h3>
+      <div>
+        <span><b>Step 1</b> Select a venue: </span>
+        <h:selectOneMenu onchange="venueSelected(this)">
+          <f:selectItem itemLabel=""/>
+          <f:selectItems value="#{eventDetail.venues}"
+             var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>
+        </h:selectOneMenu>
+                  
+      </div>
+      
+      <div id="selectDate">
+        <span><b>Step 2</b> Select a date: </span>
+        <select id="eventDate" size="1" onchange="dateSelected(this)"/>
+      </div>
+      
+      <div id="pricing">
+        PLACEHOLDER FOR PRICING INFORMATION
+      </div>
+      
+      <div id="buttons">
+        PLACEHOLDER FOR BUY TICKETS BUTTON
+      </div>
 
+    </div>
+    
    </ui:define>
 </ui:composition>

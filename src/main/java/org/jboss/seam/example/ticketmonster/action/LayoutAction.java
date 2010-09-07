@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Section;
+import org.jboss.seam.example.ticketmonster.model.SectionRow;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
 import org.jboss.seam.persistence.FlushModeType;
 import org.jboss.seam.persistence.ManagedPersistenceContext;
@@ -36,9 +37,12 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    private EntityManager entityManager;
    private VenueLayout layout;   
    private List<Section> sections;
-   private Section section;
    
-   public void createVenue()
+   private Section section;   
+   private List<SectionRow> rows;
+   private SectionRow row;
+   
+   public void createLayout()
    {
       conversation.begin();
       layout = new VenueLayout();
@@ -60,7 +64,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
          sections = entityManager.createQuery(
                "select s from Section s where s.layout = :layout")
                .setParameter("layout", layout)
-               .getResultList();         
+               .getResultList();
       }
       
       return false;
@@ -69,8 +73,9 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    public String addSection()
    {
       section = new Section();
+      rows = new ArrayList<SectionRow>();
       return "success";
-   }
+   }      
    
    public String editSection(Section section)
    {
@@ -91,7 +96,10 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    {
       long total = 0;
       
-      for (Section s : sections) total += s.getCapacity();
+      for (Section s : sections) 
+      {
+         total += s.getCapacity();
+      }
       
       return total;
    }
@@ -99,7 +107,17 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    public String saveSection()
    {
       section.setLayout(layout);
-      if (!sections.contains(section)) sections.add(section);     
+      if (!sections.contains(section)) 
+      {
+         sections.add(section);     
+      }
+      return "success";
+   }
+   
+   public String saveRow()
+   {
+      row.setSection(section);
+      rows.add(row);
       return "success";
    }
    
