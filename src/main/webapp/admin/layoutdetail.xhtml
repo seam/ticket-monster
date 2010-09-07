@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/admin.xhtml">
+   
+   <ui:define name="content">
+     <!-- Page action hack -->
+     <ui:fragment rendered="#{layoutAction.loadLayout}"/>   
+     
+     <script type="text/javascript">
+       // <![CDATA[
+       function confirmDelete() {
+          return confirm("Are you sure you wish to delete this section?");
+       }
+       // ]]> 
+      </script>     
+   
+     <div class="heading">Layout Details</div>
+     
+     <h:messages globalOnly="true" errorClass="errorMessage" showDetail="true"/>
+
+     <h:form>
+       <div class="formRow">
+         <h:outputLabel for="name" value="Name"/>
+         <h:inputText id="name" value="#{layoutAction.layout.name}"/>
+       </div>
+       
+       <div class="formRow">
+         <h:outputLabel for="capacity" value="Total capacity"/>
+         <h:inputText id="capacity" value="#{layoutAction.layout.capacity}"/>
+       </div>
+              
+       <div style="width:600px">
+         <h:dataTable 
+            value="#{layoutAction.sections}" 
+            var="section" 
+            styleClass="grid" 
+            headerClass="header" 
+            footerClass="footer" 
+            rowClasses="odd,even">
+           <h:column width="auto">
+             <f:facet name="header">
+               Name
+             </f:facet>
+             <h:commandLink value="#{section.name}" action="#{layoutAction.editSection(section)}"/>
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Description
+             </f:facet>
+             <f:facet name="footer">
+               Total
+             </f:facet>           
+             #{section.description}
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Capacity
+             </f:facet>
+             <f:facet name="footer">
+               #{layoutAction.sectionCapacityTotal}
+             </f:facet>
+             #{section.capacity}
+           </h:column>
+           <h:column width="auto">
+             <f:facet name="header">
+               Action
+             </f:facet>
+             <h:commandLink value="Remove" onclick="return confirmDelete()" action="#{layoutAction.removeSection(section)}"/>
+           </h:column>
+         </h:dataTable>     
+         
+         <div style="float:right">
+           <h:commandButton value="Add Section" action="#{layoutAction.addSection}"/>                
+         </div>
+       
+         <hr style="clear:both"/>
+       </div>
+       
+       <div class="formButtons">
+         <h:commandButton action="#{layoutAction.save}" value="Save Layout"/>
+         <h:commandButton action="#{layoutAction.cancel}" value="Cancel"/>
+       </div>
+     </h:form>
+     
+   </ui:define>
+</ui:composition>

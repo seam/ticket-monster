@@ -16,7 +16,7 @@ import org.jboss.seam.persistence.transaction.Transactional;
 import org.jboss.seam.servlet.http.HttpParam;
 
 /**
- * Event related operations
+ * Event management related operations
  * 
  * @author Shane Bryzak
  *

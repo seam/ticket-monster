@@ -32,12 +32,11 @@ ol, ul {
 	list-style: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before, blockquote:after, q:before, q:after {
 	content: "";
 }
 
-blockquote, q {http://localhost:8080/ticket-monster/style/default.css
+blockquote, q {
 	quotes: "" "";
 }
 
@@ -148,4 +147,11 @@ div.eventdetail {
   margin-top: 8px;
   margin-bottom: 8px;
   font-size: 80%;
+}
+
+div.ticketbooking {
+  font-size: 80%;
+  margin: 8px 4px 8px 4px;
+  padding: 4px;
+  background-color: #f8e685; 
 }

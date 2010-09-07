@@ -32,6 +32,7 @@
       <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
       <seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
+      <seam.remoting.version>3.0.0-SNAPSHOT</seam.remoting.version>
       <infinispan.version>4.1.0.CR2</infinispan.version>
       <servlet.version>2.5</servlet.version>
       <faces.version>1.2_13</faces.version>
@@ -187,9 +188,22 @@
       </dependency>
 
       <dependency>
+         <groupId>javax.transaction</groupId>
+         <artifactId>jta</artifactId>
+         <version>1.1</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
          <groupId>org.jboss.seam.security</groupId>
          <artifactId>seam-security-api</artifactId>
          <version>${seam.security.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.remoting</groupId>
+         <artifactId>seam-remoting-core</artifactId>
+         <version>${seam.remoting.version}</version>
       </dependency>
 
       <dependency>
