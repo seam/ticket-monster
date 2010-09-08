@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:monster="http://jboss.org/seam/example/ticketmonster"
+   template="/WEB-INF/templates/admin.xhtml">
+   
+   <ui:define name="head">
+     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+   </ui:define>   
+   
+   <ui:define name="content">   
+     <!-- This is our page action hack -->
+     <ui:fragment rendered="#{eventAction.loadEvent}"/>
+
+     <ui:fragment rendered="#{eventAction.event ne null}">
+
+         <div class="heading">Event Details</div>
+    
+         <h:form id="eventdetails">
+           <div class="formRow">
+             <h:outputLabel for="name" value="Name"/>
+             <h:inputText id="name" value="#{eventAction.event.name}"/>
+           </div>
+    
+           <div class="formRow">
+             <h:outputLabel for="category" value="Category"/>
+             <h:selectOneMenu id="category" 
+                 value="#{eventAction.event.category}">
+               <f:selectItems value="#{monster:convertCategories(categorySearch.categories)}" 
+                  var="cat" itemValue="#{cat}" itemLabel="#{cat.description}"/>
+             </h:selectOneMenu>
+           </div>
+           
+           <div class="formRow">
+             <h:outputLabel for="major" value="Major event"/>
+             <h:selectBooleanCheckbox id="major" value="#{eventAction.event.major}"/>
+           </div>
+           
+           <div>         
+             <div>
+               <h:inputTextarea id="description" value="#{eventAction.description}"/>
+             </div>            
+             
+              <script type="text/javascript">
+                CKEDITOR.config.removePlugins = "elementspath";
+                CKEDITOR.config.toolbarCanCollapse = false;
+                CKEDITOR.config.height = 320;
+                var editor = CKEDITOR.replace("eventdetails:description");
+    					
+              </script>         
+           
+           </div>
+                 
+           <div class="formButtons">
+             <h:commandButton action="#{eventAction.save}" value="Save"/>
+             <h:commandButton action="#{eventAction.cancel}" value="Cancel"/>
+           </div>
+         </h:form>
+         
+      </ui:fragment>
+   </ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+body {
+  background: url(background.png) top left repeat-x;
+  margin: 0px;
+  font-family: helvetica, sans-serif;
+  font-size: 12px;
+}
+
+div#container {
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 1000px;
+  background: url(curtains.png) top left no-repeat;
+  background-color: #57636f;
+}
+
+div#main {
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 800px;
+}
+
+div#header {
+  height: 120px;
+  padding-top: 10px;
+}
+
+div.headerTitle {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  float: left;
+  margin-top: 30px;
+  margin-left: 8px;
+}
+
+div.headerSearch {
+  color: #ffffff;
+  float: right;
+}
+
+div#menu {
+  background: url(menu_bg.png) top left repeat-x;
+  height: 30px;
+  padding-top: 10px;
+  color: #ffffff;
+}
+
+div#menu a, div#menu a:visited {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 12px;
+}
+
+div#content {
+  background-color: #ffffff;
+  height: 600px;
+}

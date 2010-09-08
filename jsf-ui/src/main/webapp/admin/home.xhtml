@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/admin.xhtml">
+   <ui:define name="content">
+     <div class="heading">Events</div>   
+   
+     <h:form>
+       <h:commandLink value="Create a new event" action="#{eventAction.createEvent}"/>
+   
+       <h:dataTable value="#{eventSearch.allEvents}" var="event" styleClass="grid" headerClass="header" rowClasses="odd,even">
+         <h:column width="auto">
+           <f:facet name="header">
+             Event
+           </f:facet>
+           <a href="eventdetail.jsf?eventId=#{event.id}">#{event.name}</a>
+         </h:column>
+
+         <h:column width="auto">
+           <f:facet name="header">
+             Category
+           </f:facet>
+           #{event.category.description}
+         </h:column>
+
+         <h:column width="auto">
+           <f:facet name="header">
+             Start Date
+           </f:facet>
+           #{event.startDate}
+         </h:column>
+
+         <h:column width="auto">
+           <f:facet name="header">
+             End Date
+           </f:facet>
+           #{event.endDate}
+         </h:column>
+         
+         <h:column>
+           <f:facet name="header">
+             Action
+           </f:facet>
+          
+           <a href="#">Delete</a>
+         </h:column>
+       </h:dataTable>
+       
+     </h:form>
+
+   </ui:define>
+</ui:composition>
