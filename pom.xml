@@ -443,6 +443,11 @@
       <profile>
          <id>jboss-6</id>
          <dependencies>
+             <dependency>
+                 <groupId>javax.inject</groupId>
+                 <artifactId>javax.inject</artifactId>
+                 <scope>provided</scope>
+             </dependency>
          </dependencies>
          <build>
             <plugins>
