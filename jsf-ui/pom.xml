@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>TicketMonster::JSF::UI</name>
+    <name>TicketMonster::JSF</name>
     <groupId>org.jboss.seam.examples</groupId>
     <artifactId>ticket-monster-jsf</artifactId>
     <packaging>war</packaging>
@@ -255,8 +255,10 @@
         </dependency>
 
     </dependencies>
+
+    
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>ticket-monster</finalName>
         <plugins>
             <!-- Compiler plugin enforces Java 1.6 compatiblity -->
             <plugin>
@@ -367,6 +369,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>eap-51</id>
             <dependencies>
@@ -416,6 +419,7 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
             <id>jboss-6</id>
             <dependencies>
@@ -424,8 +428,16 @@
                     <artifactId>javax.inject</artifactId>
                     <scope>provided</scope>
                 </dependency>
+                <dependency>
+                    <groupId>org.jboss.weld.servlet</groupId>
+                    <artifactId>weld-servlet</artifactId>
+                    <classifier>jboss5</classifier>
+                    <version>${weld.version}</version>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
             <build>
+                
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

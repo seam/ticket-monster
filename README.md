@@ -1,15 +1,23 @@
 The TicketMonster example for Seam 3
 ====================================
 
+Build The Shared Libraries
+--------------------------
+
+    mvn clean install
+
 JBoss AS 6
 ----------
 
+
 To deploy the application to JBoss AS 6, run:
 
+    cd jsf-ui
     mvn -U clean package jboss:hard-deploy -Pjboss-6
 
 To undeploy, run
 
+    cd  jsf-ui
     mvn jboss:hard-undeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
@@ -20,10 +28,12 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
+    cd jsf-ui
     mvn -U clean package jboss:hard-deploy -Peap-51
 
 To undeploy, run
 
+    cd jsf-ui
     mvn jboss:hard-undeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
