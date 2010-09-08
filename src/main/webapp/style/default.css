@@ -48,7 +48,8 @@ div#container {
   height: 100%;
   width: 1000px;
   background: url(curtains.png) top left no-repeat;
-  background-color: #57636f;
+  background-color: #000000;
+  padding-bottom: 24px;
 }
 
 div#main {
@@ -138,9 +139,8 @@ div#menuItem6 {
 
 div#content {
   background-color: #ffffff;
-  height: 600px;
-  padding: 4px 12px 12px 12px;
-  margin-bottom: 24px;
+  height: 100%;
+  padding: 4px 8px 6px 8px;
 }
 
 div.eventdetail {
@@ -153,5 +153,44 @@ div.ticketbooking {
   font-size: 80%;
   margin: 8px 4px 8px 4px;
   padding: 4px;
-  background-color: #f8e685; 
+  background-color: #f8eea5; 
+}
+
+div.sectionContainer {
+  clear: both;
+  margin-top: 4px;
+  border-top: 1px solid #c6b228; 
+  padding: 4px 4px 4px 4px;
+}
+
+div.sectionName {
+  font-weight: bold; 
+  float: left;
+}
+
+div.sectionDescription {
+  margin-left: 8px;
+  float: left; 
+}
+
+div.pricing {
+  float: right; 
+}
+
+span.ticketCat {
+  width: 100px; 
+  font-weight: bold;
+  display: inline-block;
+  padding: 2px;
+}
+
+span.ticketPrice {
+  width: 80px; 
+  display: inline-block;
+  padding: 2px;
+}
+
+div#buttons {
+  float: right;
+  margin-top: 8px; 
 }

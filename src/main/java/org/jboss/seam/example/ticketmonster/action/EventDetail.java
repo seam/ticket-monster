@@ -1,13 +1,17 @@
 package org.jboss.seam.example.ticketmonster.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
+import org.jboss.seam.example.ticketmonster.model.PriceCategory;
+import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.Show;
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.remoting.annotations.WebRemote;
@@ -69,5 +73,29 @@ public @Model class EventDetail
          .getResultList();
    }
    
-   
+   @WebRemote
+   @SuppressWarnings("unchecked")
+   public Map<Section, List<PriceCategory>> getEventPricing(Long showId)
+   {
+      Show show = entityManager.find(Show.class, showId);
+      
+      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
+      
+      List<PriceCategory> cats = entityManager.createQuery(
+         "select pc from PriceCategory pc where pc.event = :event and pc.venue = :venue")
+         .setParameter("event", show.getEvent())
+         .setParameter("venue", show.getVenue())
+         .getResultList();
+      
+      for (PriceCategory cat : cats)
+      {
+         if (!results.containsKey(cat.getSection()))
+         {
+            results.put(cat.getSection(), new ArrayList<PriceCategory>());
+         }
+         results.get(cat.getSection()).add(cat);
+      }
+      
+      return results;
+   }      
 }

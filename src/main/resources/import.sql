@@ -46,4 +46,25 @@ insert into eventcategory (id, description) values (5, 'Comedy');
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (1, 'Rock concert of the decade', 100, '2011-01-01', '2011-02-01', 1, true);
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (2, 'Shane''s Sock Puppets', 101, '2011-01-01', '2011-02-01', 2, true);
 
-insert into show (id, event_id, venue_id, showdate, layout_id) values (1, 1, 1, '2011-01-01', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (1, 1, 1, '2011-01-01 19:00', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (2, 1, 1, '2011-01-02 19:00', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (3, 1, 2, '2011-01-03 19:30', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (4, 1, 2, '2011-01-04 19:30', 1);
+
+insert into TicketCategory (id, description) values (1, 'Adult');
+insert into TicketCategory (id, description) values (2, 'Child 0-14yrs');
+
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (1, 1, 2, 100, 1, 167.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (2, 1, 2, 101, 1, 197.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (3, 1, 2, 102, 1, 167.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (4, 1, 2, 103, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (5, 1, 2, 104, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (6, 1, 2, 105, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (7, 1, 2, 106, 1, 122.5);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (8, 1, 2, 100, 2, 157.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (9, 1, 2, 101, 2, 187.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (10, 1, 2, 102, 2, 157.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (11, 1, 2, 103, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (12, 1, 2, 104, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (13, 1, 2, 105, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (14, 1, 2, 106, 2, 112.5);

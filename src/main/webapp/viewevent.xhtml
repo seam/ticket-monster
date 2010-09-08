@@ -19,10 +19,13 @@
       // <![CDATA[
       
       var eventId = #{eventDetail.event.id};
+      var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       var monthNames = ["January", "February", "March", "April", "May", "June",
          "July", "August", "September", "October", "November", "December"];
       
       function venueSelected(ctl) {
+        if (ctl.options[0].value == "") ctl.remove(0);
+      
         var venueId = ctl.options[ctl.selectedIndex].value;
         if (venueId != null && "" != venueId) {
           var eventDetail = Seam.createBean("eventDetail");
@@ -34,18 +37,108 @@
         var ctl = document.getElementById("eventDate");
         while (ctl.options.length > 0) ctl.remove(0);
         
+        var option = document.createElement("option");
+        option.text = "-- Please Select --";
+        ctl.add(option, null);
+        
         for (var i = 0; i < shows.length; i++) {
           var show = shows[i];
           var option = document.createElement("option");
           option.value = show.id;
-          var prettyDate = show.showDate.getDate() + " " +
+          var prettyDate = dayNames[show.showDate.getDay()] + " " +
+            show.showDate.getDate() + " " +
             monthNames[show.showDate.getMonth()] + " " +
-            show.showDate.getFullYear();
+            show.showDate.getFullYear() + " @ " +
+            zeropad(show.showDate.getHours(), 2) + ":" +
+            zeropad(show.showDate.getMinutes(), 2);
           option.text = prettyDate;
           ctl.add(option, null);
         }
       }
       
+      function showSelected(ctl) {
+        var showId = ctl.options[ctl.selectedIndex].value;
+        if (showId != null && "" != showId) {
+          var eventDetail = Seam.createBean("eventDetail");
+          eventDetail.getEventPricing(showId, showSelectedCallback);        
+        }
+      }
+      
+      function showSelectedCallback(pricingMap) {
+        var container = document.getElementById("pricing");
+        while (container.hasChildNodes()) container.removeChild(container.firstChild);
+        
+        var sections = pricingMap.keySet();
+        sections.sort(sectionCompare);
+        for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          
+          var sectionDiv = document.createElement("div");
+          sectionDiv.className = "sectionContainer";
+          
+          var sectionNameDiv = document.createElement("div");
+          sectionNameDiv.className = "sectionName";
+          sectionNameDiv.appendChild(document.createTextNode(section.name));
+          
+          var sectionDescDiv = document.createElement("div");
+          sectionDescDiv.className = "sectionDescription";
+          sectionDescDiv.appendChild(document.createTextNode(section.description));
+          
+          sectionDiv.appendChild(sectionNameDiv);
+          sectionDiv.appendChild(sectionDescDiv);
+          
+          var pricingDiv = document.createElement("div");
+          pricingDiv.className = "pricing";         
+          
+          var cats = pricingMap.get(section);
+          for (var j = 0; j < cats.length; j++) {
+            var cat = cats[j];
+
+            var pDiv = document.createElement("div");   
+            
+            var catSpan = document.createElement("span");
+            catSpan.className = "ticketCat";
+            catSpan.appendChild(document.createTextNode(cat.category.description + ": "));
+            pDiv.appendChild(catSpan);         
+            
+            var priceSpan = document.createElement("span");
+            priceSpan.className = "ticketPrice";
+            priceSpan.appendChild(document.createTextNode(prettyPrice(cat.price)));
+            
+            pDiv.appendChild(priceSpan);            
+            pricingDiv.appendChild(pDiv);
+          }
+          
+          sectionDiv.appendChild(pricingDiv);
+          
+          container.appendChild(sectionDiv);        
+        }
+      }
+      
+      function prettyPrice(val) {
+        val = "" + val;
+        if (val.indexOf(".") == -1) {
+          val += ".00";
+        } else {
+          while (val.substring(val.indexOf(".")).length < 3) val += "0";
+        }
+        return "$" + val;
+      }
+      
+      function sectionCompare(a, b) {  
+        for (var i = 0; i < a.name.length; i++) {
+          if (b.name.length < (i + 1)) return 1;          
+          if (a.name[i] == b.name[i]) continue;
+          return (a.name[i] < b.name[i]) ? -1 : 1;          
+        }        
+        return 0;
+      }
+      
+      function zeropad(val, digits) {
+        val = val + "";
+        while (val.length < digits) val = "0" + val;
+        return val;
+      }      
       
       // ]]>
     
@@ -54,29 +147,32 @@
     <div class="ticketbooking">
       <h3>Buy Tickets</h3>
       <div>
-        <span><b>Step 1</b> Select a venue: </span>
+        <span>Select a venue: </span>
         <h:selectOneMenu onchange="venueSelected(this)">
-          <f:selectItem itemLabel=""/>
+          <f:selectItem itemLabel="-- Please Select --"/>
           <f:selectItems value="#{eventDetail.venues}"
-             var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>
+             var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>             
         </h:selectOneMenu>
-                  
+
+        <span style="margin-left:12px">Select a date: </span>
+        <select id="eventDate" size="1" onchange="showSelected(this)"/>
       </div>
       
-      <div id="selectDate">
-        <span><b>Step 2</b> Select a date: </span>
-        <select id="eventDate" size="1" onchange="dateSelected(this)"/>
+      <div id="pricing" style="margin-top: 1px solid #000000">
+        
       </div>
       
-      <div id="pricing">
-        PLACEHOLDER FOR PRICING INFORMATION
-      </div>
+      <br style="clear:both"/>      
       
       <div id="buttons">
-        PLACEHOLDER FOR BUY TICKETS BUTTON
+        <a href="purchasetickets.jsf"><img src="style/buytickets.png"/></a>
       </div>
-
+      
+      <br style="clear:both"/>
+      
     </div>
+    
+    <br style="clear:both"/>    
     
    </ui:define>
 </ui:composition>
