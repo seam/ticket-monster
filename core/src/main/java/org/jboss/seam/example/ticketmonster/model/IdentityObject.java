@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.jboss.errai.bus.server.annotations.ExposeEntity;
 import org.jboss.seam.security.annotations.management.IdentityProperty;
 import org.jboss.seam.security.annotations.management.PropertyType;
 
@@ -17,6 +18,7 @@ import org.jboss.seam.security.annotations.management.PropertyType;
  * @author Shane Bryzak
  *
  */
+@ExposeEntity
 @Entity
 public class IdentityObject implements Serializable
 {

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.jboss.errai.bus.server.annotations.ExposeEntity;
 import org.jboss.seam.security.annotations.management.IdentityProperty;
 import org.jboss.seam.security.annotations.management.PropertyType;
 
@@ -14,6 +15,7 @@ import org.jboss.seam.security.annotations.management.PropertyType;
  * 
  * @author Shane Bryzak
  */
+@ExposeEntity
 @Entity
 public class IdentityObjectRelationshipType implements Serializable
 {

@@ -1,5 +1,7 @@
 package org.jboss.seam.example.ticketmonster.model;
 
+import org.jboss.errai.bus.server.annotations.ExposeEntity;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -12,7 +14,7 @@ import javax.persistence.Id;
  * @author Shane Bryzak
  *
  */
-@Entity
+@ExposeEntity @Entity
 public class EventCategory implements Serializable
 {
    private static final long serialVersionUID = 2125778126462925768L;

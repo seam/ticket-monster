@@ -1,5 +1,7 @@
 package org.jboss.seam.example.ticketmonster.model;
 
+import org.jboss.errai.bus.server.annotations.ExposeEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ import javax.persistence.ManyToOne;
  * @author Shane Bryzak
  *
  */
+@ExposeEntity
 @Entity
 public class Event implements Serializable
 {

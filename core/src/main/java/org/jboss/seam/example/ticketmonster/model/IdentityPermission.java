@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.jboss.errai.bus.server.annotations.ExposeEntity;
 import org.jboss.seam.security.annotations.permission.PermissionProperty;
 
 /**
@@ -17,6 +18,7 @@ import org.jboss.seam.security.annotations.permission.PermissionProperty;
  * 
  * @author Shane Bryzak
  */
+@ExposeEntity
 @Entity
 public class IdentityPermission implements Serializable
 {
