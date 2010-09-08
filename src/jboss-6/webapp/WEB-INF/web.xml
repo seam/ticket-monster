@@ -25,7 +25,7 @@
 
    <servlet-mapping>
       <servlet-name>Remoting Servlet</servlet-name>
-      <url-pattern>/seam/resource/remoting/*</url-pattern>
+      <url-pattern>/seam/remoting/*</url-pattern>
    </servlet-mapping>   
 
    <!-- This is an optional parameter, but it makes troubleshooting errors much easier.  -->

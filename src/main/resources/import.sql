@@ -8,6 +8,10 @@ insert into Venue (id, name, address, description_id) values (1, 'City Central C
 update Document set revision_id = 50 where id = 50;
 
 insert into VenueLayout (id, venue_id, name, capacity) values (1, 1, 'Default Layout', 30000);
+insert into Section (id, name, description, capacity, layout_id) values (1, 'A', 'Premier platinum reserve', 4000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (2, 'B', 'Premier gold reserve', 4000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (3, 'C', 'Premier silver reserve', 6000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (4, 'D', 'General', 16000, 1);
 
 insert into Venue (id, name, address, description_id) values (2, 'Sydney Opera House', 'Macquarie St Sydney', 51);
 update Document set revision_id = 51 where id = 51;
@@ -68,3 +72,8 @@ insert into PriceCategory (id, event_id, venue_id, section_id, category_id, pric
 insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (12, 1, 2, 104, 2, 145.0);
 insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (13, 1, 2, 105, 2, 145.0);
 insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (14, 1, 2, 106, 2, 112.5);
+
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (15, 1, 1, 1, 1, 219.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (16, 1, 1, 2, 1, 199.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (17, 1, 1, 3, 1, 179.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (18, 1, 1, 4, 1, 149.50);

@@ -149,7 +149,14 @@ div.eventdetail {
   font-size: 80%;
 }
 
-div.ticketbooking {
+div#chooseShow {
+  font-size: 80%;
+  margin: 8px 4px 8px 4px;
+  padding: 4px;
+  background-color: #f8eea5; 
+}
+
+div#chooseTickets {
   font-size: 80%;
   margin: 8px 4px 8px 4px;
   padding: 4px;
@@ -190,7 +197,8 @@ span.ticketPrice {
   padding: 2px;
 }
 
-div#buttons {
+div.buttonRow {
   float: right;
   margin-top: 8px; 
+  margin-right: 8px;
 }

@@ -12,8 +12,8 @@
     
     <br style="clear:both"/>
     
-    <script src="seam/resource/remoting/resource/remote.js"/>
-    <script src="seam/resource/remoting/interface.js?eventDetail"/>
+    <script src="seam/remoting/resource/remote.js"/>
+    <script src="seam/remoting/interface.js?eventDetail"/>
     
     <script type="text/javascript">
       // <![CDATA[
@@ -22,6 +22,9 @@
       var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       var monthNames = ["January", "February", "March", "April", "May", "June",
          "July", "August", "September", "October", "November", "December"];
+         
+      var selectedShowId = null;
+      var sectionMap = null;      
       
       function venueSelected(ctl) {
         if (ctl.options[0].value == "") ctl.remove(0);
@@ -59,12 +62,15 @@
       function showSelected(ctl) {
         var showId = ctl.options[ctl.selectedIndex].value;
         if (showId != null && "" != showId) {
+          selectedShowId = showId;
           var eventDetail = Seam.createBean("eventDetail");
-          eventDetail.getEventPricing(showId, showSelectedCallback);        
+          eventDetail.getEventPricing(showId, eventPricingCallback);        
         }
       }
       
-      function showSelectedCallback(pricingMap) {
+      function eventPricingCallback(pricingMap) {
+        sectionMap = pricingMap;
+        
         var container = document.getElementById("pricing");
         while (container.hasChildNodes()) container.removeChild(container.firstChild);
         
@@ -110,7 +116,6 @@
           }
           
           sectionDiv.appendChild(pricingDiv);
-          
           container.appendChild(sectionDiv);        
         }
       }
@@ -140,11 +145,43 @@
         return val;
       }      
       
+      function chooseTickets() {
+        document.getElementById("chooseShow").style.display = "none";
+        document.getElementById("chooseTickets").style.display = "";
+        
+        var select = document.getElementById("sectionList");
+        while (select.options.length > 0) select.remove(0);
+        var opt = document.createElement("option");
+        opt.text = "-- Please Select --";
+        select.add(opt, null);
+        
+        var sections = sectionMap.keySet();       
+        sections.sort(sectionCompare);
+        for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          opt = document.createElement("option");
+          opt.value = section;
+          opt.text = section.name;
+          select.add(opt, null);
+        }
+      }
+      
+      function sectionSelected(ctl) {
+        var section = ctl.options[ctl.selectedIndex].value;
+        if (section != null && "" != section) {
+          var prices = sectionMap.get(section);
+          for (var i = 0; i < prices.length; i++) {
+            alert(prices[i].category.description + " price: " + prices[i].price);
+          }
+          
+        }
+      }
+      
       // ]]>
     
     </script>
     
-    <div class="ticketbooking">
+    <div id="chooseShow">
       <h3>Buy Tickets</h3>
       <div>
         <span>Select a venue: </span>
@@ -163,13 +200,22 @@
       </div>
       
       <br style="clear:both"/>      
-      
-      <div id="buttons">
-        <a href="purchasetickets.jsf"><img src="style/buytickets.png"/></a>
+
+      <div class="buttonRow">
+        <a href="#" onclick="javascript:chooseTickets()"><img src="style/buytickets.png"/></a>
       </div>
       
-      <br style="clear:both"/>
+      <br style="clear:both"/>            
+    </div>
+    
+    <div id="chooseTickets" style="display:none">
+      <h3>Choose Tickets</h3>
       
+      <div>
+        <span>Select a section: </span>
+        <select id="sectionList" onchange="sectionSelected(this)"/>
+      </div>
+    
     </div>
     
     <br style="clear:both"/>    
