@@ -77,10 +77,30 @@ div.headerSearch {
   margin-top: 30px;
 }
 
+div#easterEgg {
+  position: relative;
+  top: 6px;
+  left: 320px;
+  height: 16px;
+  width: 150px;
+}
+
+div#rawr {
+  position: relative;
+  display: none;
+  width: 542px;
+  height: 544px;
+  top: 42px;
+  left: 140px;
+  background: url(rawr.png) top left no-repeat; 
+  z-index: 1;
+}
+
 div#menu {
   background: url(menu_bg.png) top left repeat-x;
   height: 32px;
   position: relative;
+  z-index: 0;
 }
 
 div.menuItem {
