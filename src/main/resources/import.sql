@@ -27,13 +27,13 @@ insert into Section (id, name, description, capacity, layout_id) values (106, 'S
 
 insert into Document (id) values (100);
 
-insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (100, 100, '2010-01-01', 'sbryzak', null, null, '<p>&nbsp;</p><p><img alt="" src="/ticket-monster/document/resource/100/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>ROCK CONCERT OF THE DECADE</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">Get ready to rock your night away with this megaconcert extravaganza from 10 of the biggest rock stars of the 80''s!</p>');
+insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (100, 100, '2010-01-01', 'sbryzak', null, null, '<p><img alt="" src="/ticket-monster/document/resource/100/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>ROCK CONCERT OF THE DECADE</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">Get ready to rock your night away with this megaconcert extravaganza from 10 of the biggest rock stars of the 80''s!</p>');
 
 update Document set revision_id = 100 where id = 100;
 
 insert into Document (id) values (101);
 
-insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (101, 101, '2010-01-01', 'sbryzak', null, null, '<p>&nbsp;</p><p><img alt="" src="/ticket-monster/document/resource/101/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>SHANE''S SOCK PUPPETS</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.<br/><br/><i>"Unbelievable drama, left me wanting more."<br/> - Robert Jones, New York Times</p>');
+insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (101, 101, '2010-01-01', 'sbryzak', null, null, '<p><img alt="" src="/ticket-monster/document/resource/101/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>SHANE''S SOCK PUPPETS</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.<br/><br/><i>"Unbelievable drama, left me wanting more."<br/> - Robert Jones, New York Times</p>');
 
 update Document set revision_id = 101 where id = 101;
 

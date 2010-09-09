@@ -141,32 +141,18 @@ div#content {
   background-color: #ffffff;
   height: 100%;
   padding: 4px 8px 6px 8px;
-}
-
-div.eventdetail {
-  margin-top: 8px;
-  margin-bottom: 8px;
   font-size: 80%;
 }
 
-div#chooseShow {
-  font-size: 80%;
-  margin: 8px 4px 8px 4px;
-  padding: 4px;
-  background-color: #f8eea5; 
-}
-
-div#chooseTickets {
-  font-size: 80%;
-  margin: 8px 4px 8px 4px;
-  padding: 4px;
-  background-color: #f8eea5; 
+div#plainContent {
+  height: 100%;
+  padding: 0px;
 }
 
 div.sectionContainer {
   clear: both;
   margin-top: 4px;
-  border-top: 1px solid #c6b228; 
+  border-top: 1px solid #fbd222; 
   padding: 4px 4px 4px 4px;
 }
 
@@ -198,7 +184,64 @@ span.ticketPrice {
 }
 
 div.buttonRow {
-  float: right;
-  margin-top: 8px; 
-  margin-right: 8px;
+  clear: both;
+  border-top: 2px solid #fbd222;
+  margin: 2px 0px 6px 0px;
+  padding: 4px 8px 8px 8px;
+}
+
+div.buttonRight {
+  float: right; 
+}
+
+div.buttonLeft {
+  float: left;
+}
+
+table#ticketSelection {
+  width: 400px;
+}
+
+table#ticketSelection tr.even {
+  background-color: #f6edc6;
+}
+
+div#availability {
+  float: right; 
+  background-color: #faf3e3;
+  color: #0000aa;
+  width: 200px;
+}
+
+div.section {
+  background-color: #ffffff;  
+  font-size: 80%;  
+}
+
+div.sectionContent {
+  padding: 2px 8px 8px 8px;
+}
+
+div.sectionHeader {
+  font-weight: bold;
+  font-size: 120%; 
+  height: 30px;
+  padding-top: 6px;
+  padding-left: 6px;
+  margin: 0px;
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;
+}
+
+tr.header {
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;
+}
+
+tr.header th {
+  text-align: left; 
+}
+
+div#ticketAvailability {
+  background-color: #f5e676;
 }

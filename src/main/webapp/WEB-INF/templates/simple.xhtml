@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   contentType="text/html"> 
+  <html>
+     <head>
+        <title>Ticket Monster</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="style/default.css"/>
+     </head>
+     <body>
+        <div id="container">
+        
+          <div id="main">
+            <div id="header">
+              <div class="headerTitle">
+                <a href="home.jsf"><img src="style/ticket.png"/></a>
+              </div>
+              
+              <div class="headerSearch">
+                Search
+                <input type="text"/>
+              
+              </div>
+            </div>
+            
+            <div id="plainContent">
+              <ui:insert name="content"/>
+            </div>
+          
+          </div>   
+        </div>
+     </body>
+  </html>
+</f:view>
+

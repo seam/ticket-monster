@@ -3,15 +3,9 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/default.xhtml">
+   template="/WEB-INF/templates/simple.xhtml">
    <ui:define name="content">
-   
-    <div class="eventdetail">
-      <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
-    </div>
-    
-    <br style="clear:both"/>
-    
+      
     <script src="seam/remoting/resource/remote.js"/>
     <script src="seam/remoting/interface.js?eventDetail"/>
     
@@ -145,6 +139,13 @@
         return val;
       }      
       
+      function chooseShow() {
+        clearPrices();
+        document.getElementById("ticketSelection").style.display = "";
+        document.getElementById("chooseShow").style.display = "";
+        document.getElementById("chooseTickets").style.display = "none";
+      }
+      
       function chooseTickets() {
         document.getElementById("chooseShow").style.display = "none";
         document.getElementById("chooseTickets").style.display = "";
@@ -160,62 +161,169 @@
         for (var i = 0; i < sections.length; i++) {
           var section = sections[i];
           opt = document.createElement("option");
-          opt.value = section;
+          opt.value = section.id;
           opt.text = section.name;
           select.add(opt, null);
         }
       }
       
       function sectionSelected(ctl) {
-        var section = ctl.options[ctl.selectedIndex].value;
-        if (section != null && "" != section) {
-          var prices = sectionMap.get(section);
-          for (var i = 0; i < prices.length; i++) {
-            alert(prices[i].category.description + " price: " + prices[i].price);
+        var sectionId = ctl.options[ctl.selectedIndex].value;
+        if (sectionId != null && "" != sectionId) {
+          var sections = sectionMap.keySet();
+          var section = null;
+          for (var i = 0; i < sections.length; i++) {
+            if (sections[i].id == sectionId) {
+              section = sections[i];
+              break;
+            }
           }
-          
+        
+          if (section != null) {        
+            clearPrices();
+            document.getElementById("ticketSelection").style.display = "";
+            var prices = sectionMap.get(section);
+            for (var i = 0; i < prices.length; i++) {
+              addPricingRow(prices[i], 10);
+            }
+          }
         }
+      }
+      
+      function clearPrices() {
+        var tbl = document.getElementById("ticketSelection");
+        while (tbl.rows.length > 1) tbl.deleteRow(tbl.rows.length - 1);        
+      }
+      
+      function addPricingRow(cat, qtyAvailable) {
+        var tbl = document.getElementById("ticketSelection");
+        
+        var rowClass = tbl.rows.length % 2 == 0 ? "even" : "odd";
+        var row = tbl.insertRow(-1);
+        row.className = rowClass;
+        
+        var td = document.createElement("td");
+        td.appendChild(document.createTextNode(cat.category.description));
+        row.appendChild(td);
+        
+        td = document.createElement("td");
+        td.appendChild(document.createTextNode(prettyPrice(cat.price)));
+        row.appendChild(td);
+        
+        td = document.createElement("td");
+        
+        var select = document.createElement("select");
+        
+        if (qtyAvailable == 0) {
+          var opt = document.createElement("option");
+          opt.text = "Sold out";
+          select.add(opt, null);
+        } else {
+          for (var i = 0; i <= qtyAvailable; i++) {
+            var opt = document.createElement("option");
+            opt.value = i;
+            opt.text = i;
+            select.add(opt, null);
+          }
+        }
+                
+        td.appendChild(select);
+        row.appendChild(td);        
       }
       
       // ]]>
     
     </script>
-    
-    <div id="chooseShow">
-      <h3>Buy Tickets</h3>
-      <div>
-        <span>Select a venue: </span>
-        <h:selectOneMenu onchange="venueSelected(this)">
-          <f:selectItem itemLabel="-- Please Select --"/>
-          <f:selectItems value="#{eventDetail.venues}"
-             var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>             
-        </h:selectOneMenu>
-
-        <span style="margin-left:12px">Select a date: </span>
-        <select id="eventDate" size="1" onchange="showSelected(this)"/>
+   
+    <div class="section">
+      <div class="sectionHeader">
+        Event
       </div>
       
-      <div id="pricing" style="margin-top: 1px solid #000000">
-        
-      </div>
-      
-      <br style="clear:both"/>      
-
-      <div class="buttonRow">
-        <a href="#" onclick="javascript:chooseTickets()"><img src="style/buytickets.png"/></a>
-      </div>
-      
-      <br style="clear:both"/>            
+      <div class="sectionContent">
+        <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
+        <br style="clear:both"/>        
+      </div>      
     </div>
     
-    <div id="chooseTickets" style="display:none">
-      <h3>Choose Tickets</h3>
-      
-      <div>
-        <span>Select a section: </span>
-        <select id="sectionList" onchange="sectionSelected(this)"/>
-      </div>
+    <br style="clear:both"/>
     
+    <div id="chooseShow" class="section">
+      <div class="sectionHeader">
+        Buy Tickets
+      </div>
+      
+      <div class="sectionContent">
+        <div>
+          <span>Select a venue: </span>
+          <h:selectOneMenu onchange="venueSelected(this)">
+            <f:selectItem itemLabel="-- Please Select --"/>
+            <f:selectItems value="#{eventDetail.venues}"
+               var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>             
+          </h:selectOneMenu>
+  
+          <span style="margin-left:12px">Select a date: </span>
+          <select id="eventDate" size="1" onchange="showSelected(this)"/>
+        </div>
+        
+        <div id="pricing" style="margin-top: 1px solid #000000">
+          
+        </div>
+        
+        <br style="clear:both"/>        
+      </div>
+      
+      <div class="buttonRow">
+        <div class="buttonRight">
+          <a href="#" onclick="javascript:chooseTickets()"><img src="style/buytickets.png"/></a>
+        </div>
+        <br style="clear:both"/>
+      </div>
+      
+    </div>
+    
+    <div id="chooseTickets" style="display:none" class="section">
+      <div class="sectionHeader">
+        Choose Tickets
+      </div>
+      
+      <div class="sectionContent">
+        <div>
+          <span>Select a section: </span>
+          <select id="sectionList" onchange="sectionSelected(this)"/>
+
+          <div id="availability">
+            <b>Availability:</b><br/>
+            <div id="ticketAvailability">
+            
+            </div>
+          </div>
+          
+          <div style="margin-top: 8px">
+            <table id="ticketSelection" style="display:none" cellspacing="0" cellpadding="5">
+              <tr class="header">
+                <th width="50%">Ticket</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            
+            </table>
+          </div>
+
+        </div>
+        
+        <div class="buttonRow">
+          <div class="buttonLeft">
+            <a href="#" onclick="javascript:chooseShow()"><img src="style/btn_previous.png"/></a>
+          </div>
+          <div class="buttonRight">
+            <a href="#" onclick="javascript:reserveTickets()"><img src="style/btn_next.png"/></a>
+          </div>
+          <br style="clear:both"/>
+        </div>
+        
+      </div>        
+
     </div>
     
     <br style="clear:both"/>    
