@@ -18,19 +18,31 @@
          "July", "August", "September", "October", "November", "December"];
          
       var selectedShowId = null;
-      var sectionMap = null;      
+      var sectionMap = null;    
+      var selectedVenueId = null; 
+      var showMap = new Seam.Map(); 
       
       function venueSelected(ctl) {
         if (ctl.options[0].value == "") ctl.remove(0);
-      
-        var venueId = ctl.options[ctl.selectedIndex].value;
-        if (venueId != null && "" != venueId) {
-          var eventDetail = Seam.createBean("eventDetail");
-          eventDetail.getShows(eventId, venueId, showCallback);
+        clearPricing();
+        
+        document.getElementById("buyTicketButtons").style.display = "none";
+        
+        selectedVenueId = ctl.options[ctl.selectedIndex].value;
+        if (selectedVenueId != null && "" != selectedVenueId) {
+          if (showMap.contains(selectedVenueId)) {
+            showCallback(showMap.get(selectedVenueId));
+          } else {          
+            var eventDetail = Seam.createBean("eventDetail");
+            eventDetail.getShows(eventId, selectedVenueId, showCallback);
+          }
         }
       }
       
       function showCallback(shows) {
+        if (!showMap.contains(selectedVenueId)) {
+          showMap.put(selectedVenueId, shows);
+        }
         var ctl = document.getElementById("eventDate");
         while (ctl.options.length > 0) ctl.remove(0);
         
@@ -56,17 +68,23 @@
       function showSelected(ctl) {
         var showId = ctl.options[ctl.selectedIndex].value;
         if (showId != null && "" != showId) {
+          document.getElementById("buyTicketButtons").style.display = "";
           selectedShowId = showId;
           var eventDetail = Seam.createBean("eventDetail");
           eventDetail.getEventPricing(showId, eventPricingCallback);        
         }
       }
       
-      function eventPricingCallback(pricingMap) {
-        sectionMap = pricingMap;
-        
+      function clearPricing() {
         var container = document.getElementById("pricing");
         while (container.hasChildNodes()) container.removeChild(container.firstChild);
+      }
+      
+      function eventPricingCallback(pricingMap) {
+        clearPricing();
+        sectionMap = pricingMap;
+        
+        var container = document.getElementById("pricing");        
         
         var sections = pricingMap.keySet();
         sections.sort(sectionCompare);
@@ -141,7 +159,7 @@
       
       function chooseShow() {
         clearPrices();
-        document.getElementById("ticketSelection").style.display = "";
+        document.getElementById("ticketSelection").style.display = "none";
         document.getElementById("chooseShow").style.display = "";
         document.getElementById("chooseTickets").style.display = "none";
       }
@@ -273,7 +291,7 @@
         <br style="clear:both"/>        
       </div>
       
-      <div class="buttonRow">
+      <div id="buyTicketButtons" class="buttonRow" style="display:none">
         <div class="buttonRight">
           <a href="#" onclick="javascript:chooseTickets()"><img src="style/buytickets.png"/></a>
         </div>
@@ -291,9 +309,13 @@
         <div>
           <span>Select a section: </span>
           <select id="sectionList" onchange="sectionSelected(this)"/>
+          
+          <br style="clear:both"/>
 
           <div id="availability">
-            <b>Availability:</b><br/>
+            <div id="availabilityHeader">
+              Availability:
+            </div>
             <div id="ticketAvailability">
             
             </div>
@@ -310,19 +332,18 @@
             </table>
           </div>
 
-        </div>
+        </div>        
+      </div>  
         
-        <div class="buttonRow">
-          <div class="buttonLeft">
-            <a href="#" onclick="javascript:chooseShow()"><img src="style/btn_previous.png"/></a>
-          </div>
-          <div class="buttonRight">
-            <a href="#" onclick="javascript:reserveTickets()"><img src="style/btn_next.png"/></a>
-          </div>
-          <br style="clear:both"/>
+      <div class="buttonRow">
+        <div class="buttonLeft">
+          <a href="#" onclick="javascript:chooseShow()"><img src="style/btn_previous.png"/></a>
         </div>
-        
-      </div>        
+        <div class="buttonRight">
+          <a href="#" onclick="javascript:reserveTickets()"><img src="style/btn_next.png"/></a>
+        </div>
+        <br style="clear:both"/>
+      </div>            
 
     </div>
     

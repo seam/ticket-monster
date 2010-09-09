@@ -208,9 +208,16 @@ table#ticketSelection tr.even {
 
 div#availability {
   float: right; 
-  background-color: #faf3e3;
+  background-color: #f6edc6;
   color: #0000aa;
-  width: 200px;
+  width: 300px;
+}
+
+div#availabilityHeader {
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;  
+  font-weight: bold;
+  padding: 4px;
 }
 
 div.section {
