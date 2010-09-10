@@ -15,6 +15,21 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>erraiProxy</servlet-name>
+        <servlet-class>org.jboss.errai.tools.proxy.XmlHttpProxyServlet</servlet-class>
+        <init-param>
+            <param-name>config.name</param-name>
+            <param-value>errai-proxy.json</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>erraiProxy</servlet-name>
+        <url-pattern>/app/proxy/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ErraiServlet</servlet-name>
         <url-pattern>*.erraiBus</url-pattern>

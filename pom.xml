@@ -24,7 +24,7 @@
         <jboss.domain>default</jboss.domain>
         <!-- The version of Weld extensions in use (this is out of date) -->
         <weld.extensions.version>1.0.0-CR2</weld.extensions.version>
-        <weld.version>1.1.0.Beta1</weld.version>
+        <weld.version>1.1.0.Beta1-SP1</weld.version>
         <junit.version>4.8.1</junit.version>
         <hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
         <uel.impl.version>2.1.2-b04</uel.impl.version>
@@ -88,7 +88,7 @@
 
     <dependencies>
         <!-- CDI (JSR-299) -->
-        <dependency>
+        <!--dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
@@ -98,7 +98,7 @@
                     <artifactId>jboss-interceptor-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
 
         <!-- EJB -->
         <dependency>
@@ -297,12 +297,11 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <!-- Disable the default execution, we are going to explode it -->
+                    <execution>                      
                         <id>default-war</id>
                         <phase>none</phase>
                     </execution>
@@ -317,7 +316,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
 
             <!-- Configure the JBoss AS Maven deploy plugin -->
             <plugin>
@@ -396,6 +395,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>eap-51</id>
             <dependencies>
@@ -445,6 +445,7 @@
                 </plugins>
             </build>
         </profile>
+        
         <profile>
             <id>jboss-6</id>
             <dependencies>

@@ -260,22 +260,13 @@
     <build>
         <finalName>ticket-monster</finalName>
         <plugins>
-            <!-- Compiler plugin enforces Java 1.6 compatiblity -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <executions>
                     <execution>
-                        <!-- Disable the default execution, we are going to explode it -->
+
                         <id>default-war</id>
                         <phase>none</phase>
                     </execution>
@@ -290,62 +281,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
 
-            <!-- Configure the JBoss AS Maven deploy plugin -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jboss-maven-plugin</artifactId>
-                <version>1.4.1</version>
-                <configuration>
-                    <jbossHome>${jboss.home}</jbossHome>
-                    <serverName>${jboss.domain}</serverName>
-                    <fileNames>
-                        <!-- Ordering matters, we need the -ds to be copied first ;-) -->
-                        <fileName>ticketmonster-ds.xml</fileName>
-                        <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
-                    </fileNames>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>ec2-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <configuration>
-                    <accessKeyId>${aws.accessKeyId}</accessKeyId>
-                    <secretAccessKey>${aws.secretAccessKey}</secretAccessKey>
-                    <launchConfigurations>
-                        <launchConfiguration>
-
-                            <!-- EC2 API parameters -->
-                            <imageId>ami-814fa4e8</imageId>
-                            <minCount>1</minCount>
-                            <maxCount>1</maxCount>
-                            <keyName>ticketmonster</keyName>
-                            <securityGroup>
-                                <group>jboss-as-single</group>
-                            </securityGroup>
-                            <keyName>${ticketmonster.keyname}</keyName>
-                            <wait>true</wait>
-                            <terminate>false</terminate>
-                            <elasticIp>${ticketmonster.elasticIp}</elasticIp>
-                        </launchConfiguration>
-                    </launchConfigurations>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <rules>
-                        <requirePluginVersions>
-                            <unCheckedPlugins>
-                                <uncheckedPlugin>org.codehaus.mojo:ec2-maven-plugin</uncheckedPlugin>
-                            </unCheckedPlugins>
-                        </requirePluginVersions>
-                    </rules>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
