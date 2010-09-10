@@ -8,12 +8,12 @@
 
     <version>1.0.0-SNAPSHOT</version>
 
-    <parent>
+    <!--parent>
         <groupId>org.jboss.seam.examples</groupId>
         <artifactId>ticket-monster</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
-    </parent>
+    </parent-->
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,6 +26,7 @@
         <mvel.version>2.0.18-rc4</mvel.version>
         <jetty.version>6.1.25</jetty.version>
         <slf4j.version>1.5.11</slf4j.version>
+        <uel.impl.version>2.1.2-b04</uel.impl.version>
         <webDescriptor>jetty</webDescriptor>
     </properties>
 
@@ -75,6 +76,7 @@
         </dependency>
 
         <!-- CDI Development Utils-->
+        
         <dependency>
             <groupId>org.jboss.errai</groupId>
             <artifactId>errai-cdi-jetty</artifactId>
@@ -107,7 +109,7 @@
             <artifactId>weld-servlet</artifactId>
             <version>${weld.version}</version>
         </dependency>
-       
+                        
         <!-- GWT and GWT Extensions -->
         <dependency>
             <groupId>com.google.gwt</groupId>
