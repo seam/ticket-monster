@@ -1,63 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
       http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-      
-   <!-- Activate the JSF 2.0 servlet -->
-   <servlet>
-      <servlet-name>Faces Servlet</servlet-name>
-      <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-      <load-on-startup>1</load-on-startup>
-   </servlet>
 
-   <!-- Tell the context which URLs to process as facelets.  -->
-   <servlet-mapping>
-      <servlet-name>Faces Servlet</servlet-name>
-      <url-pattern>*.jsf</url-pattern>
-   </servlet-mapping>
-   
-   <!-- Seam Remoting Servlet -->   
-   <servlet>
-      <servlet-name>Remoting Servlet</servlet-name>
-      <servlet-class>org.jboss.seam.remoting.Remoting</servlet-class>
-      <load-on-startup>1</load-on-startup>
-   </servlet>
+    <!-- Activate the JSF 2.0 servlet -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-   <servlet-mapping>
-      <servlet-name>Remoting Servlet</servlet-name>
-      <url-pattern>/seam/resource/remoting/*</url-pattern>
-   </servlet-mapping>   
+    <!-- Tell the context which URLs to process as facelets.  -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
 
-   <!-- This is an optional parameter, but it makes troubleshooting errors much easier.  -->
-   <!-- You may want to delete it before final deployment -->
-   <context-param>
-      <param-name>facelets.DEVELOPMENT</param-name>
-      <param-value>true</param-value>
-   </context-param>
-   
-   <context-param>
-      <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-      <param-value>.xhtml</param-value>
-   </context-param>
-   
-   <context-param>
-      <param-name>facelets.LIBRARIES</param-name>
-      <param-value>/WEB-INF/taglib.xml</param-value>
-   </context-param>
-   
+    <!-- Seam Remoting Servlet -->
+    <servlet>
+        <servlet-name>Remoting Servlet</servlet-name>
+        <servlet-class>org.jboss.seam.remoting.Remoting</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ErraiServlet</servlet-name>
+        <servlet-class>org.jboss.errai.bus.server.servlet.DefaultBlockingServlet</servlet-class>
+        <!-- Errai as container service -->
+        <init-param>
+            <param-name>jndiName</param-name>
+            <param-value>java:/Errai</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ErraiServlet</servlet-name>
+        <url-pattern>*.erraiBus</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Remoting Servlet</servlet-name>
+        <url-pattern>/seam/resource/remoting/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- This is an optional parameter, but it makes troubleshooting errors much easier.  -->
+    <!-- You may want to delete it before final deployment -->
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/taglib.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>errai.properties</param-name>
+        <param-value>/WEB-INF/errai.properties</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>login.config</param-name>
+        <param-value>/WEB-INF/login.config</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>users.properties</param-name>
+        <param-value>/WEB-INF/users.properties</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>Document Resource Servlet</servlet-name>
         <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>Document Resource Servlet</servlet-name>
         <url-pattern>/document/resource/*</url-pattern>
-    </servlet-mapping>   
+    </servlet-mapping>
 
-   <!--persistence-unit-ref>
-      <persistence-unit-ref-name>ticketMonster/pu</persistence-unit-ref-name>
-      <persistence-unit-name>ticketMonster</persistence-unit-name>
-   </persistence-unit-ref-->
+    <!--persistence-unit-ref>
+       <persistence-unit-ref-name>ticketMonster/pu</persistence-unit-ref-name>
+       <persistence-unit-name>ticketMonster</persistence-unit-name>
+    </persistence-unit-ref-->
 
 </web-app>

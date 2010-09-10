@@ -13,38 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.example.ticketmonster.server;
+package org.jboss.seam.example.ticketmonster.client;
 
+import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import org.jboss.errai.bus.client.api.Message;
 import org.jboss.errai.bus.client.api.MessageCallback;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.bus.client.framework.MessageBus;
-import org.jboss.errai.bus.server.annotations.Service;
+import org.jboss.errai.bus.client.protocols.MessageParts;
+import org.jboss.errai.ioc.client.api.EntryPoint;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 /**
- * A very simple CDI sevice component.
- * 
- * @author: Heiko Braun <hbraun@redhat.com>
- * @date: Jul 21, 2010
+ * Main application entry point.
  */
-@ApplicationScoped
-@Service
-public class HelloWorldService implements MessageCallback
+@EntryPoint
+public class App
 {
+  private MessageBus bus;
+
   @Inject
-  MessageBus bus;
+  public App(MessageBus bus) {
+    this.bus = bus;
+  }
 
-  public void callback(Message message)
-  {
-    System.out.println("Received " + message.get(String.class, "payload"));
-
-    MessageBuilder.createConversation(message)
-        .subjectProvided()
-        .signalling()
-        .with("response", "Processed at "+ System.currentTimeMillis())
-        .done().sendNowWith(bus);
+  @PostConstruct
+  public void init() {
+     Log.info("TickerMonster GWT UI loaded");
   }
 }

@@ -15,6 +15,7 @@
  */
 package org.jboss.seam.example.ticketmonster.client;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -35,11 +36,8 @@ import javax.inject.Inject;
  * Main application entry point.
  */
 @EntryPoint
-public class App extends VerticalPanel implements MessageCallback
+public class App
 {
-  private Button sayHello;
-  private Label label;
-
   private MessageBus bus;
 
   @Inject
@@ -47,38 +45,8 @@ public class App extends VerticalPanel implements MessageCallback
     this.bus = bus;
   }
 
-  public void callback(Message message) {
-    label.setText(message.get(String.class, "response"));
-  }
-
   @PostConstruct
   public void init() {
-
-    /**
-     * Register a this as a listener
-     */
-    bus.subscribe("HelloWorldClient", this);
-
-    sayHello = new Button("Say Hello!");
-
-    /**
-     * Register click handler.
-     */
-    sayHello.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent event) {
-        MessageBuilder.createMessage()
-            .toSubject("HelloWorldService")
-            .with(MessageParts.ReplyTo, "HelloWorldClient")
-            .with("payload", "Hi there!")
-            .done().sendNowWith(bus);
-      }
-    });
-
-    label = new Label();
-
-    add(sayHello);
-    add(label);
-
-    RootPanel.get().add(this);
+     Log.info("TickerMonster GWT UI loaded");
   }
 }

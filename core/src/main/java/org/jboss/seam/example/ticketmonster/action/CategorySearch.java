@@ -1,12 +1,12 @@
 package org.jboss.seam.example.ticketmonster.action;
 
-import java.util.List;
+import org.jboss.seam.example.ticketmonster.model.EventCategory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
-import org.jboss.seam.example.ticketmonster.model.EventCategory;
+import java.util.List;
 
 /**
  * Event Category search actions
@@ -14,8 +14,9 @@ import org.jboss.seam.example.ticketmonster.model.EventCategory;
  * @author Shane Bryzak
  *
  */
-public @Model class CategorySearch
-{
+@Model
+public class CategorySearch {
+    
    @Inject EntityManager entityManager;
 
    private List<EventCategory> categories;
@@ -24,7 +25,7 @@ public @Model class CategorySearch
    {
       categories = entityManager.createQuery("select c from EventCategory c").getResultList();
    }
-
+   
    public List<EventCategory> getCategories()
    {
       if (categories == null)
@@ -33,5 +34,4 @@ public @Model class CategorySearch
       }
       return categories;
    }
-
 }
