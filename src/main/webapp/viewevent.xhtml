@@ -16,11 +16,14 @@
       var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       var monthNames = ["January", "February", "March", "April", "May", "June",
          "July", "August", "September", "October", "November", "December"];
-         
-      var sectionMap = null;    
 
       // Map containing venue:shows values.
       var showMap = new Seam.Map(); 
+      
+      // Availability map for the selected show containing section:availability values
+      var availability = null;    
+
+      // The selected show
       var selectedShow = null;
       
       var eventDetail = Seam.createBean("eventDetail");
@@ -91,7 +94,7 @@
         if (showId != null && "" != showId) {
           document.getElementById("buyTicketButtons").style.display = "";
           selectedShow = findShowById(showId);
-          eventDetail.getEventPricing(showId, eventPricingCallback);        
+          eventDetail.getAvailability(showId, availabilityCallback);        
         }
       }
       
@@ -100,13 +103,13 @@
         while (e.hasChildNodes()) e.removeChild(e.firstChild); 
       }
       
-      function eventPricingCallback(pricingMap) {
+      function availabilityCallback(result) {
         clearElement("pricing");
-        sectionMap = pricingMap;
+        availability = result;
         
         var container = document.getElementById("pricing");        
         
-        var sections = pricingMap.keySet();
+        var sections = result.keySet();
         sections.sort(sectionCompare);
         for (var i = 0; i < sections.length; i++) {
           var section = sections[i];
@@ -128,7 +131,7 @@
           var pricingDiv = document.createElement("div");
           pricingDiv.className = "pricing";         
           
-          var cats = pricingMap.get(section);
+          var cats = result.get(section).pricing;
           for (var j = 0; j < cats.length; j++) {
             var cat = cats[j];
 
@@ -202,7 +205,7 @@
         opt.text = "-- Please Select --";
         select.add(opt, null);
         
-        var sections = sectionMap.keySet();       
+        var sections = availability.keySet();       
         sections.sort(sectionCompare);
         for (var i = 0; i < sections.length; i++) {
           var section = sections[i];
@@ -222,13 +225,15 @@
         clearElement("selectedDateTime");          
         document.getElementById("selectedDateTime").appendChild(
           document.createTextNode(prettyDate(selectedShow.showDate)));
+          
+        // TODO fill in the availability details
       }
       
       
       function sectionSelected(ctl) {
         var sectionId = ctl.options[ctl.selectedIndex].value;
         if (sectionId != null && "" != sectionId) {
-          var sections = sectionMap.keySet();
+          var sections = availability.keySet();
           var section = null;
           for (var i = 0; i < sections.length; i++) {
             if (sections[i].id == sectionId) {
@@ -240,11 +245,12 @@
           if (section != null) {        
             clearPrices();
             document.getElementById("ticketSelection").style.display = "";
-            var prices = sectionMap.get(section);
+            var a = availability.get(section);
+            var prices = a.pricing;
             for (var i = 0; i < prices.length; i++) {
-              addPricingRow(prices[i], 10);
+              addPricingRow(prices[i], a.maxSeats);
             }
-          }
+          }          
         }
       }
       

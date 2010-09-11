@@ -9,6 +9,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.example.ticketmonster.dto.Availability;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
 import org.jboss.seam.example.ticketmonster.model.Section;
@@ -75,11 +76,13 @@ public @Model class EventDetail
    
    @WebRemote
    @SuppressWarnings("unchecked")
-   public Map<Section, List<PriceCategory>> getEventPricing(Long showId)
+   public Map<Section, Availability> getAvailability(Long showId)
    {
       Show show = entityManager.find(Show.class, showId);
       
-      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
+      Map<Section, Availability> availability = new HashMap<Section, Availability>();
+      
+//      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
       
       List<PriceCategory> cats = entityManager.createQuery(
          "select pc from PriceCategory pc where pc.event = :event and pc.venue = :venue")
@@ -89,13 +92,20 @@ public @Model class EventDetail
       
       for (PriceCategory cat : cats)
       {
-         if (!results.containsKey(cat.getSection()))
+         if (!availability.containsKey(cat.getSection()))
          {
-            results.put(cat.getSection(), new ArrayList<PriceCategory>());
+            // TODO calculate this
+            int maxSeats = 10;
+            
+            // TODO get availability
+            String description = "Tickets Available";
+            
+            availability.put(cat.getSection(), new Availability(
+                  new ArrayList<PriceCategory>(), maxSeats, description));
          }
-         results.get(cat.getSection()).add(cat);
+         availability.get(cat.getSection()).getPricing().add(cat);
       }
       
-      return results;
+      return availability;
    }      
 }
