@@ -17,32 +17,50 @@
       var monthNames = ["January", "February", "March", "April", "May", "June",
          "July", "August", "September", "October", "November", "December"];
          
-      var selectedShowId = null;
       var sectionMap = null;    
-      var selectedVenueId = null; 
+
+      // Map containing venue:shows values.
       var showMap = new Seam.Map(); 
+      var selectedShow = null;
+      
+      var eventDetail = Seam.createBean("eventDetail");
+      
+      function findShowById(id) {
+        var keys = showMap.keySet();
+        for (var i = 0; i < keys.length; i++) {
+          var shows = showMap.get(keys[i]);
+          for (var j = 0; j < shows.length; j++) {
+            if (shows[j].id == id) return shows[j];
+          }
+        }
+        return null;
+      }
       
       function venueSelected(ctl) {
         if (ctl.options[0].value == "") ctl.remove(0);
-        clearPricing();
-        
-        document.getElementById("buyTicketButtons").style.display = "none";
-        
-        selectedVenueId = ctl.options[ctl.selectedIndex].value;
-        if (selectedVenueId != null && "" != selectedVenueId) {
-          if (showMap.contains(selectedVenueId)) {
-            showCallback(showMap.get(selectedVenueId));
+        clearElement("pricing");
+        document.getElementById("buyTicketButtons").style.display = "none";        
+        var venueId = ctl.options[ctl.selectedIndex].value;
+        if (venueId != null && "" != venueId) {
+          if (showMap.contains(venueId)) {
+            showCallback(showMap.get(venueId));
           } else {          
-            var eventDetail = Seam.createBean("eventDetail");
-            eventDetail.getShows(eventId, selectedVenueId, showCallback);
+            eventDetail.getShows(eventId, venueId, showCallback);
           }
         }
       }
       
       function showCallback(shows) {
-        if (!showMap.contains(selectedVenueId)) {
-          showMap.put(selectedVenueId, shows);
+        for (var i = 0; i < shows.length; i++) {
+          if (!showMap.contains(shows[i].venue.id)) {
+            var vals = new Array();
+            vals.push(shows[i]);
+            showMap.put(shows[i].venue.id, vals);
+          } else {
+            showMap.get(shows[i].venue.id).push(shows[i]); 
+          }
         }
+        
         var ctl = document.getElementById("eventDate");
         while (ctl.options.length > 0) ctl.remove(0);
         
@@ -54,34 +72,36 @@
           var show = shows[i];
           var option = document.createElement("option");
           option.value = show.id;
-          var prettyDate = dayNames[show.showDate.getDay()] + " " +
-            show.showDate.getDate() + " " +
-            monthNames[show.showDate.getMonth()] + " " +
-            show.showDate.getFullYear() + " @ " +
-            zeropad(show.showDate.getHours(), 2) + ":" +
-            zeropad(show.showDate.getMinutes(), 2);
-          option.text = prettyDate;
+          option.text = prettyDate(show.showDate);
           ctl.add(option, null);
         }
+      }
+      
+      function prettyDate(val) {
+        return dayNames[val.getDay()] + " " +
+          val.getDate() + " " +
+          monthNames[val.getMonth()] + " " +
+          val.getFullYear() + " @ " +
+          zeropad(val.getHours(), 2) + ":" +
+          zeropad(val.getMinutes(), 2);
       }
       
       function showSelected(ctl) {
         var showId = ctl.options[ctl.selectedIndex].value;
         if (showId != null && "" != showId) {
           document.getElementById("buyTicketButtons").style.display = "";
-          selectedShowId = showId;
-          var eventDetail = Seam.createBean("eventDetail");
+          selectedShow = findShowById(showId);
           eventDetail.getEventPricing(showId, eventPricingCallback);        
         }
       }
       
-      function clearPricing() {
-        var container = document.getElementById("pricing");
-        while (container.hasChildNodes()) container.removeChild(container.firstChild);
+      function clearElement(id) {
+        var e = document.getElementById(id);
+        while (e.hasChildNodes()) e.removeChild(e.firstChild); 
       }
       
       function eventPricingCallback(pricingMap) {
-        clearPricing();
+        clearElement("pricing");
         sectionMap = pricingMap;
         
         var container = document.getElementById("pricing");        
@@ -155,18 +175,26 @@
         val = val + "";
         while (val.length < digits) val = "0" + val;
         return val;
-      }      
+      }     
+      
+      function hideElement(name) {
+        document.getElementById(name).style.display = "none"; 
+      } 
+      
+      function showElement(name) {
+        document.getElementById(name).style.display = ""; 
+      }
       
       function chooseShow() {
         clearPrices();
-        document.getElementById("ticketSelection").style.display = "none";
-        document.getElementById("chooseShow").style.display = "";
-        document.getElementById("chooseTickets").style.display = "none";
+        hideElement("ticketSelection");
+        hideElement("chooseTickets");
+        showElement("chooseShow");
       }
       
       function chooseTickets() {
-        document.getElementById("chooseShow").style.display = "none";
-        document.getElementById("chooseTickets").style.display = "";
+        hideElement("chooseShow");
+        showElement("chooseTickets");
         
         var select = document.getElementById("sectionList");
         while (select.options.length > 0) select.remove(0);
@@ -183,7 +211,19 @@
           opt.text = section.name;
           select.add(opt, null);
         }
+        
+        clearElement("selectedVenue");
+        document.getElementById("selectedVenue").appendChild(
+          document.createTextNode(selectedShow.venue.name));
+        document.getElementById("selectedVenue").appendChild(document.createElement("br"));
+        document.getElementById("selectedVenue").appendChild(
+          document.createTextNode(selectedShow.venue.address));
+          
+        clearElement("selectedDateTime");          
+        document.getElementById("selectedDateTime").appendChild(
+          document.createTextNode(prettyDate(selectedShow.showDate)));
       }
+      
       
       function sectionSelected(ctl) {
         var sectionId = ctl.options[ctl.selectedIndex].value;
@@ -306,33 +346,40 @@
       </div>
       
       <div class="sectionContent">
-        <div>
+        <div style="margin-bottom: 8px">
           <span>Select a section: </span>
           <select id="sectionList" onchange="sectionSelected(this)"/>
           
-          <br style="clear:both"/>
-
-          <div id="availability">
-            <div id="availabilityHeader">
-              Availability:
-            </div>
-            <div id="ticketAvailability">
-            
-            </div>
+          <div style="float:right">
+            <b>Venue:</b><br/>
+            <div id="selectedVenue"/>            
+            <b>Date and Time:</b><br/>
+            <div id="selectedDateTime"/>
           </div>
           
-          <div style="margin-top: 8px">
-            <table id="ticketSelection" style="display:none" cellspacing="0" cellpadding="5">
-              <tr class="header">
-                <th width="50%">Ticket</th>
-                <th>Price</th>
-                <th>Quantity</th>
-              </tr>
-            
-            </table>
-          </div>
+          <br style="clear:both"/>          
+        </div>
 
+        <div id="availability">
+          <div id="availabilityHeader">
+            Availability:
+          </div>
+          <div id="ticketAvailability">
+          
+          </div>
         </div>        
+        
+        <div>
+          <table id="ticketSelection" style="display:none" cellspacing="0" cellpadding="5">
+            <tr class="header">
+              <th width="50%">Ticket</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          
+          </table>
+        </div>
+
       </div>  
         
       <div class="buttonRow">
