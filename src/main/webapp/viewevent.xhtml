@@ -125,9 +125,14 @@
           sectionDescDiv.className = "sectionDescription";
           sectionDescDiv.appendChild(document.createTextNode(section.description));
           
+          var sectionAvailDiv = document.createElement("div");
+          sectionAvailDiv.className = "sectionAvailability";
+          sectionAvailDiv.appendChild(document.createTextNode(result.get(section).description));
+          
           sectionDiv.appendChild(sectionNameDiv);
           sectionDiv.appendChild(sectionDescDiv);
-          
+          sectionDiv.appendChild(sectionAvailDiv);
+
           var pricingDiv = document.createElement("div");
           pricingDiv.className = "pricing";         
           
@@ -227,6 +232,20 @@
           document.createTextNode(prettyDate(selectedShow.showDate)));
           
         // TODO fill in the availability details
+        
+        var a = document.getElementById("ticketAvailability");
+        
+        for (var i = 0; i < sections.length; i++) {
+          var div = document.createElement("div");
+          div.className = "availabilityRow";
+          
+          var lbl = document.createElement("label");
+          lbl.appendChild(document.createTextNode(sections[i].name));          
+          div.appendChild(lbl);
+          
+          div.appendChild(document.createTextNode(availability.get(sections[i]).description));
+          a.appendChild(div);
+        }
       }
       
       
@@ -385,6 +404,8 @@
           
           </table>
         </div>
+        
+        <br style="clear:both"/>
 
       </div>  
         

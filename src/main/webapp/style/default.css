@@ -179,9 +179,16 @@ div.sectionContainer {
 div.sectionName {
   font-weight: bold; 
   float: left;
+  width: 30px;
 }
 
-div.sectionDescription {
+div.sectionDescription {  
+  margin-left: 8px;
+  float: left; 
+  width: 200px;
+}
+
+div.sectionAvailability {
   margin-left: 8px;
   float: left; 
 }
@@ -240,6 +247,21 @@ div#availabilityHeader {
   padding: 4px;
 }
 
+div#ticketAvailability {
+  background-color: #f6edc6;
+  padding: 4px;
+}
+
+div.availabilityRow {
+  padding: 4px; 
+}
+
+div.availabilityRow label {
+  width: 80px;
+  display: inline-block;
+  font-weight: bold;
+}
+
 div.section {
   background-color: #ffffff;  
   font-size: 80%;  
@@ -267,8 +289,4 @@ tr.header {
 
 tr.header th {
   text-align: left; 
-}
-
-div#ticketAvailability {
-  background-color: #f5e676;
 }
