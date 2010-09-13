@@ -40,6 +40,10 @@
                 <exclusion>
                     <groupId>javax.enterprise</groupId>
                     <artifactId>cdi-api</artifactId>
+                </exclusion>                
+                <exclusion>
+                    <groupId>org.drools</groupId>   <!-- JDT conflict -->
+                    <artifactId>drools-compiler</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
