@@ -190,6 +190,30 @@
                 <exclusion>
                     <groupId>javax.persistence</groupId>
                     <artifactId>persistence-api</artifactId>
+                </exclusion>                
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.milyn</groupId>
+                    <artifactId>milyn-smooks-javabean</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -314,7 +338,7 @@
                     <groupId>org.jboss.weld.servlet</groupId>
                     <artifactId>weld-servlet</artifactId>
                     <classifier>jboss5</classifier>
-                </dependency>
+                </dependency>              
             </dependencies>
             <build>
                 <plugins>
@@ -372,6 +396,43 @@
                     <version>${weld.version}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.jboss.seam.security</groupId>
+                    <artifactId>seam-security-impl</artifactId>
+                    <version>${seam.security.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javax.persistence</groupId>
+                            <artifactId>persistence-api</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>javax.xml.bind</groupId>
+                            <artifactId>jaxb-api</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>xalan</groupId>
+                            <artifactId>xalan</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.activemq</groupId>
+                            <artifactId>activemq-core</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.milyn</groupId>
+                            <artifactId>milyn-smooks-javabean</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                
             </dependencies>
             <build>
                 
