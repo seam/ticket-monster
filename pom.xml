@@ -34,7 +34,7 @@
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
       <seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
       <seam.remoting.version>3.0.0-SNAPSHOT</seam.remoting.version>
-      <infinispan.version>4.1.0.CR2</infinispan.version>
+      <infinispan.version>4.1.0.Final</infinispan.version>
       <project.eap51.source.directory>src/eap-51</project.eap51.source.directory>
       <project.jboss6.source.directory>src/jboss-6</project.jboss6.source.directory>
       <errai.version>1.1-SNAPSHOT</errai.version>
@@ -47,7 +47,7 @@
    <modules>
       <module>core</module>
       <module>jsf-ui</module>
-<!--      <module>gwt-ui</module>-->
+      <!-- <module>gwt-ui</module> -->
    </modules>
 
    <dependencyManagement>
@@ -280,6 +280,52 @@
                </snapshots>
             </pluginRepository>
          </pluginRepositories>
+      </profile>
+      <profile>
+         <id>ec2-start</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>ec2-maven-plugin</artifactId>
+                  <version>1.0-SNAPSHOT</version>
+                  <configuration>
+                     <accessKeyId>${aws.accessKeyId}</accessKeyId>
+                     <secretAccessKey>${aws.secretAccessKey}</secretAccessKey>
+                     <launchConfigurations>
+                        <launchConfiguration>
+
+                           <!-- EC2 API parameters -->
+                           <imageId>ami-814fa4e8</imageId>
+                           <minCount>1</minCount>
+                           <maxCount>1</maxCount>
+                           <keyName>ticketmonster</keyName>
+                           <securityGroup>
+                              <group>jboss-as-single</group>
+                           </securityGroup>
+                           <keyName>${ticketmonster.keyname}</keyName>
+                           <wait>true</wait>
+                           <terminate>false</terminate>
+                           <elasticIp>${ticketmonster.elasticIp}</elasticIp>
+                        </launchConfiguration>
+                     </launchConfigurations>
+                  </configuration>
+               </plugin>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-enforcer-plugin</artifactId>
+                  <configuration>
+                     <rules>
+                        <requirePluginVersions>
+                           <unCheckedPlugins>
+                              <uncheckedPlugin>org.codehaus.mojo:ec2-maven-plugin</uncheckedPlugin>
+                           </unCheckedPlugins>
+                        </requirePluginVersions>
+                     </rules>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
       </profile>
    </profiles>
 

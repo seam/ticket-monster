@@ -21,10 +21,10 @@
          <groupId>org.jboss.seam.examples</groupId>
          <artifactId>ticket-monster-core</artifactId>
          <exclusions>
-         	<exclusion>
-         		<artifactId>cdi-api</artifactId>
-         		<groupId>javax.enterprise</groupId>
-         	</exclusion>
+            <exclusion>
+               <artifactId>cdi-api</artifactId>
+               <groupId>javax.enterprise</groupId>
+            </exclusion>
          </exclusions>
       </dependency>
 
@@ -106,8 +106,8 @@
                <groupId>org.drools</groupId>
             </exclusion>
             <exclusion>
-            	<artifactId>cdi-api</artifactId>
-            	<groupId>javax.enterprise</groupId>
+               <artifactId>cdi-api</artifactId>
+               <groupId>javax.enterprise</groupId>
             </exclusion>
          </exclusions>
       </dependency>
@@ -115,10 +115,10 @@
          <groupId>org.jboss.seam.xml</groupId>
          <artifactId>seam-xml-config</artifactId>
          <exclusions>
-         	<exclusion>
-         		<artifactId>cdi-api</artifactId>
-         		<groupId>javax.enterprise</groupId>
-         	</exclusion>
+            <exclusion>
+               <artifactId>cdi-api</artifactId>
+               <groupId>javax.enterprise</groupId>
+            </exclusion>
          </exclusions>
       </dependency>
 
@@ -191,6 +191,34 @@
          </plugin>
 
       </plugins>
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>jboss-maven-plugin</artifactId>
+               <version>1.4.1</version>
+               <executions>
+                  <execution>
+                     <id>deploy</id>
+                     <phase>package</phase>
+                     <goals>
+                        <goal>hard-deploy</goal>
+                     </goals>
+                     <configuration>
+                        <jbossHome>${jboss.home}</jbossHome>
+                        <serverName>${jboss.domain}</serverName>
+                        <fileNames>
+                           <!-- Ordering matters, we need the -ds to be copied 
+                              first ;-) -->
+                           <fileName>ticketmonster-ds.xml</fileName>
+                           <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
+                        </fileNames>
+                     </configuration>
+                  </execution>
+               </executions>
+            </plugin>
+         </plugins>
+      </pluginManagement>
    </build>
 
    <profiles>
@@ -288,6 +316,49 @@
          </build>
       </profile>
 
+      <profile>
+         <id>deploy</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>jboss-maven-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>deploy</id>
+                        <phase>package</phase>
+                        <goals>
+                           <goal>hard-deploy</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+      <profile>
+         <id>undeploy</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>jboss-maven-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>undeploy</id>
+                        <phase>package</phase>
+                        <goals>
+                           <goal>hard-undeploy</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
    </profiles>
 
 </project>
