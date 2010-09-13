@@ -335,6 +335,11 @@
             <id>eap-51</id>
             <dependencies>
                 <dependency>
+                    <groupId>javax.inject</groupId>
+                    <artifactId>javax.inject</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
                     <groupId>org.jboss.weld.servlet</groupId>
                     <artifactId>weld-servlet</artifactId>
                     <classifier>jboss5</classifier>
