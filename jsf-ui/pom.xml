@@ -2,93 +2,64 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>TicketMonster</name>
+    <name>TicketMonster::JSF</name>
     <groupId>org.jboss.seam.examples</groupId>
-    <artifactId>ticket-monster</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>ticket-monster-jsf</artifactId>
+    <packaging>war</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
-        <groupId>org.jboss.weld</groupId>
-        <artifactId>weld-parent</artifactId>
-        <version>15</version>
+        <groupId>org.jboss.seam.examples</groupId>
+        <artifactId>ticket-monster</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
-    <properties>
-        <!--
-           To set the jboss.home environment variable the Maven way, set
-           the jboss.home property in an active profile in the Maven 2
-           settings.xml file
-        -->
-        <jboss.home>${env.JBOSS_HOME}</jboss.home>
-        <jboss.domain>default</jboss.domain>
-        <!-- The version of Weld extensions in use (this is out of date) -->
-        <weld.extensions.version>1.0.0-CR2</weld.extensions.version>
-        <weld.version>1.1.0.Beta1-SP1</weld.version>
-        <junit.version>4.8.1</junit.version>
-        <hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
-        <uel.impl.version>2.1.2-b04</uel.impl.version>
-        <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
-        <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
-        <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
-        <seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
-        <seam.remoting.version>3.0.0-SNAPSHOT</seam.remoting.version>
-        <infinispan.version>4.1.0.CR2</infinispan.version>
-        <servlet.version>2.5</servlet.version>
-        <faces.version>1.2_13</faces.version>
-        <project.eap51.source.directory>src/eap-51</project.eap51.source.directory>
-        <project.jboss6.source.directory>src/jboss-6</project.jboss6.source.directory>
-    </properties>
-
-    <modules>
-        <module>core</module>
-        <module>jsf-ui</module>
-        <module>gwt-ui</module>
-    </modules>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <!-- Import scope will provide versions for dependencies below. -->
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-extensions-bom</artifactId>
-                <version>${weld.extensions.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate.validator.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>el-impl</artifactId>
-                <scope>runtime</scope>
-                <version>${uel.impl.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.weld.servlet</groupId>
-                <artifactId>weld-servlet</artifactId>
-                <classifier>jboss5</classifier>
-                <version>${weld.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
+
+        <dependency>
+            <groupId>org.jboss.seam.examples</groupId>
+            <artifactId>ticketmonster-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        
+        <!-- Import scope will provide versions for dependencies below. -->
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-extensions-bom</artifactId>
+            <version>${weld.extensions.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <scope>runtime</scope>
+            <version>${uel.impl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <classifier>jboss5</classifier>
+            <version>${weld.version}</version>
+        </dependency>
+
         <!-- CDI (JSR-299) -->
-        <!--dependency>                                         
+        <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
@@ -98,7 +69,7 @@
                     <artifactId>jboss-interceptor-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency-->
+        </dependency>
 
         <!-- EJB -->
         <dependency>
@@ -282,26 +253,20 @@
             <artifactId>jsf-facelets</artifactId>
             <version>1.1.15.B1</version>
         </dependency>
+
     </dependencies>
 
+    
     <build>
-
+        <finalName>ticket-monster</finalName>
         <plugins>
-            <!-- Compiler plugin enforces Java 1.6 compatiblity -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
 
             <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <executions>
-                    <execution>                      
+                    <execution>
+
                         <id>default-war</id>
                         <phase>none</phase>
                     </execution>
@@ -318,60 +283,6 @@
                 </executions>
             </plugin-->
 
-            <!-- Configure the JBoss AS Maven deploy plugin -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jboss-maven-plugin</artifactId>
-                <version>1.4.1</version>
-                <configuration>
-                    <jbossHome>${jboss.home}</jbossHome>
-                    <serverName>${jboss.domain}</serverName>
-                    <fileNames>
-                        <!-- Ordering matters, we need the -ds to be copied first ;-) -->
-                        <fileName>ticketmonster-ds.xml</fileName>
-                        <fileName>${project.build.directory}/${project.build.finalName}.war</fileName>
-                    </fileNames>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>ec2-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <configuration>
-                    <accessKeyId>${aws.accessKeyId}</accessKeyId>
-                    <secretAccessKey>${aws.secretAccessKey}</secretAccessKey>
-                    <launchConfigurations>
-                        <launchConfiguration>
-
-                            <!-- EC2 API parameters -->
-                            <imageId>ami-814fa4e8</imageId>
-                            <minCount>1</minCount>
-                            <maxCount>1</maxCount>
-                            <keyName>ticketmonster</keyName>
-                            <securityGroup>
-                                <group>jboss-as-single</group>
-                            </securityGroup>
-                            <keyName>${ticketmonster.keyname}</keyName>
-                            <wait>true</wait>
-                            <terminate>false</terminate>
-                            <elasticIp>${ticketmonster.elasticIp}</elasticIp>
-                        </launchConfiguration>
-                    </launchConfigurations>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <rules>
-                        <requirePluginVersions>
-                            <unCheckedPlugins>
-                                <uncheckedPlugin>org.codehaus.mojo:ec2-maven-plugin</uncheckedPlugin>
-                            </unCheckedPlugins>
-                        </requirePluginVersions>
-                    </rules>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -445,7 +356,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>jboss-6</id>
             <dependencies>
@@ -454,8 +365,16 @@
                     <artifactId>javax.inject</artifactId>
                     <scope>provided</scope>
                 </dependency>
+                <dependency>
+                    <groupId>org.jboss.weld.servlet</groupId>
+                    <artifactId>weld-servlet</artifactId>
+                    <classifier>jboss5</classifier>
+                    <version>${weld.version}</version>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
             <build>
+                
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -472,45 +391,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>jboss-public-repository</id>
-            <activation>
-                <property>
-                    <name>jboss-public-repository</name>
-                    <value>!false</value>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>jboss-public-repository-group</id>
-                    <name>JBoss Public Maven Repository Group</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>jboss-public-repository-group</id>
-                    <name>JBoss Public Maven Repository Group</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
+       
     </profiles>
 
 </project>
