@@ -28,7 +28,7 @@
       <junit.version>4.8.1</junit.version>
       <uel.impl.version>2.1.2-b04</uel.impl.version>
       <weld.extensions.version>1.0.0-SNAPSHOT</weld.extensions.version>
-      <hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
+      <hibernate.validator.version>4.1.0.FINAL</hibernate.validator.version>
       <seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
       <seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
