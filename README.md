@@ -1,16 +1,22 @@
 The TicketMonster example for Seam 3
 ====================================
 
+Build The Shared Libraries
+--------------------------
+
+    mvn clean install
+
 JBoss AS 6
 ----------
 
+
 To deploy the application to JBoss AS 6, run:
 
-    mvn -U clean package jboss:hard-deploy -Pjboss-6
+    mvn -U clean package -Pjboss-6,deploy
 
 To undeploy, run
 
-    mvn jboss:hard-undeploy
+    mvn -Pundeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
 
@@ -20,11 +26,11 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-    mvn -U clean package jboss:hard-deploy -Peap-51
+    mvn -U clean package jboss:hard-deploy -Peap-51,deploy
 
 To undeploy, run
 
-    mvn jboss:hard-undeploy
+    mvn -Pundeploy
   
 You can then [access the application](http://localhost:8080/ticket-monster/)
 
@@ -118,7 +124,7 @@ Next, we need to unzip this and move it into the JBoss AS deploy directory. Havi
 machine:
 
     unzip ticket-monster-war.zip -d /tmp/ticketmonster 
-     mv /tmp/ticketmonster /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/
+    mv /tmp/ticketmonster /opt/jboss-eap-5.1.0.Beta/jboss-as/server/default/deploy/
   
 And then, check to see whether the app has started:
 

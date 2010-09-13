@@ -4,3 +4,4 @@
 target
 src/main/webapp/META-INF/MANIFEST.MF
 src/main/webapp/WEB-INF/.faces-config.xml.jsfdia
+gwt-ui/monitordb.*
