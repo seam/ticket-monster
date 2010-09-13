@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.jboss.seam.examples</groupId>
             <artifactId>ticketmonster-core</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         
         <!-- Import scope will provide versions for dependencies below. -->
