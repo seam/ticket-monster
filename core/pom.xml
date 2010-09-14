@@ -1,45 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <name>TicketMonster::Core-Lib</name>
-    <groupId>org.jboss.seam.examples</groupId>
-    <artifactId>ticketmonster-core</artifactId>
-    <packaging>jar</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <name>TicketMonster::Core</name>
+   <groupId>org.jboss.seam.examples</groupId>
+   <artifactId>ticket-monster-core</artifactId>
+   <packaging>jar</packaging>
 
-    <!-- Parent -->
-    <parent>
-        <groupId>org.jboss.seam.examples</groupId>
-        <artifactId>ticket-monster</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../</relativePath>
-    </parent>
+   <!-- Parent -->
+   <parent>
+      <groupId>org.jboss.seam.examples</groupId>
+      <artifactId>ticket-monster</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
 
-    <properties>
-        <errai.version>1.1-SNAPSHOT</errai.version>
-    </properties>
-    
-    <dependencies>
-       <dependency>
-           <groupId>org.jboss.errai</groupId>
-           <artifactId>errai-bus</artifactId>
-           <version>${errai.version}</version>
-           <scope>provided</scope>
-       </dependency>        
-    </dependencies>
+   <dependencies>
 
-    <build>
-        <plugins>
-             <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+      <dependency>
+         <groupId>org.jboss.errai</groupId>
+         <artifactId>errai-bus</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.remoting</groupId>
+         <artifactId>seam-remoting-core</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.faces</groupId>
+         <artifactId>jsf-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.persistence</groupId>
+         <artifactId>seam-persistence-api</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.persistence</groupId>
+         <artifactId>persistence-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-extensions</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.servlet</groupId>
+         <artifactId>seam-servlet</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.security</groupId>
+         <artifactId>seam-security-api</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.validation</groupId>
+         <artifactId>validation-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>servlet-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+   </dependencies>
+
 </project>

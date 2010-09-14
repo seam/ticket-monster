@@ -8,6 +8,10 @@ insert into Venue (id, name, address, description_id) values (1, 'City Central C
 update Document set revision_id = 50 where id = 50;
 
 insert into VenueLayout (id, venue_id, name, capacity) values (1, 1, 'Default Layout', 30000);
+insert into Section (id, name, description, capacity, layout_id) values (1, 'A', 'Premier platinum reserve', 4000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (2, 'B', 'Premier gold reserve', 4000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (3, 'C', 'Premier silver reserve', 6000, 1);
+insert into Section (id, name, description, capacity, layout_id) values (4, 'D', 'General', 16000, 1);
 
 insert into Venue (id, name, address, description_id) values (2, 'Sydney Opera House', 'Macquarie St Sydney', 51);
 update Document set revision_id = 51 where id = 51;
@@ -23,13 +27,13 @@ insert into Section (id, name, description, capacity, layout_id) values (106, 'S
 
 insert into Document (id) values (100);
 
-insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (100, 100, '2010-01-01', 'sbryzak', null, null, '<p>&nbsp;</p><p><img alt="" src="/ticket-monster/document/resource/100/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>ROCK CONCERT OF THE DECADE</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">Get ready to rock your night away with this megaconcert extravaganza from 10 of the biggest rock stars of the 80''s!</p>');
+insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (100, 100, '2010-01-01', 'sbryzak', null, null, '<p><img alt="" src="/ticket-monster/document/resource/100/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>ROCK CONCERT OF THE DECADE</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">Get ready to rock your night away with this megaconcert extravaganza from 10 of the biggest rock stars of the 80''s!</p>');
 
 update Document set revision_id = 100 where id = 100;
 
 insert into Document (id) values (101);
 
-insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (101, 101, '2010-01-01', 'sbryzak', null, null, '<p>&nbsp;</p><p><img alt="" src="/ticket-monster/document/resource/101/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>SHANE''S SOCK PUPPETS</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.<br/><br/><i>"Unbelievable drama, left me wanting more."<br/> - Robert Jones, New York Times</p>');
+insert into Revision (id, document_id, created, createdBy, modified, modifiedBy, content) values (101, 101, '2010-01-01', 'sbryzak', null, null, '<p><img alt="" src="/ticket-monster/document/resource/101/main" style="float: left; width: 350px; height: 263px; " /></p><h4 style="margin-left: 360px; "><span style="color:#ff0000;"><strong>SHANE''S SOCK PUPPETS</strong></span></h4><p style="text-align: justify; margin-left: 360px; ">This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.<br/><br/><i>"Unbelievable drama, left me wanting more."<br/> - Robert Jones, New York Times</p>');
 
 update Document set revision_id = 101 where id = 101;
 
@@ -46,4 +50,30 @@ insert into eventcategory (id, description) values (5, 'Comedy');
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (1, 'Rock concert of the decade', 100, '2011-01-01', '2011-02-01', 1, true);
 insert into event (id, name, document_id, startDate, endDate, category_id, major) values (2, 'Shane''s Sock Puppets', 101, '2011-01-01', '2011-02-01', 2, true);
 
-insert into show (id, event_id, venue_id, showdate, layout_id) values (1, 1, 1, '2011-01-01', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (1, 1, 1, '2011-01-01 19:00', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (2, 1, 1, '2011-01-02 19:00', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (3, 1, 2, '2011-01-03 19:30', 1);
+insert into show (id, event_id, venue_id, showdate, layout_id) values (4, 1, 2, '2011-01-04 19:30', 1);
+
+insert into TicketCategory (id, description) values (1, 'Adult');
+insert into TicketCategory (id, description) values (2, 'Child 0-14yrs');
+
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (1, 1, 2, 100, 1, 167.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (2, 1, 2, 101, 1, 197.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (3, 1, 2, 102, 1, 167.75);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (4, 1, 2, 103, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (5, 1, 2, 104, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (6, 1, 2, 105, 1, 155.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (7, 1, 2, 106, 1, 122.5);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (8, 1, 2, 100, 2, 157.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (9, 1, 2, 101, 2, 187.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (10, 1, 2, 102, 2, 157.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (11, 1, 2, 103, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (12, 1, 2, 104, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (13, 1, 2, 105, 2, 145.0);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (14, 1, 2, 106, 2, 112.5);
+
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (15, 1, 1, 1, 1, 219.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (16, 1, 1, 2, 1, 199.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (17, 1, 1, 3, 1, 179.50);
+insert into PriceCategory (id, event_id, venue_id, section_id, category_id, price) values (18, 1, 1, 4, 1, 149.50);

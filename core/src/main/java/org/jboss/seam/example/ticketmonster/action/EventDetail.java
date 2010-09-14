@@ -1,13 +1,18 @@
 package org.jboss.seam.example.ticketmonster.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.example.ticketmonster.dto.Availability;
 import org.jboss.seam.example.ticketmonster.model.Event;
+import org.jboss.seam.example.ticketmonster.model.PriceCategory;
+import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.Show;
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.remoting.annotations.WebRemote;
@@ -69,5 +74,38 @@ public @Model class EventDetail
          .getResultList();
    }
    
-   
+   @WebRemote
+   @SuppressWarnings("unchecked")
+   public Map<Section, Availability> getAvailability(Long showId)
+   {
+      Show show = entityManager.find(Show.class, showId);
+      
+      Map<Section, Availability> availability = new HashMap<Section, Availability>();
+      
+//      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
+      
+      List<PriceCategory> cats = entityManager.createQuery(
+         "select pc from PriceCategory pc where pc.event = :event and pc.venue = :venue")
+         .setParameter("event", show.getEvent())
+         .setParameter("venue", show.getVenue())
+         .getResultList();
+      
+      for (PriceCategory cat : cats)
+      {
+         if (!availability.containsKey(cat.getSection()))
+         {
+            // TODO calculate this
+            int maxSeats = 10;
+            
+            // TODO get availability
+            String description = "Tickets Available";
+            
+            availability.put(cat.getSection(), new Availability(
+                  new ArrayList<PriceCategory>(), maxSeats, description));
+         }
+         availability.get(cat.getSection()).getPricing().add(cat);
+      }
+      
+      return availability;
+   }      
 }

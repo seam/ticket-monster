@@ -3,78 +3,425 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/default.xhtml">
+   template="/WEB-INF/templates/simple.xhtml">
    <ui:define name="content">
-   
-    <div class="eventdetail">
-      <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
-    </div>
-    
-    <br style="clear:both"/>
-    
-    <script src="seam/resource/remoting/resource/remote.js"/>
-    <script src="seam/resource/remoting/interface.js?eventDetail"/>
+      
+    <script src="seam/remoting/resource/remote.js"/>
+    <script src="seam/remoting/interface.js?eventDetail"/>
     
     <script type="text/javascript">
       // <![CDATA[
       
       var eventId = #{eventDetail.event.id};
+      var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       var monthNames = ["January", "February", "March", "April", "May", "June",
          "July", "August", "September", "October", "November", "December"];
+
+      // Map containing venue:shows values.
+      var showMap = new Seam.Map(); 
+      
+      // Availability map for the selected show containing section:availability values
+      var availability = null;    
+
+      // The selected show
+      var selectedShow = null;
+      
+      var eventDetail = Seam.createBean("eventDetail");
+      
+      function findShowById(id) {
+        var keys = showMap.keySet();
+        for (var i = 0; i < keys.length; i++) {
+          var shows = showMap.get(keys[i]);
+          for (var j = 0; j < shows.length; j++) {
+            if (shows[j].id == id) return shows[j];
+          }
+        }
+        return null;
+      }
       
       function venueSelected(ctl) {
+        if (ctl.options[0].value == "") ctl.remove(0);
+        clearElement("pricing");
+        document.getElementById("buyTicketButtons").style.display = "none";        
         var venueId = ctl.options[ctl.selectedIndex].value;
-        var eventDetail = Seam.createBean("eventDetail");
-        eventDetail.getShows(eventId, venueId, showCallback);
+        if (venueId != null && "" != venueId) {
+          if (showMap.contains(venueId)) {
+            showCallback(showMap.get(venueId));
+          } else {          
+            eventDetail.getShows(eventId, venueId, showCallback);
+          }
+        }
       }
       
       function showCallback(shows) {
+        for (var i = 0; i < shows.length; i++) {
+          if (!showMap.contains(shows[i].venue.id)) {
+            var vals = new Array();
+            vals.push(shows[i]);
+            showMap.put(shows[i].venue.id, vals);
+          } else {
+            showMap.get(shows[i].venue.id).push(shows[i]); 
+          }
+        }
+        
         var ctl = document.getElementById("eventDate");
         while (ctl.options.length > 0) ctl.remove(0);
+        
+        var option = document.createElement("option");
+        option.text = "-- Please Select --";
+        ctl.add(option, null);
         
         for (var i = 0; i < shows.length; i++) {
           var show = shows[i];
           var option = document.createElement("option");
           option.value = show.id;
-          var prettyDate = show.showDate.getDate() + " " +
-            monthNames[show.showDate.getMonth()] + " " +
-            show.showDate.getFullYear();
-          option.text = prettyDate;
+          option.text = prettyDate(show.showDate);
           ctl.add(option, null);
         }
       }
       
+      function prettyDate(val) {
+        return dayNames[val.getDay()] + " " +
+          val.getDate() + " " +
+          monthNames[val.getMonth()] + " " +
+          val.getFullYear() + " @ " +
+          zeropad(val.getHours(), 2) + ":" +
+          zeropad(val.getMinutes(), 2);
+      }
+      
+      function showSelected(ctl) {
+        var showId = ctl.options[ctl.selectedIndex].value;
+        if (showId != null && "" != showId) {
+          document.getElementById("buyTicketButtons").style.display = "";
+          selectedShow = findShowById(showId);
+          eventDetail.getAvailability(showId, availabilityCallback);        
+        }
+      }
+      
+      function clearElement(id) {
+        var e = document.getElementById(id);
+        while (e.hasChildNodes()) e.removeChild(e.firstChild); 
+      }
+      
+      function availabilityCallback(result) {
+        clearElement("pricing");
+        availability = result;
+        
+        var container = document.getElementById("pricing");        
+        
+        var sections = result.keySet();
+        sections.sort(sectionCompare);
+        for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          
+          var sectionDiv = document.createElement("div");
+          sectionDiv.className = "sectionContainer";
+          
+          var sectionNameDiv = document.createElement("div");
+          sectionNameDiv.className = "sectionName";
+          sectionNameDiv.appendChild(document.createTextNode(section.name));
+          
+          var sectionDescDiv = document.createElement("div");
+          sectionDescDiv.className = "sectionDescription";
+          sectionDescDiv.appendChild(document.createTextNode(section.description));
+          
+          var sectionAvailDiv = document.createElement("div");
+          sectionAvailDiv.className = "sectionAvailability";
+          sectionAvailDiv.appendChild(document.createTextNode(result.get(section).description));
+          
+          sectionDiv.appendChild(sectionNameDiv);
+          sectionDiv.appendChild(sectionDescDiv);
+          sectionDiv.appendChild(sectionAvailDiv);
+
+          var pricingDiv = document.createElement("div");
+          pricingDiv.className = "pricing";         
+          
+          var cats = result.get(section).pricing;
+          for (var j = 0; j < cats.length; j++) {
+            var cat = cats[j];
+
+            var pDiv = document.createElement("div");   
+            
+            var catSpan = document.createElement("span");
+            catSpan.className = "ticketCat";
+            catSpan.appendChild(document.createTextNode(cat.category.description + ": "));
+            pDiv.appendChild(catSpan);         
+            
+            var priceSpan = document.createElement("span");
+            priceSpan.className = "ticketPrice";
+            priceSpan.appendChild(document.createTextNode(prettyPrice(cat.price)));
+            
+            pDiv.appendChild(priceSpan);            
+            pricingDiv.appendChild(pDiv);
+          }
+          
+          sectionDiv.appendChild(pricingDiv);
+          container.appendChild(sectionDiv);        
+        }
+      }
+      
+      function prettyPrice(val) {
+        val = "" + val;
+        if (val.indexOf(".") == -1) {
+          val += ".00";
+        } else {
+          while (val.substring(val.indexOf(".")).length < 3) val += "0";
+        }
+        return "$" + val;
+      }
+      
+      function sectionCompare(a, b) {  
+        for (var i = 0; i < a.name.length; i++) {
+          if (b.name.length < (i + 1)) return 1;          
+          if (a.name[i] == b.name[i]) continue;
+          return (a.name[i] < b.name[i]) ? -1 : 1;          
+        }        
+        return 0;
+      }
+      
+      function zeropad(val, digits) {
+        val = val + "";
+        while (val.length < digits) val = "0" + val;
+        return val;
+      }     
+      
+      function hideElement(name) {
+        document.getElementById(name).style.display = "none"; 
+      } 
+      
+      function showElement(name) {
+        document.getElementById(name).style.display = ""; 
+      }
+      
+      function chooseShow() {
+        clearPrices();
+        hideElement("ticketSelection");
+        hideElement("chooseTickets");
+        showElement("chooseShow");
+      }
+      
+      function chooseTickets() {
+        hideElement("chooseShow");
+        showElement("chooseTickets");
+        
+        var select = document.getElementById("sectionList");
+        while (select.options.length > 0) select.remove(0);
+        var opt = document.createElement("option");
+        opt.text = "-- Please Select --";
+        select.add(opt, null);
+        
+        var sections = availability.keySet();       
+        sections.sort(sectionCompare);
+        for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          opt = document.createElement("option");
+          opt.value = section.id;
+          opt.text = section.name;
+          select.add(opt, null);
+        }
+        
+        clearElement("selectedVenue");
+        document.getElementById("selectedVenue").appendChild(
+          document.createTextNode(selectedShow.venue.name));
+        document.getElementById("selectedVenue").appendChild(document.createElement("br"));
+        document.getElementById("selectedVenue").appendChild(
+          document.createTextNode(selectedShow.venue.address));
+          
+        clearElement("selectedDateTime");          
+        document.getElementById("selectedDateTime").appendChild(
+          document.createTextNode(prettyDate(selectedShow.showDate)));
+          
+        // TODO fill in the availability details
+        
+        var a = document.getElementById("ticketAvailability");
+        
+        for (var i = 0; i < sections.length; i++) {
+          var div = document.createElement("div");
+          div.className = "availabilityRow";
+          
+          var lbl = document.createElement("label");
+          lbl.appendChild(document.createTextNode(sections[i].name));          
+          div.appendChild(lbl);
+          
+          div.appendChild(document.createTextNode(availability.get(sections[i]).description));
+          a.appendChild(div);
+        }
+      }
+      
+      
+      function sectionSelected(ctl) {
+        var sectionId = ctl.options[ctl.selectedIndex].value;
+        if (sectionId != null && "" != sectionId) {
+          var sections = availability.keySet();
+          var section = null;
+          for (var i = 0; i < sections.length; i++) {
+            if (sections[i].id == sectionId) {
+              section = sections[i];
+              break;
+            }
+          }
+        
+          if (section != null) {        
+            clearPrices();
+            document.getElementById("ticketSelection").style.display = "";
+            var a = availability.get(section);
+            var prices = a.pricing;
+            for (var i = 0; i < prices.length; i++) {
+              addPricingRow(prices[i], a.maxSeats);
+            }
+          }          
+        }
+      }
+      
+      function clearPrices() {
+        var tbl = document.getElementById("ticketSelection");
+        while (tbl.rows.length > 1) tbl.deleteRow(tbl.rows.length - 1);        
+      }
+      
+      function addPricingRow(cat, qtyAvailable) {
+        var tbl = document.getElementById("ticketSelection");
+        
+        var rowClass = tbl.rows.length % 2 == 0 ? "even" : "odd";
+        var row = tbl.insertRow(-1);
+        row.className = rowClass;
+        
+        var td = document.createElement("td");
+        td.appendChild(document.createTextNode(cat.category.description));
+        row.appendChild(td);
+        
+        td = document.createElement("td");
+        td.appendChild(document.createTextNode(prettyPrice(cat.price)));
+        row.appendChild(td);
+        
+        td = document.createElement("td");
+        
+        var select = document.createElement("select");
+        
+        if (qtyAvailable == 0) {
+          var opt = document.createElement("option");
+          opt.text = "Sold out";
+          select.add(opt, null);
+        } else {
+          for (var i = 0; i <= qtyAvailable; i++) {
+            var opt = document.createElement("option");
+            opt.value = i;
+            opt.text = i;
+            select.add(opt, null);
+          }
+        }
+                
+        td.appendChild(select);
+        row.appendChild(td);        
+      }
       
       // ]]>
     
     </script>
+   
+    <div class="section">
+      <div class="sectionHeader">
+        Event
+      </div>
+      
+      <div class="sectionContent">
+        <h:outputText value="#{eventDetail.event.description.activeRevision.content}" escape="false"/>
+        <br style="clear:both"/>        
+      </div>      
+    </div>
     
-    <div class="ticketbooking">
-      <h3>Buy Tickets</h3>
-      <div>
-        <span><b>Step 1</b> Select a venue: </span>
-        <h:selectOneMenu onchange="venueSelected(this)">
-          <f:selectItem itemLabel=""/>
-          <f:selectItems value="#{eventDetail.venues}"
-             var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>
-        </h:selectOneMenu>
-                  
+    <br style="clear:both"/>
+    
+    <div id="chooseShow" class="section">
+      <div class="sectionHeader">
+        Choose venue and show
       </div>
       
-      <div id="selectDate">
-        <span><b>Step 2</b> Select a date: </span>
-        <select id="eventDate" size="1" onchange="dateSelected(this)"/>
+      <div class="sectionContent">
+        <div>
+          <span>Select a venue: </span>
+          <h:selectOneMenu onchange="venueSelected(this)">
+            <f:selectItem itemLabel="-- Please Select --"/>
+            <f:selectItems value="#{eventDetail.venues}"
+               var="venue" itemValue="#{venue.id}" itemLabel="#{venue.name}"/>             
+          </h:selectOneMenu>
+  
+          <span style="margin-left:12px">Select a date: </span>
+          <select id="eventDate" size="1" onchange="showSelected(this)"/>
+        </div>
+        
+        <div id="pricing" style="margin-top: 1px solid #000000">
+          
+        </div>
+        
+        <br style="clear:both"/>        
       </div>
       
-      <div id="pricing">
-        PLACEHOLDER FOR PRICING INFORMATION
+      <div id="buyTicketButtons" class="buttonRow" style="display:none">
+        <div class="buttonRight">
+          <a href="#" onclick="javascript:chooseTickets()"><img src="style/buytickets.png"/></a>
+        </div>
+        <br style="clear:both"/>
       </div>
       
-      <div id="buttons">
-        PLACEHOLDER FOR BUY TICKETS BUTTON
+    </div>
+    
+    <div id="chooseTickets" style="display:none" class="section">
+      <div class="sectionHeader">
+        Choose Tickets
       </div>
+      
+      <div class="sectionContent">
+        <div style="margin-bottom: 8px">
+          <span>Select a section: </span>
+          <select id="sectionList" onchange="sectionSelected(this)"/>
+          
+          <div style="float:right">
+            <b>Venue:</b><br/>
+            <div id="selectedVenue"/>            
+            <b>Date and Time:</b><br/>
+            <div id="selectedDateTime"/>
+          </div>
+          
+          <br style="clear:both"/>          
+        </div>
+
+        <div id="availability">
+          <div id="availabilityHeader">
+            Availability:
+          </div>
+          <div id="ticketAvailability">
+          
+          </div>
+        </div>        
+        
+        <div>
+          <table id="ticketSelection" style="display:none" cellspacing="0" cellpadding="5">
+            <tr class="header">
+              <th width="50%">Ticket</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          
+          </table>
+        </div>
+        
+        <br style="clear:both"/>
+
+      </div>  
+        
+      <div class="buttonRow">
+        <div class="buttonLeft">
+          <a href="#" onclick="javascript:chooseShow()"><img src="style/btn_previous.png"/></a>
+        </div>
+        <div class="buttonRight">
+          <a href="#" onclick="javascript:reserveTickets()"><img src="style/btn_next.png"/></a>
+        </div>
+        <br style="clear:both"/>
+      </div>            
 
     </div>
+    
+    <br style="clear:both"/>    
     
    </ui:define>
 </ui:composition>

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -40,7 +41,7 @@ public class PriceCategory implements Serializable
       this.id = id;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "EVENT_ID")
    public Event getEvent()
    {
       return event;
@@ -51,7 +52,7 @@ public class PriceCategory implements Serializable
       this.event = event;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "VENUE_ID")
    public Venue getVenue()
    {
       return venue;
@@ -62,7 +63,7 @@ public class PriceCategory implements Serializable
       this.venue = venue;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "SECTION_ID")
    public Section getSection()
    {
       return section;
@@ -73,7 +74,7 @@ public class PriceCategory implements Serializable
       this.section = section;
    }
    
-   @ManyToOne
+   @ManyToOne @JoinColumn(name = "CATEGORY_ID")
    public TicketCategory getCategory()
    {
       return category;

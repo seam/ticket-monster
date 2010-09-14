@@ -48,7 +48,8 @@ div#container {
   height: 100%;
   width: 1000px;
   background: url(curtains.png) top left no-repeat;
-  background-color: #57636f;
+  background-color: #000000;
+  padding-bottom: 24px;
 }
 
 div#main {
@@ -76,10 +77,30 @@ div.headerSearch {
   margin-top: 30px;
 }
 
+div#easterEgg {
+  position: relative;
+  top: 6px;
+  left: 320px;
+  height: 16px;
+  width: 150px;
+}
+
+div#rawr {
+  position: relative;
+  display: none;
+  width: 542px;
+  height: 544px;
+  top: 42px;
+  left: 140px;
+  background: url(rawr.png) top left no-repeat; 
+  z-index: 1;
+}
+
 div#menu {
   background: url(menu_bg.png) top left repeat-x;
   height: 32px;
   position: relative;
+  z-index: 0;
 }
 
 div.menuItem {
@@ -138,20 +159,134 @@ div#menuItem6 {
 
 div#content {
   background-color: #ffffff;
-  height: 600px;
-  padding: 4px 12px 12px 12px;
-  margin-bottom: 24px;
-}
-
-div.eventdetail {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  height: 100%;
+  padding: 4px 8px 6px 8px;
   font-size: 80%;
 }
 
-div.ticketbooking {
-  font-size: 80%;
-  margin: 8px 4px 8px 4px;
+div#plainContent {
+  height: 100%;
+  padding: 0px;
+}
+
+div.sectionContainer {
+  clear: both;
+  margin-top: 4px;
+  border-top: 1px solid #fbd222; 
+  padding: 4px 4px 4px 4px;
+}
+
+div.sectionName {
+  font-weight: bold; 
+  float: left;
+  width: 30px;
+}
+
+div.sectionDescription {  
+  margin-left: 8px;
+  float: left; 
+  width: 200px;
+}
+
+div.sectionAvailability {
+  margin-left: 8px;
+  float: left; 
+}
+
+div.pricing {
+  float: right; 
+}
+
+span.ticketCat {
+  width: 100px; 
+  font-weight: bold;
+  display: inline-block;
+  padding: 2px;
+}
+
+span.ticketPrice {
+  width: 80px; 
+  display: inline-block;
+  padding: 2px;
+}
+
+div.buttonRow {
+  clear: both;
+  border-top: 2px solid #fbd222;
+  margin: 2px 0px 6px 0px;
+  padding: 4px 8px 8px 8px;
+}
+
+div.buttonRight {
+  float: right; 
+}
+
+div.buttonLeft {
+  float: left;
+}
+
+table#ticketSelection {
+  width: 400px;
+}
+
+table#ticketSelection tr.even {
+  background-color: #f6edc6;
+}
+
+div#availability {
+  float: right; 
+  background-color: #f6edc6;
+  color: #0000aa;
+  width: 300px;
+}
+
+div#availabilityHeader {
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;  
+  font-weight: bold;
   padding: 4px;
-  background-color: #f8e685; 
+}
+
+div#ticketAvailability {
+  background-color: #f6edc6;
+  padding: 4px;
+}
+
+div.availabilityRow {
+  padding: 4px; 
+}
+
+div.availabilityRow label {
+  width: 80px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+div.section {
+  background-color: #ffffff;  
+  font-size: 80%;  
+}
+
+div.sectionContent {
+  padding: 2px 8px 8px 8px;
+}
+
+div.sectionHeader {
+  font-weight: bold;
+  font-size: 120%; 
+  height: 30px;
+  padding-top: 6px;
+  padding-left: 6px;
+  margin: 0px;
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;
+}
+
+tr.header {
+  color: #0000aa;
+  background: url(sectionheader_bg.png) top left repeat-x;
+}
+
+tr.header th {
+  text-align: left; 
 }
