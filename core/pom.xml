@@ -63,7 +63,7 @@
 
       <dependency>
          <groupId>org.jboss.seam.security</groupId>
-         <artifactId>seam-security-api</artifactId>
+         <artifactId>seam-security-impl</artifactId>
       </dependency>
 
       <dependency>
