@@ -34,7 +34,7 @@
       <seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
       <seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
       <seam.remoting.version>3.0.0-SNAPSHOT</seam.remoting.version>
-      <infinispan.version>4.1.0.Final</infinispan.version>
+      <infinispan.version>4.1.0.FINAL</infinispan.version>
       <project.eap51.source.directory>src/eap-51</project.eap51.source.directory>
       <project.jboss6.source.directory>src/jboss-6</project.jboss6.source.directory>
       <errai.version>1.1-SNAPSHOT</errai.version>
