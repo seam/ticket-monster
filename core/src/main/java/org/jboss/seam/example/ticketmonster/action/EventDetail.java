@@ -9,6 +9,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.example.ticketmonster.BookingManager;
 import org.jboss.seam.example.ticketmonster.dto.Availability;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
@@ -28,6 +29,7 @@ public @Model class EventDetail
 {
    @Inject EntityManager entityManager;   
    @Inject @HttpParam("eventId") String eventId;
+   @Inject BookingManager bookingManager;
      
    private Event event;
    private List<Venue> venues;
@@ -81,9 +83,7 @@ public @Model class EventDetail
       Show show = entityManager.find(Show.class, showId);
       
       Map<Section, Availability> availability = new HashMap<Section, Availability>();
-      
-//      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
-      
+            
       List<PriceCategory> cats = entityManager.createQuery(
          "select pc from PriceCategory pc where pc.event = :event and pc.venue = :venue")
          .setParameter("event", show.getEvent())

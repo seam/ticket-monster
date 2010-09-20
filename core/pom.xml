@@ -64,6 +64,32 @@
       <dependency>
          <groupId>org.jboss.seam.security</groupId>
          <artifactId>seam-security-impl</artifactId>
+         <exclusions>
+            <exclusion>
+               <groupId>org.drools</groupId>
+               <artifactId>drools-pipeline</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-core</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.clouds</groupId>
+         <artifactId>seam-clouds</artifactId>
+         <exclusions>
+            <exclusion>
+               <groupId>org.jclouds</groupId>
+               <artifactId>jclouds-blobstore</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>org.jclouds</groupId>
+               <artifactId>jclouds-aws</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
 
       <dependency>
