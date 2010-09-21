@@ -26,7 +26,7 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-    mvn -U clean package jboss:hard-deploy -Peap-51,deploy
+    mvn -U clean package -Peap-51,deploy
 
 To undeploy, run
 
