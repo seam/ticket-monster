@@ -42,7 +42,6 @@ public class CategorySearchDelegate implements MessageCallback {
     @Inject
     MessageBus bus;
 
-    @Override
     public void callback(Message message) {
 
         List<EventCategory> value = catSearch.getCategories();

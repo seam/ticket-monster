@@ -15,14 +15,12 @@ import org.jboss.weld.extensions.beanManager.BeanManagerAware;
 
 public class CategoryConverter extends BeanManagerAware implements Converter
 {
-
-   @Override
+   
    public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
    {
       return getEnityManager().find(EventCategory.class, Long.valueOf(arg2));
    }
 
-   @Override
    public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
    {
       return ((EventCategory) arg2).getId().toString();
