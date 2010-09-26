@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.jboss.errai.bus.server.annotations.ExposeEntity;
-import org.jboss.seam.security.annotations.management.IdentityProperty;
-import org.jboss.seam.security.annotations.management.PropertyType;
 
 /**
  * Holds credential values
@@ -50,7 +48,7 @@ public class IdentityObjectCredential implements Serializable
       this.identityObject = identityObject;
    }
    
-   @ManyToOne @IdentityProperty(PropertyType.TYPE)
+   @ManyToOne //@IdentityProperty(PropertyType.TYPE)
    @JoinColumn(name = "CREDENTIAL_TYPE_ID")
    public IdentityObjectCredentialType getType()
    {
@@ -62,7 +60,7 @@ public class IdentityObjectCredential implements Serializable
       this.type = type;
    }
    
-   @IdentityProperty(PropertyType.VALUE)
+   //@IdentityProperty(PropertyType.VALUE)
    public String getValue()
    {
       return value;

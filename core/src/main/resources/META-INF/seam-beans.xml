@@ -35,12 +35,12 @@
       </security:securityRules>
    </security:RuleBasedPermissionResolver-->
    
-   <plidm:JpaIdentityStoreConfiguration>
-      <s:replaces/>
-      <plidm:identityClass>org.jboss.seam.example.ticketmonster.model.IdentityObject</plidm:identityClass>
-      <plidm:credentialClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectCredential</plidm:credentialClass>
-      <plidm:relationshipClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectRelationship</plidm:relationshipClass>
-      <plidm:roleTypeClass>org.jboss.seam.example.ticketmonster.model.IdentityRoleName</plidm:roleTypeClass>
-   </plidm:JpaIdentityStoreConfiguration>
+<!--   <plidm:JpaIdentityStoreConfiguration>-->
+<!--      <s:replaces/>-->
+<!--      <plidm:identityClass>org.jboss.seam.example.ticketmonster.model.IdentityObject</plidm:identityClass>-->
+<!--      <plidm:credentialClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectCredential</plidm:credentialClass>-->
+<!--      <plidm:relationshipClass>org.jboss.seam.example.ticketmonster.model.IdentityObjectRelationship</plidm:relationshipClass>-->
+<!--      <plidm:roleTypeClass>org.jboss.seam.example.ticketmonster.model.IdentityRoleName</plidm:roleTypeClass>-->
+<!--   </plidm:JpaIdentityStoreConfiguration>-->
    
 </beans>

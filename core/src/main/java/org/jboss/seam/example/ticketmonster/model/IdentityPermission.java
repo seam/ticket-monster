@@ -1,7 +1,5 @@
 package org.jboss.seam.example.ticketmonster.model;
 
-import static org.jboss.seam.security.annotations.permission.PermissionPropertyType.*;
-
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.jboss.errai.bus.server.annotations.ExposeEntity;
-import org.jboss.seam.security.annotations.permission.PermissionProperty;
 
 /**
  * This entity stores ACL permissions
@@ -54,7 +51,7 @@ public class IdentityPermission implements Serializable
     * 
     * @return
     */
-   @NotNull @ManyToOne @PermissionProperty(IDENTITY)
+   @NotNull @ManyToOne //@PermissionProperty(IDENTITY)
    public IdentityObject getIdentityObject()
    {
       return identityObject;
@@ -74,7 +71,7 @@ public class IdentityPermission implements Serializable
     * 
     * @return
     */
-   @ManyToOne @PermissionProperty(RELATIONSHIP_TYPE)
+   @ManyToOne //@PermissionProperty(RELATIONSHIP_TYPE)
    public IdentityObjectRelationshipType getRelationshipType()
    {
       return relationshipType;
@@ -92,7 +89,7 @@ public class IdentityPermission implements Serializable
     * 
     * @return
     */
-   @PermissionProperty(RELATIONSHIP_NAME)
+   //@PermissionProperty(RELATIONSHIP_NAME)
    public String getRelationshipName()
    {
       return relationshipName;
@@ -108,7 +105,7 @@ public class IdentityPermission implements Serializable
     * 
     * @return
     */
-   @PermissionProperty(RESOURCE)
+   //@PermissionProperty(RESOURCE)
    public String getResource()
    {
       return resource;
@@ -126,7 +123,7 @@ public class IdentityPermission implements Serializable
     * 
     * @return
     */
-   @PermissionProperty(PERMISSION)
+   //@PermissionProperty(PERMISSION)
    public String getPermission()
    {
       return permission;

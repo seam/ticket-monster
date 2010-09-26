@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.jboss.errai.bus.server.annotations.ExposeEntity;
-import org.jboss.seam.security.annotations.management.IdentityProperty;
-import org.jboss.seam.security.annotations.management.PropertyType;
 
 /**
  * Lookup table containing relationship types
@@ -35,7 +33,7 @@ public class IdentityObjectRelationshipType implements Serializable
       this.id = id;
    }
    
-   @IdentityProperty(PropertyType.NAME)
+   //@IdentityProperty(PropertyType.NAME)
    public String getName()
    {
       return name;

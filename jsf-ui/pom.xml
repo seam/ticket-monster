@@ -88,24 +88,24 @@
          <scope>provided</scope>
       </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.security</groupId>
-         <artifactId>seam-security-impl</artifactId>
-         <exclusions>
-            <exclusion>
-               <artifactId>drools-pipeline</artifactId>
-               <groupId>org.drools</groupId>
-            </exclusion>
-            <exclusion>
-               <artifactId>drools-templates</artifactId>
-               <groupId>org.drools</groupId>
-            </exclusion>
-            <exclusion>
-               <artifactId>cdi-api</artifactId>
-               <groupId>javax.enterprise</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency>
+<!--      <dependency>-->
+<!--         <groupId>org.jboss.seam.security</groupId>-->
+<!--         <artifactId>seam-security-impl</artifactId>-->
+<!--         <exclusions>-->
+<!--            <exclusion>-->
+<!--               <artifactId>drools-pipeline</artifactId>-->
+<!--               <groupId>org.drools</groupId>-->
+<!--            </exclusion>-->
+<!--            <exclusion>-->
+<!--               <artifactId>drools-templates</artifactId>-->
+<!--               <groupId>org.drools</groupId>-->
+<!--            </exclusion>-->
+<!--            <exclusion>-->
+<!--               <artifactId>cdi-api</artifactId>-->
+<!--               <groupId>javax.enterprise</groupId>-->
+<!--            </exclusion>-->
+<!--         </exclusions>-->
+<!--      </dependency>-->
       <dependency>
          <groupId>org.jboss.seam.xml</groupId>
          <artifactId>seam-xml-config</artifactId>
@@ -254,6 +254,13 @@
                <artifactId>slf4j-api</artifactId>
                <scope>provided</scope>
             </dependency>
+            
+            <dependency>
+               <groupId>org.jboss.logging</groupId>
+               <artifactId>jboss-logging</artifactId>
+               <version>3.0.0.Beta4</version>
+            </dependency>
+            
          </dependencies>
          <build>
             <plugins>

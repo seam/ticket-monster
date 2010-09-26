@@ -61,16 +61,16 @@
          <artifactId>seam-servlet</artifactId>
       </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.security</groupId>
-         <artifactId>seam-security-impl</artifactId>
-         <exclusions>
-            <exclusion>
-               <groupId>org.drools</groupId>
-               <artifactId>drools-pipeline</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency>
+<!--      <dependency>-->
+<!--         <groupId>org.jboss.seam.security</groupId>-->
+<!--         <artifactId>seam-security-impl</artifactId>-->
+<!--         <exclusions>-->
+<!--            <exclusion>-->
+<!--               <groupId>org.drools</groupId>-->
+<!--               <artifactId>drools-pipeline</artifactId>-->
+<!--            </exclusion>-->
+<!--         </exclusions>-->
+<!--      </dependency>-->
 
       <dependency>
          <groupId>org.infinispan</groupId>
