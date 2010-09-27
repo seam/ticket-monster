@@ -14,10 +14,7 @@ import javax.persistence.ManyToOne;
  * Represents a single row of seats within a section.  May also be used to 
  * represent a table, for events such as dinner shows. 
  * 
- * Seat allocations are given an alphabetic code based on the capacity of the row.
- * If the capacity is 26 or less, a single letter code is used, e.g. A, B..Z.
- * If the capacity is more than 26, a double letter code is used, e.g.
- * AA, AB, AC..ZZ
+ * Seat allocations within the row are given a number, starting with 1.
  * 
  * @author Shane Bryzak
  *

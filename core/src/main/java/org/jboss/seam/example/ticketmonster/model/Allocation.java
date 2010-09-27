@@ -26,12 +26,6 @@ public class Allocation implements Serializable
    private Long id;
    private Date assigned;
    
-   /**
-    * Indicates this is a temporary allocation, while the user enters payment
-    * information.  This generally must be done within a short timeframe.
-    */
-   private boolean temporary;
-   
    private User user;
    private Show show;
    private SectionRow row;
@@ -58,16 +52,6 @@ public class Allocation implements Serializable
    public void setAssigned(Date assigned)
    {
       this.assigned = assigned;
-   }
-   
-   public boolean isTemporary()
-   {
-      return temporary;
-   }
-   
-   public void setTemporary(boolean temporary)
-   {
-      this.temporary = temporary;
    }
    
    @ManyToOne

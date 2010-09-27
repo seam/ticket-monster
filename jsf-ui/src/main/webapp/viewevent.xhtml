@@ -55,13 +55,15 @@
       }
       
       function showCallback(shows) {
-        for (var i = 0; i < shows.length; i++) {
-          if (!showMap.contains(shows[i].venue.id)) {
-            var vals = new Array();
-            vals.push(shows[i]);
-            showMap.put(shows[i].venue.id, vals);
-          } else {
-            showMap.get(shows[i].venue.id).push(shows[i]); 
+        if (shows.length > 0 && !showMap.contains(shows[0].venue.id)) {      
+          for (var i = 0; i < shows.length; i++) {
+            if (!showMap.contains(shows[i].venue.id)) {
+              var vals = new Array();
+              vals.push(shows[i]);
+              showMap.put(shows[i].venue.id, vals);
+            } else {
+              showMap.get(shows[i].venue.id).push(shows[i]); 
+            }
           }
         }
         
@@ -90,12 +92,16 @@
           zeropad(val.getMinutes(), 2);
       }
       
+      function exceptionCallback(ex) {
+        alert("An error has occurred: " + ex.getMessage());
+      }
+      
       function showSelected(ctl) {
         var showId = ctl.options[ctl.selectedIndex].value;
         if (showId != null && "" != showId) {
           document.getElementById("buyTicketButtons").style.display = "";
           selectedShow = findShowById(showId);
-          eventDetail.getAvailability(showId, availabilityCallback);        
+          eventDetail.getAvailability(showId, availabilityCallback, exceptionCallback);        
         }
       }
       

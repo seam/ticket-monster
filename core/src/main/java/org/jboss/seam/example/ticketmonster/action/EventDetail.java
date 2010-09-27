@@ -9,7 +9,6 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.example.ticketmonster.BookingManager;
 import org.jboss.seam.example.ticketmonster.dto.Availability;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
@@ -94,11 +93,9 @@ public @Model class EventDetail
       {
          if (!availability.containsKey(cat.getSection()))
          {
-            // TODO calculate this
-            int maxSeats = 10;
+            int maxSeats = bookingManager.getMaxSectionSeats(show, cat.getSection());                        
             
-            // TODO get availability
-            String description = "Tickets Available";
+            String description = bookingManager.getSectionAvailability(show, cat.getSection());
             
             availability.put(cat.getSection(), new Availability(
                   new ArrayList<PriceCategory>(), maxSeats, description));
@@ -108,4 +105,18 @@ public @Model class EventDetail
       
       return availability;
    }      
+   
+   /**
+    * 
+    * @param showId
+    * @param sectionId
+    * @param quantities A map containing [price category ID:quantity] pairs
+    * @return
+    */
+   @WebRemote
+   public boolean bookSeats(Long showId, Long sectionId, Map<Long,Integer> quantities)
+   {
+      
+      return false;      
+   }
 }
