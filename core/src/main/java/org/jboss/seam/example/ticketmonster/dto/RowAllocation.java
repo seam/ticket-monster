@@ -2,6 +2,7 @@ package org.jboss.seam.example.ticketmonster.dto;
 
 import java.util.List;
 
+import org.jboss.seam.example.ticketmonster.action.BookingManager;
 import org.jboss.seam.example.ticketmonster.model.Allocation;
 
 /**
@@ -36,7 +37,7 @@ public class RowAllocation
 
    public int getMaxAvailable()
    {
-      int max = 0;
+      int max = BookingManager.MAX_AVAILABLE_SEATS_LIMIT;
       
       int count = 0;
       for (int i = 0; i < allocatedSeats.length; i++)
@@ -47,10 +48,9 @@ public class RowAllocation
          }
          else
          {
+            if (count < max) max = count;
             count = 0;
          }
-         
-         if (count > max) max = count;
       }
       
       return max;

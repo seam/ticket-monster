@@ -11,11 +11,21 @@ public class SectionAllocation
    private int capacity;
    private int seatsAvailable;
    
-   private int maxSeats;
+   private int maxSeats = -1;
    
    public SectionAllocation(int capacity, int seatsAvailable)
    {
       this.capacity = capacity;
+      this.seatsAvailable = seatsAvailable;
+   }
+   
+   public void setMaxSeats(int maxSeats)
+   {
+      this.maxSeats = maxSeats;
+   }
+   
+   public void setSeatsAvailable(int seatsAvailable)
+   {
       this.seatsAvailable = seatsAvailable;
    }
    

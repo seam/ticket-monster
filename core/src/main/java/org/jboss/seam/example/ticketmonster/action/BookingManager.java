@@ -1,5 +1,7 @@
 package org.jboss.seam.example.ticketmonster.action;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -7,6 +9,7 @@ import javax.persistence.EntityManager;
 import org.infinispan.AdvancedCache;
 import org.jboss.seam.example.ticketmonster.dto.RowAllocation;
 import org.jboss.seam.example.ticketmonster.dto.SectionAllocation;
+import org.jboss.seam.example.ticketmonster.model.Allocation;
 import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.SectionRow;
 import org.jboss.seam.example.ticketmonster.model.Show;
@@ -22,7 +25,7 @@ import org.jboss.seam.example.ticketmonster.util.AvailabilityUtils;
  */
 public @ApplicationScoped class BookingManager
 {   
-   private static final int MAX_AVAILABLE_SEATS_LIMIT = 10;
+   public static final int MAX_AVAILABLE_SEATS_LIMIT = 10;
    
    @Inject @RowCache AdvancedCache<String,RowAllocation> rowCache;
    @Inject @SectionCache AdvancedCache<String,SectionAllocation> sectionCache;
@@ -37,16 +40,23 @@ public @ApplicationScoped class BookingManager
    public RowAllocation getRowAllocation(Show show, SectionRow row)
    {
       final String key = getRowKey(show, row);
-      if (!rowCache.containsKey(key)) loadRowAllocation(key);
+      if (!rowCache.containsKey(key)) loadRowAllocation(key, show, row);
       return rowCache.get(key);
    }
    
-   private void loadRowAllocation(String key)
+   private void loadRowAllocation(String key, Show show, SectionRow row)
    {
       //rowCache.lock(key);
       if (!rowCache.containsKey(key))
       {
-         // Load the row allocation here
+         List<Allocation> allocations = entityManager.createQuery(
+               "select a from Allocation a where a.show = :show and a.row = :row")
+               .setParameter("show", show)
+               .setParameter("row", row)
+               .getResultList();
+         
+         RowAllocation rowAllocation = new RowAllocation(row.getCapacity(), allocations);                
+         rowCache.put(key, rowAllocation);
       }
    }   
    
@@ -70,7 +80,34 @@ public @ApplicationScoped class BookingManager
       
       if (!sectionCache.containsKey(key)) loadSectionAllocation(key, show, section);
             
-      return sectionCache.get(key).getMaxSeats();
+      SectionAllocation sa = sectionCache.get(key); 
+      int maxSeats = sa.getMaxSeats(); 
+      
+      if (maxSeats == -1)
+      {
+         // sectionCache.lock(key);
+         List<SectionRow> rows = entityManager.createQuery(
+               "select r from SectionRow r where r.section = :section")
+               .setParameter("section", section)
+               .getResultList();
+         
+         for (SectionRow row : rows)
+         {
+            RowAllocation ra = getRowAllocation(show, row);
+            if (maxSeats == -1 || ra.getMaxAvailable() > maxSeats)
+            {
+               maxSeats = ra.getMaxAvailable();
+            }
+            
+            if (maxSeats >= MAX_AVAILABLE_SEATS_LIMIT) break; 
+         }         
+
+         sa.setMaxSeats((maxSeats >= MAX_AVAILABLE_SEATS_LIMIT) ? 
+               MAX_AVAILABLE_SEATS_LIMIT : maxSeats);
+         
+         maxSeats = sa.getMaxSeats();
+      }
+      return maxSeats;
    }
    
    protected void loadSectionAllocation(String key, Show show, Section section)
@@ -84,8 +121,10 @@ public @ApplicationScoped class BookingManager
                .setParameter("section", section)
                .getSingleResult();
          
+         int available = section.getCapacity() - (allocated != null ? allocated.intValue() : 0);
+         
          SectionAllocation sa = new SectionAllocation(section.getCapacity(), 
-               section.getCapacity() - (allocated != null ? allocated.intValue() : 0));
+               available);
          
          sectionCache.put(key, sa);
       }
