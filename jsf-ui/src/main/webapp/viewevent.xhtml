@@ -27,6 +27,9 @@
       // The selected show
       var selectedShow = null;
       
+      // Contains price category : select control mappings
+      var ticketMap = new Seam.Map();
+      
       var eventDetail = Seam.createBean("eventDetail");
       
       function findShowById(id) {
@@ -272,6 +275,7 @@
             document.getElementById("ticketSelection").style.display = "";
             var a = availability.get(section);
             var prices = a.pricing;
+            ticketMap.clear();
             for (var i = 0; i < prices.length; i++) {
               addPricingRow(prices[i], a.maxSeats);
             }
@@ -302,6 +306,7 @@
         td = document.createElement("td");
         
         var select = document.createElement("select");
+        ticketMap.put(cat, select);
         
         if (qtyAvailable == 0) {
           var opt = document.createElement("option");
@@ -318,6 +323,17 @@
                 
         td.appendChild(select);
         row.appendChild(td);        
+      }
+      
+      function reserveTickets() {
+        var cats = ticketMap.keySet();
+        
+        for (var i = 0; i < cats.length; i++) {
+          var cat = cats[i];
+          var select = ticketMap.get(cat);
+          alert("select tickets for category " + cat.getDescription() + ":" + 
+            select.options[select.selectedIndex].value);
+        }
       }
       
       // ]]>
