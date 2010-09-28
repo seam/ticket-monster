@@ -58,7 +58,7 @@ public class RowAllocation
    {
       clearExpiredReservations();
       
-      int max = BookingManager.MAX_AVAILABLE_SEATS_LIMIT;
+      int max = 0;
       
       int count = 0;
       for (int i = 0; i < allocatedSeats.length; i++)
@@ -69,12 +69,15 @@ public class RowAllocation
          }
          else
          {
-            if (count < max) max = count;
+            if (count > max) max = count;
             count = 0;
          }
       }
       
-      return max;
+      if (count > max) max = count;
+
+      return max > BookingManager.MAX_AVAILABLE_SEATS_LIMIT ? 
+            BookingManager.MAX_AVAILABLE_SEATS_LIMIT : max;
    }
    
    /**
@@ -98,7 +101,7 @@ public class RowAllocation
       int startIdx = -1;
       int bestScore = -1;
             
-      for (int i = 0; i < (allocatedSeats.length - quantity); i++)
+      for (int i = 0; i < (allocatedSeats.length - quantity + 1); i++)
       {
          boolean blockAvailable = true;
          
