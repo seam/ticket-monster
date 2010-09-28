@@ -55,7 +55,7 @@
           if (showMap.contains(venueId)) {
             showCallback(showMap.get(venueId));
           } else {          
-            eventDetail.getShows(eventId, venueId, showCallback);
+            eventDetail.getShows(eventId, venueId, showCallback, exceptionCallback);
           }
         }
       }
@@ -344,7 +344,7 @@
         var select = document.getElementById("sectionList");
         var sectionId = parseInt(select.options[select.selectedIndex].value);
         
-        eventDetail.bookSeats(selectedShow.id, sectionId, order, bookSeatsCallback);
+        eventDetail.bookSeats(selectedShow.id, sectionId, order, bookSeatsCallback, exceptionCallback);
       }
       
       function bookSeatsCallback(result) {
