@@ -133,7 +133,7 @@ public @Model class EventDetail
       
       if (allocation != null)
       {
-         eventBooking.get().createBooking(allocation, quantities);
+         //eventBooking.get().createBooking(allocation, quantities);
       }
       
       return allocation != null;
