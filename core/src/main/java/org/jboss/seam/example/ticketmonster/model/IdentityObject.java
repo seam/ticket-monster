@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.jboss.errai.bus.server.annotations.ExposeEntity;
-import org.jboss.seam.security.annotations.management.IdentityProperty;
-import org.jboss.seam.security.annotations.management.PropertyType;
 
 /**
  * Picketlink IDM SPI class, stores users, groups, etc.
@@ -49,7 +47,7 @@ public class IdentityObject implements Serializable
       this.name = name;
    }
    
-   @ManyToOne @IdentityProperty(PropertyType.TYPE)
+   @ManyToOne //@IdentityProperty(PropertyType.TYPE)
    @JoinColumn(name = "IDENTITY_OBJECT_TYPE_ID")
    public IdentityObjectType getType()
    {

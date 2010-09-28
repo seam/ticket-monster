@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.dto.Availability;
+import org.jboss.seam.example.ticketmonster.model.Allocation;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
 import org.jboss.seam.example.ticketmonster.model.Section;
@@ -28,6 +30,9 @@ public @Model class EventDetail
 {
    @Inject EntityManager entityManager;   
    @Inject @HttpParam("eventId") String eventId;
+   @Inject BookingManager bookingManager;
+   
+   @Inject Instance<EventBooking> eventBooking;
      
    private Event event;
    private List<Venue> venues;
@@ -81,9 +86,7 @@ public @Model class EventDetail
       Show show = entityManager.find(Show.class, showId);
       
       Map<Section, Availability> availability = new HashMap<Section, Availability>();
-      
-//      Map<Section, List<PriceCategory>> results = new HashMap<Section, List<PriceCategory>>();
-      
+            
       List<PriceCategory> cats = entityManager.createQuery(
          "select pc from PriceCategory pc where pc.event = :event and pc.venue = :venue")
          .setParameter("event", show.getEvent())
@@ -94,11 +97,9 @@ public @Model class EventDetail
       {
          if (!availability.containsKey(cat.getSection()))
          {
-            // TODO calculate this
-            int maxSeats = 10;
+            int maxSeats = bookingManager.getMaxSectionSeats(show, cat.getSection());                        
             
-            // TODO get availability
-            String description = "Tickets Available";
+            String description = bookingManager.getSectionAvailability(show, cat.getSection());
             
             availability.put(cat.getSection(), new Availability(
                   new ArrayList<PriceCategory>(), maxSeats, description));
@@ -108,4 +109,33 @@ public @Model class EventDetail
       
       return availability;
    }      
+   
+   /**
+    * 
+    * @param showId
+    * @param sectionId
+    * @param quantities A map containing [price category ID:quantity] pairs
+    * @return
+    */
+   @WebRemote
+   public boolean bookSeats(Long showId, Long sectionId, Map<Long,Integer> quantities)
+   {
+      Show show = entityManager.find(Show.class, showId);
+      Section section = entityManager.find(Section.class, sectionId);
+      
+      int qty = 0;
+      for (Long key : quantities.keySet())
+      {
+         qty += quantities.get(key);
+      }
+      
+      Allocation allocation = bookingManager.reserve(show, section, qty);
+      
+      if (allocation != null)
+      {
+         //eventBooking.get().createBooking(allocation, quantities);
+      }
+      
+      return allocation != null;
+   }
 }

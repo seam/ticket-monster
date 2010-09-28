@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.jboss.errai.bus.server.annotations.ExposeEntity;
-import org.jboss.seam.security.annotations.management.IdentityProperty;
-import org.jboss.seam.security.annotations.management.PropertyType;
 
 /**
  * Contains relationships between identities
@@ -50,7 +48,7 @@ public class IdentityObjectRelationship implements Serializable
       this.name = name;
    }
    
-   @ManyToOne @IdentityProperty(PropertyType.TYPE) @JoinColumn(name = "RELATIONSHIP_TYPE_ID")
+   @ManyToOne //@IdentityProperty(PropertyType.TYPE) @JoinColumn(name = "RELATIONSHIP_TYPE_ID")
    public IdentityObjectRelationshipType getRelationshipType()
    {
       return relationshipType;
@@ -61,7 +59,7 @@ public class IdentityObjectRelationship implements Serializable
       this.relationshipType = relationshipType;
    }
 
-   @ManyToOne @IdentityProperty(PropertyType.RELATIONSHIP_FROM) @JoinColumn(name = "FROM_IDENTITY_ID")
+   @ManyToOne //@IdentityProperty(PropertyType.RELATIONSHIP_FROM) @JoinColumn(name = "FROM_IDENTITY_ID")
    public IdentityObject getFrom()
    {
       return from;
@@ -72,7 +70,7 @@ public class IdentityObjectRelationship implements Serializable
       this.from = from;
    }
 
-   @ManyToOne @IdentityProperty(PropertyType.RELATIONSHIP_TO) @JoinColumn(name = "TO_IDENTITY_ID")
+   @ManyToOne //@IdentityProperty(PropertyType.RELATIONSHIP_TO) @JoinColumn(name = "TO_IDENTITY_ID")
    public IdentityObject getTo()
    {
       return to;

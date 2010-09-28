@@ -19,7 +19,7 @@
    <!-- Seam Remoting Servlet -->   
    <servlet>
       <servlet-name>Remoting Servlet</servlet-name>
-      <servlet-class>org.jboss.seam.remoting.Remoting</servlet-class>
+      <servlet-class>org.jboss.seam.remoting.NonInjectionRemoting</servlet-class>
       <load-on-startup>1</load-on-startup>
    </servlet>
 

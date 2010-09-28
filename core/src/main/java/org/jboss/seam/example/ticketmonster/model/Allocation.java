@@ -26,18 +26,12 @@ public class Allocation implements Serializable
    private Long id;
    private Date assigned;
    
-   /**
-    * Indicates this is a temporary allocation, while the user enters payment
-    * information.  This generally must be done within a short timeframe.
-    */
-   private boolean temporary;
-   
    private User user;
    private Show show;
    private SectionRow row;
    private int quantity;
-   private String startSeat;
-   private String endSeat;
+   private int startSeat;
+   private int endSeat;
    
    @Id @GeneratedValue
    public Long getId()
@@ -58,16 +52,6 @@ public class Allocation implements Serializable
    public void setAssigned(Date assigned)
    {
       this.assigned = assigned;
-   }
-   
-   public boolean isTemporary()
-   {
-      return temporary;
-   }
-   
-   public void setTemporary(boolean temporary)
-   {
-      this.temporary = temporary;
    }
    
    @ManyToOne
@@ -113,22 +97,22 @@ public class Allocation implements Serializable
       this.quantity = quantity;
    }
    
-   public String getStartSeat()
+   public int getStartSeat()
    {
       return startSeat;
    }
    
-   public void setStartSeat(String startSeat)
+   public void setStartSeat(int startSeat)
    {
       this.startSeat = startSeat;
    }
    
-   public String getEndSeat()
+   public int getEndSeat()
    {
       return endSeat;
    }
    
-   public void setEndSeat(String endSeat)
+   public void setEndSeat(int endSeat)
    {
       this.endSeat = endSeat;
    }

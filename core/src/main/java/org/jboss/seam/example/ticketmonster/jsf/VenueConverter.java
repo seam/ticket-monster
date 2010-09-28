@@ -10,20 +10,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.example.ticketmonster.model.EventCategory;
+import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.weld.extensions.beanManager.BeanManagerAware;
 
-public class CategoryConverter extends BeanManagerAware implements Converter
+public class VenueConverter extends BeanManagerAware implements Converter
 {
    
    public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
    {
-      return getEnityManager().find(EventCategory.class, Long.valueOf(arg2));
+      return getEnityManager().find(Venue.class, Long.valueOf(arg2));
    }
 
    public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
    {
-      return ((EventCategory) arg2).getId().toString();
+      return ((Venue) arg2).getId().toString();
    }
 
    private EntityManager getEnityManager()

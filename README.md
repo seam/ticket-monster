@@ -26,7 +26,7 @@ JBoss EAP 5.1
 
 To deploy the application to JBoss EAP 5.1, run:
 
-    mvn -U clean package jboss:hard-deploy -Peap-51,deploy
+    mvn -U clean package -Peap-51,deploy
 
 To undeploy, run
 
@@ -106,7 +106,7 @@ You can easily start an EC2 instance, pre-configured with EAP 5.1. You need to c
   
 You can then start the EC2 instance using:
 
-    mvn ec2:start
+    mvn -Pec2-start
   
 The plugin will wait for the instance to start. JBoss AS is installed as a service, so will start
 automatically.
@@ -151,11 +151,12 @@ With these installed, you can import ticket monster into Eclipse using
 _Import Projects -> Import Maven Project_ and the project will automatically set up the
 classpath and have CDI and JSF support added.
 
-You should enable the maven profile for the target server. Go to _Properties -> Maven -> Active Profiles_;
-to work with work with JBoss EAP 5.1 enter "eap-51", or for JBoss AS 6 enter "jboss-6".
+You should enable the maven profile for the target server. For `ticket-monster-jsf`, go to 
+_Properties -> Maven -> Active Profiles_; to work with JBoss EAP 5.1 enter "eap-51", or 
+for JBoss AS 6 enter "jboss-6".
 
 Unfortunately, m2eclipse doesn't support alternative locations for `web.xml` or additional web
-resources, so we have to tell eclipse about this ourselves. Go to  _Properties -> Module Assembly_
+resources, so we have to tell eclipse about this ourselves. Go to  _Properties -> Deployment Assembly_
 and then hit _Add Folder..._. If you are using JBoss EAP 5.1, you need to add `src/eap-51/webapp`
 or for JBoss AS 6, you need to add `src/jboss-6/webapp`.
 
