@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.dto.Availability;
+import org.jboss.seam.example.ticketmonster.model.Allocation;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
 import org.jboss.seam.example.ticketmonster.model.Section;
@@ -29,6 +31,8 @@ public @Model class EventDetail
    @Inject EntityManager entityManager;   
    @Inject @HttpParam("eventId") String eventId;
    @Inject BookingManager bookingManager;
+   
+   @Inject Instance<EventBooking> eventBooking;
      
    private Event event;
    private List<Venue> venues;
@@ -116,7 +120,22 @@ public @Model class EventDetail
    @WebRemote
    public boolean bookSeats(Long showId, Long sectionId, Map<Long,Integer> quantities)
    {
+      Show show = entityManager.find(Show.class, showId);
+      Section section = entityManager.find(Section.class, sectionId);
       
-      return false;      
+      int qty = 0;
+      for (Long key : quantities.keySet())
+      {
+         qty += quantities.get(key);
+      }
+      
+      Allocation allocation = bookingManager.reserve(show, section, qty);
+      
+      if (allocation != null)
+      {
+         eventBooking.get().createBooking(allocation, quantities);
+      }
+      
+      return allocation != null;
    }
 }

@@ -1,6 +1,9 @@
 package org.jboss.seam.example.ticketmonster.action;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,6 +18,7 @@ import org.jboss.seam.example.ticketmonster.model.SectionRow;
 import org.jboss.seam.example.ticketmonster.model.Show;
 import org.jboss.seam.example.ticketmonster.qualifier.RowCache;
 import org.jboss.seam.example.ticketmonster.qualifier.SectionCache;
+import org.jboss.seam.example.ticketmonster.qualifier.SectionRowCache;
 import org.jboss.seam.example.ticketmonster.util.AvailabilityUtils;
 
 /**
@@ -29,6 +33,7 @@ public @ApplicationScoped class BookingManager
    
    @Inject @RowCache AdvancedCache<String,RowAllocation> rowCache;
    @Inject @SectionCache AdvancedCache<String,SectionAllocation> sectionCache;
+   //@Inject @SectionRowCache AdvancedCache<String, List<SectionRow>> sectionRowCache;
    
    @Inject EntityManager entityManager;
    
@@ -128,6 +133,83 @@ public @ApplicationScoped class BookingManager
          
          sectionCache.put(key, sa);
       }
+   }
+   
+   protected List<SectionRow> findSectionRows(Long sectionId)
+   {
+      //String key = sectionId.toString();
+      
+      //if (!sectionRowCache.containsKey(key))
+      //{
+         //sectionRowCache.lock(sectionId);
+         
+         //if (!sectionRowCache.containsKey(key))
+         //{
+            List<SectionRow> rows = entityManager.createQuery(
+                  "select r from SectionRow r where r.section.id = :id")
+                  .setParameter("id", sectionId)
+                  .getResultList();
+           // sectionRowCache.put(key, rows);
+         //}
+      //}
+      
+      //return sectionRowCache.get(key);
+      return rows;
+   }
+   
+   public Allocation reserve(Show show, Section section, int quantity)
+   {      
+      List<SectionRow> rows = findSectionRows(section.getId());
+      
+      Random rnd = new Random(System.currentTimeMillis());
+     
+      Set<SectionRow> rowsTried = new HashSet<SectionRow>();
+      int attempts = 0;
+      int idx = 0;
+      
+      while (rowsTried.size() < rows.size())
+      {
+         SectionRow row = null;
+         
+         // We'll try up to 10 times to pick a row randomly
+         if (attempts < 10)
+         {
+            row = rows.get(rnd.nextInt(rows.size()));
+         }
+         // Otherwise we'll iterate through all the rows
+         else
+         {
+            row = rows.get(idx);
+         }
+         
+         if (!rowsTried.contains(row))
+         {
+            attempts++;
+            rowsTried.add(row);
+            
+            RowAllocation ra = getRowAllocation(show, row);
+            if (ra.getMaxAvailable() >= quantity)
+            {
+               // Lock the row
+               String key = getRowKey(show, row);
+               //rowCache.lock(key);
+               
+               if (ra.getMaxAvailable() >= quantity)
+               {
+                  int startSeat = ra.reserve(quantity);
+                  Allocation result = new Allocation();
+                  result.setShow(show);
+                  result.setStartSeat(startSeat);
+                  result.setEndSeat(startSeat + quantity - 1);
+                  result.setQuantity(quantity);
+                  result.setRow(row);                  
+                  return result;
+               }
+            }
+         }
+      }
+      
+      return null;
    }
    
 }

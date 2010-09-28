@@ -5,6 +5,7 @@ import javax.enterprise.inject.Produces;
 import org.infinispan.config.Configuration;
 import org.jboss.seam.example.ticketmonster.qualifier.RowCache;
 import org.jboss.seam.example.ticketmonster.qualifier.SectionCache;
+import org.jboss.seam.example.ticketmonster.qualifier.SectionRowCache;
 import org.jboss.seam.infinispan.Infinispan;
 
 /**
@@ -32,4 +33,13 @@ public class CacheConfig
       Configuration configuration = new Configuration();
       return configuration;
    }   
+   
+   /*@Produces
+   @Infinispan("sectionRowCache")
+   @SectionRowCache
+   public Configuration getSectionRowCacheConfiguration()
+   {
+      Configuration configuration = new Configuration();
+      return configuration;
+   }*/
 }

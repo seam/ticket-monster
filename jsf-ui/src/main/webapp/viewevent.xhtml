@@ -27,6 +27,9 @@
       // The selected show
       var selectedShow = null;
       
+      // The selected section
+      var selectedSection = null;
+      
       // Contains price category : select control mappings
       var ticketMap = new Seam.Map();
       
@@ -327,12 +330,31 @@
       
       function reserveTickets() {
         var cats = ticketMap.keySet();
+        var order = new Seam.Map();
         
         for (var i = 0; i < cats.length; i++) {
           var cat = cats[i];
           var select = ticketMap.get(cat);
-          alert("select tickets for category " + cat.getDescription() + ":" + 
-            select.options[select.selectedIndex].value);
+          var qty = parseInt(select.options[select.selectedIndex].value);
+          if (qty != NaN && qty > 0) {
+            order.put(cat.category.id, qty);
+          }
+        }
+        
+        var select = document.getElementById("sectionList");
+        var sectionId = parseInt(select.options[select.selectedIndex].value);
+        
+        eventDetail.bookSeats(selectedShow.id, sectionId, order, bookSeatsCallback);
+      }
+      
+      function bookSeatsCallback(result) {
+        if (!result) {
+          alert("We were unable to reserve the seats you requested.  Please choose tickets from another " +
+                "section, or try again with a lower quantity");
+          return;
+        } else {
+          alert("The tickets you have requested have been reserved for the next 5 minutes.  Please note " +
+                "that you must complete payment during this time to avoid losing this reservation.");
         }
       }
       
