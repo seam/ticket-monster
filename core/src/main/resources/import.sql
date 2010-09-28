@@ -23,7 +23,7 @@ insert into Section (id, name, description, capacity, layout_id) values (102, 'S
 insert into Section (id, name, description, capacity, layout_id) values (103, 'S4', 'Rear left', 2500, 2);
 insert into Section (id, name, description, capacity, layout_id) values (104, 'S5', 'Rear centre', 2500, 2);
 insert into Section (id, name, description, capacity, layout_id) values (105, 'S6', 'Rear right', 2500, 2);
-insert into Section (id, name, description, capacity, layout_id) values (106, 'S7', 'Balcony', 3000, 2);
+insert into Section (id, name, description, capacity, layout_id) values (106, 'S7', 'Balcony', 30, 2);
 
 insert into SectionRow(id, name, capacity, section_id) values (1, 'AA', 50, 100);
 insert into SectionRow(id, name, capacity, section_id) values (2, 'AB', 50, 100);
@@ -331,56 +331,7 @@ insert into SectionRow(id, name, capacity, section_id) values (298, 'BV', 50, 10
 insert into SectionRow(id, name, capacity, section_id) values (299, 'BW', 50, 105);
 insert into SectionRow(id, name, capacity, section_id) values (300, 'BX', 50, 105);
 
-insert into SectionRow(id, name, capacity, section_id) values (301, 'AA', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (302, 'AB', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (303, 'AC', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (304, 'AD', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (305, 'AE', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (306, 'AF', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (307, 'AG', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (308, 'AH', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (309, 'AI', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (310, 'AJ', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (311, 'AK', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (312, 'AL', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (313, 'AM', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (314, 'AN', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (315, 'AO', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (316, 'AP', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (317, 'AQ', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (318, 'AR', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (319, 'AS', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (320, 'AT', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (321, 'AU', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (322, 'AV', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (323, 'AW', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (324, 'AX', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (325, 'AY', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (326, 'AZ', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (327, 'BA', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (328, 'BB', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (329, 'BC', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (330, 'BD', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (331, 'BE', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (332, 'BF', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (333, 'BG', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (334, 'BH', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (335, 'BI', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (336, 'BJ', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (337, 'BK', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (338, 'BL', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (339, 'BM', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (340, 'BN', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (341, 'BO', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (342, 'BP', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (343, 'BQ', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (344, 'BR', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (345, 'BS', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (346, 'BT', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (347, 'BU', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (348, 'BV', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (349, 'BW', 50, 106);
-insert into SectionRow(id, name, capacity, section_id) values (350, 'BX', 50, 106);
+insert into SectionRow(id, name, capacity, section_id) values (301, 'AA', 30, 106);
 
 insert into Document (id) values (100);
 
