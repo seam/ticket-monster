@@ -13,7 +13,6 @@ import javax.persistence.Id;
  * 
  * @author Shane Bryzak
  */
-@ExposeEntity
 @Entity
 public class IdentityRoleName implements Serializable
 {

@@ -1,0 +1,29 @@
+/* start - custom widgets */
+.bpm-detail-panel {
+  border:1px solid #E8E8E8;
+}
+
+.bpm-property-box
+{
+  padding:5px;
+  width:100%;
+  border:1px solid #cccccc;
+  background: #F8F8F8;
+}
+
+.bpm-prop-grid {
+  width:100%;
+  border:1px solid #cccccc;
+}
+
+.bpm-prop-grid-even {
+  background: #F8F8F8;
+}
+
+.bpm-prop-grid-odd {
+  background:#F0F0F0;
+}
+
+.bpm-prop-grid-label {
+
+}

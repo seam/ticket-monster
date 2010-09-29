@@ -21,8 +21,8 @@
 		<jboss.domain>default</jboss.domain>
 
 		<!-- Versions -->
-		<weld.version>1.1.0.Beta1</weld.version>
-		<weld.api.version>1.1.Beta1</weld.api.version>
+		<weld.version>1.1.0-SNAPSHOT</weld.version>
+		<weld.api.version>1.1.0-SNAPSHOT</weld.api.version>
 		<facelets.version>1.1.15.B1</facelets.version>
 		<junit.version>4.8.1</junit.version>
 		<uel.impl.version>2.1.2-b04</uel.impl.version>
@@ -60,7 +60,7 @@
 			<dependency>
 				<groupId>org.jboss.weld</groupId>
 				<artifactId>weld-api-bom</artifactId>
-				<version>${weld.api.version}</version>
+				<version>1.1.Beta1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

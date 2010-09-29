@@ -15,76 +15,58 @@
  */
 package org.jboss.seam.example.ticketmonster.client.categories;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
-import org.gwt.mosaic.ui.client.layout.BoxLayout;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
+import org.gwt.mosaic.ui.client.layout.BorderLayout;
+import org.gwt.mosaic.ui.client.layout.BorderLayoutData;
 import org.gwt.mosaic.ui.client.layout.LayoutPanel;
 import org.jboss.errai.bus.client.ErraiBus;
 import org.jboss.errai.bus.client.api.Message;
 import org.jboss.errai.bus.client.api.MessageCallback;
-import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.bus.client.framework.MessageBus;
-import org.jboss.errai.bus.client.protocols.MessageParts;
 import org.jboss.errai.workspaces.client.api.ProvisioningCallback;
 import org.jboss.errai.workspaces.client.api.WidgetProvider;
 import org.jboss.errai.workspaces.client.api.annotations.LoadTool;
-import org.jboss.seam.example.ticketmonster.model.EventCategory;
-
-import java.util.List;
+import org.jboss.seam.example.ticketmonster.client.common.ModelObserver;
 
 /**
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Apr 6, 2010
  */
-@LoadTool(name = "Admin", group="Categories")
+@LoadTool(name = "Manage Categories", group="Categories")
 public class CategoryAdmin implements WidgetProvider, MessageCallback
 {
     private final MessageBus bus = ErraiBus.get();
 
-    private HTML responsePanel;
+    private CategoryList list;
+    private CategoryDetail details;
 
     public void provideWidget(ProvisioningCallback callback)
     {
+        LayoutPanel panel = new LayoutPanel(new BorderLayout());
 
-        bus.subscribe("CategoryAdmin", this);
-        
-        LayoutPanel panel = new LayoutPanel(new BoxLayout(BoxLayout.Orientation.VERTICAL));
-
-        Button button = new Button("Load categories", new ClickHandler()
-        {
-            public void onClick(ClickEvent clickEvent)
-            {
-
-                MessageBuilder.createMessage()
-                        .toSubject("CategorySearch")
-                        .signalling()
-                        .with(MessageParts.ReplyTo, "CategoryAdmin")
-                        .done().sendNowWith(bus);
-
-            }
-        });
-
-        responsePanel = new HTML();
-
-        panel.add(button);
-        panel.add(responsePanel);
-
+        details = new CategoryDetail();
+        panel.add(details, new BorderLayoutData(BorderLayout.Region.SOUTH, 150));
         callback.onSuccess(panel);
+
+        list = new CategoryList();
+        list.setListener(details);
+        panel.add(list);
+
+        ModelObserver.register("EventCategory", this);
     }
 
     public void callback(Message message) {
-        
-        List<EventCategory> values = message.get(List.class, "categories");
+        DeferredCommand.addCommand(
+            new Command()
+            {
+                public void execute() {
+                    details.reset();
+                    list.refresh();
+                }
+            }
+        );
 
-        StringBuffer sb = new StringBuffer();
-        sb.append("<ul>");
-        for(EventCategory a : values)
-            sb.append("<li>").append(a.getDescription());
-        sb.append("</ul>");
-
-        responsePanel.setHTML(sb.toString());
     }
 }
 

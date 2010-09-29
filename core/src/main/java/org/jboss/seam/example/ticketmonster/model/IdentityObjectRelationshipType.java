@@ -13,7 +13,6 @@ import org.jboss.errai.bus.server.annotations.ExposeEntity;
  * 
  * @author Shane Bryzak
  */
-@ExposeEntity
 @Entity
 public class IdentityObjectRelationshipType implements Serializable
 {

@@ -23,7 +23,20 @@
          <scope>provided</scope>
       </dependency>
 
-      <dependency>
+       <dependency>
+           <groupId>org.jboss.errai</groupId>
+           <artifactId>errai-cdi</artifactId>
+           <version>${errai-cdi.version}</version>
+           <exclusions>
+               <exclusion>
+                   <groupId>org.jboss.weld</groupId>
+                   <artifactId>weld-extensions</artifactId>
+               </exclusion>
+           </exclusions>
+           <scope>provided</scope>
+       </dependency>
+
+       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
