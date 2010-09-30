@@ -6,3 +6,5 @@ src/main/webapp/META-INF
 src/main/webapp/WEB-INF/.faces-config.xml.jsfdia
 gwt-ui/monitordb.*
 gwt-ui/war/WEB-INF/classes
+gwt-ui/war/WEB-INF/lib
+gwt-ui/war/app

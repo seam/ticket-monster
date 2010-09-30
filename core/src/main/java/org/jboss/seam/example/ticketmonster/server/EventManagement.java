@@ -20,76 +20,62 @@ import org.jboss.errai.bus.client.api.MessageCallback;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.bus.client.framework.MessageBus;
 import org.jboss.errai.bus.server.annotations.Service;
-import org.jboss.seam.example.ticketmonster.action.CategorySearch;
+import org.jboss.seam.example.ticketmonster.action.BaseEventSearch;
+import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
 import org.jboss.seam.persistence.transaction.Transactional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
 /**
  * @author: Heiko Braun <hbraun@redhat.com>
- * @date: Sep 10, 2010
+ * @date: Sep 30, 2010
  */
-
 @Service
 @RequestScoped
-public class CategoryManagement implements MessageCallback {
-
-    @Inject
-    CategorySearch catSearch;
+public class EventManagement implements MessageCallback {
 
     @Inject
     MessageBus bus;
+    
+    @Inject @Named("BaseSearch")
+    BaseEventSearch eventSearch;
 
     @Inject
     EntityManager entityManager;
-
+    
     @Transactional
     public void callback(Message message) {
 
-        switch (Crud.valueOf(message.getCommandType()))
+        switch(Crud.valueOf(message.getCommandType()))
         {
             case READ:
-                List<EventCategory> value = catSearch.getCategories();
+                String description = message.get(String.class, "category");
+                List<Event> events = eventSearch.getEventsByCategory(
+                        categoryForName(description).getId()
+                );
+                
                 MessageBuilder.createConversation(message)
                         .subjectProvided()
                         .command(Crud.READ)
-                        .with("categories", value)
-                        .done()
-                        .sendNowWith(bus);                
+                        .with("events", events)
+                        .noErrorHandling()
+                        .sendNowWith(bus);
+
                 break;
-            case CREATE:
-                createCatgory(message.get(String.class, "description"));
-                break;
-            case DELETE:
-                deleteCatgory(message.get(String.class, "description"));
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown command "+ message.getCommandType());
         }
-
     }
 
-    private void createCatgory(String name)
-    {
-        EventCategory c = new EventCategory();
-        c.setDescription(name);
-
-        entityManager.persist(c);
-    }
-
-    private void deleteCatgory(String name)
+    private EventCategory categoryForName(String name)
     {
         Query query = entityManager.createQuery("from EventCategory where description=?1");
         query.setParameter(1, name);
+        return (EventCategory)query.getSingleResult();
+    }
 
-        EventCategory c = (EventCategory)query.getSingleResult();
-        entityManager.remove(c);
-    }    
-        
 }
-

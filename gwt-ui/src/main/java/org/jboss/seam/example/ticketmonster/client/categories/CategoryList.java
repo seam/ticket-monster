@@ -118,7 +118,7 @@ public class CategoryList extends LayoutPanel implements MessageCallback {
     public void refresh() {
         MessageBuilder.createMessage()
                 .toSubject("CategoryManagement")
-                .command("LIST")
+                .command("READ")
                 .with(MessageParts.ReplyTo, "CategoryList")
                 .done().sendNowWith(bus);
 

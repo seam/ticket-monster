@@ -33,7 +33,7 @@ import org.jboss.seam.example.ticketmonster.client.common.ModelObserver;
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Apr 6, 2010
  */
-@LoadTool(name = "Manage Categories", group="Categories")
+@LoadTool(name = "Categories", group="Data Model")
 public class CategoryAdmin implements WidgetProvider, MessageCallback
 {
     private final MessageBus bus = ErraiBus.get();
