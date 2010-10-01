@@ -39,7 +39,7 @@ public class EventAdmin implements WidgetProvider {
         panel.add(list);
 
         editor = new EventEditor();
-        panel.add(editor, new BorderLayoutData(BorderLayout.Region.SOUTH, "250px", "150px", "400px"));
+        panel.add(editor, new BorderLayoutData(BorderLayout.Region.SOUTH, "300px", "300px", "400px"));
         list.setListener(editor);
 
         callback.onSuccess(panel);

@@ -19,7 +19,9 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.*;
+import org.gwt.mosaic.core.client.Dimension;
 import org.gwt.mosaic.ui.client.datepicker.DatePicker;
+import org.gwt.mosaic.ui.client.layout.CustomGridLayout;
 import org.gwt.mosaic.ui.client.layout.GridLayout;
 import org.gwt.mosaic.ui.client.layout.GridLayoutData;
 import org.gwt.mosaic.ui.client.layout.LayoutPanel;
@@ -42,13 +44,19 @@ public class EventForm extends LayoutPanel {
 
     private CheckBox isMajor;
 
+    @Override
+    public Dimension getPreferredSize() {
+        return super.getPreferredSize();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
     public EventForm() {
-        super(new GridLayout(3, 3));
+        super(new CustomGridLayout(3, 8));
 
         name = new TextBox();
         name.setVisibleLength(1);
 
         // Create a date picker
+
         start = new DatePicker();
         start.addValueChangeHandler(
                 new ValueChangeHandler<Date>() {
@@ -73,9 +81,9 @@ public class EventForm extends LayoutPanel {
         add(new Label("Name:"));
         add(name, new GridLayoutData(2,1));
 
-        add(new Label("Start / End Date:"));                
-        add(start);
-        add(end);
+        add(new Label("Start / End Date:"),new GridLayoutData(1,6));                
+        add(start, new GridLayoutData(1,6));
+        add(end, new GridLayoutData(1,6));
 
         add(new Label("Is Major?"));
         add(isMajor, new GridLayoutData(2,1));
@@ -93,8 +101,11 @@ public class EventForm extends LayoutPanel {
         name.setText(event.getName());
 
         start.setValue(event.getStartDate(), true);
+        start.setCurrentMonth(event.getStartDate());
         end.setValue(event.getEndDate(), true);
+        end.setCurrentMonth(event.getEndDate());
 
+        
         if(event.isMajor())
             isMajor.setValue(true);
 
@@ -107,5 +118,5 @@ public class EventForm extends LayoutPanel {
 
         isMajor.setValue(false);
         dirty = false;
-    }
+    }    
 }
