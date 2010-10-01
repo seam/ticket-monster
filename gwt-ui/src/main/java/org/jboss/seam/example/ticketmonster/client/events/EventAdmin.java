@@ -16,6 +16,7 @@
 package org.jboss.seam.example.ticketmonster.client.events;
 
 import org.gwt.mosaic.ui.client.layout.BorderLayout;
+import org.gwt.mosaic.ui.client.layout.BorderLayoutData;
 import org.gwt.mosaic.ui.client.layout.LayoutPanel;
 import org.jboss.errai.workspaces.client.api.ProvisioningCallback;
 import org.jboss.errai.workspaces.client.api.WidgetProvider;
@@ -29,14 +30,18 @@ import org.jboss.errai.workspaces.client.api.annotations.LoadTool;
 public class EventAdmin implements WidgetProvider {
 
     private EventList list;
+    private EventEditor editor;
 
     public void provideWidget(ProvisioningCallback callback) {
-        LayoutPanel panel = new LayoutPanel(new BorderLayout());
-        panel.setPadding(0);
+        LayoutPanel panel = new LayoutPanel(new BorderLayout());        
 
         list = new EventList();
         panel.add(list);
-        
+
+        editor = new EventEditor();
+        panel.add(editor, new BorderLayoutData(BorderLayout.Region.SOUTH, "250px", "150px", "400px"));
+        list.setListener(editor);
+
         callback.onSuccess(panel);
     }
 }

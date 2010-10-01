@@ -59,7 +59,8 @@ public class EventList extends LayoutPanel implements MessageCallback {
         setPadding(0);
 
         LayoutPanel listing = new LayoutPanel( new BoxLayout(BoxLayout.Orientation.VERTICAL));
-
+        listing.setPadding(0);
+        
          // ------------------------------------
 
         // toolbar

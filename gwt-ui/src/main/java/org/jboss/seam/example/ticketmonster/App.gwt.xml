@@ -12,5 +12,5 @@
     <source path="model" />
     <source path="client" />
 
-    <stylesheet src="console.css"/>
+    <stylesheet src="ticket.css"/>
 </module>

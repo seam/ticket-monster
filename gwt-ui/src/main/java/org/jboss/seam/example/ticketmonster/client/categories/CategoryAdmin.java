@@ -46,7 +46,7 @@ public class CategoryAdmin implements WidgetProvider, MessageCallback
         LayoutPanel panel = new LayoutPanel(new BorderLayout());
 
         details = new CategoryDetail();
-        panel.add(details, new BorderLayoutData(BorderLayout.Region.SOUTH, 150));
+        panel.add(details, new BorderLayoutData(BorderLayout.Region.SOUTH, "250px", "150px", "400px"));
         callback.onSuccess(panel);
 
         list = new CategoryList();

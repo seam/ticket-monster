@@ -18,6 +18,7 @@ package org.jboss.seam.example.ticketmonster.client.categories;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import org.gwt.mosaic.ui.client.CaptionLayoutPanel;
 import org.gwt.mosaic.ui.client.MessageBox;
 import org.gwt.mosaic.ui.client.layout.BoxLayout;
 import org.gwt.mosaic.ui.client.layout.BoxLayoutData;
@@ -34,14 +35,16 @@ import org.jboss.seam.example.ticketmonster.model.EventCategory;
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Sep 29, 2010
  */
-public class CategoryDetail extends LayoutPanel implements SelectionListener<EventCategory> {
+public class CategoryDetail extends CaptionLayoutPanel implements SelectionListener<EventCategory> {
 
     private final MessageBus bus = ErraiBus.get();
     private PropertyGrid properties;
     private EventCategory currentSelection = null;
 
     public CategoryDetail() {
-        super(new BoxLayout(BoxLayout.Orientation.HORIZONTAL));
+        super("Category Details");
+        super.setLayout(new BoxLayout(BoxLayout.Orientation.HORIZONTAL));
+        
         super.setStyleName("bpm-detail-panel");
 
         properties = new PropertyGrid(
