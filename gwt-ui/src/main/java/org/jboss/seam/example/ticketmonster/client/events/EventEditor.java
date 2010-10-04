@@ -17,19 +17,8 @@ package org.jboss.seam.example.ticketmonster.client.events;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RichTextArea;
 import org.gwt.mosaic.ui.client.*;
-import org.gwt.mosaic.ui.client.layout.BoxLayout;
-import org.gwt.mosaic.ui.client.layout.BoxLayoutData;
-import org.gwt.mosaic.ui.client.layout.LayoutPanel;
-import org.jboss.seam.example.ticketmonster.client.common.RichTextToolbar;
 import org.jboss.seam.example.ticketmonster.client.common.SelectionListener;
 import org.jboss.seam.example.ticketmonster.model.Event;
 
@@ -37,85 +26,78 @@ import org.jboss.seam.example.ticketmonster.model.Event;
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Sep 30, 2010
  */
-public class EventEditor extends CaptionLayoutPanel implements SelectionListener<Event> {
-
+public class EventEditor extends CaptionLayoutPanel
+        implements SelectionListener<Event>{
 
     private TabLayoutPanel tabPanel ;
-    private EventForm details;
-    private LayoutPanel document;
+    private PropertyDeck properties;
+    private DescriptionDeck document;
 
-    private RichTextArea area;
+    private boolean isDirty = false;    
+    private Event entity = null;
+
+    Button editButton;
 
     public EventEditor() {
 
         super("Event Details");
         super.setStyleName("bpm-detail-panel");
+
+        editButton = new Button("Edit", new ClickHandler()
+        {
+            public void onClick(ClickEvent clickEvent) {
+                String s = editButton.getText();
+                if(s.equals("Edit"))
+                {
+                    editButton.setText("Done");
+                    properties.showWidget(1);
+                    document.showWidget(1);
+                }
+                else
+                {
+                    save();
+                    editButton.setText("Edit");
+                    properties.showWidget(0);
+                    document.showWidget(0);
+                }
+
+                properties.layout();
+                document.layout();
+            }
+        });
+        editButton.setEnabled(false);
+        
+        this.getHeader().add(editButton, Caption.CaptionRegion.RIGHT);
         
         tabPanel = new DecoratedTabLayoutPanel(TabLayoutPanel.TabBarPosition.BOTTOM, false);
 
-        details = new EventForm();        
-
-        document = new LayoutPanel();
-        document.add(createRichtext());
-
-
-        tabPanel.add(details, "Properties");
+        properties = new PropertyDeck();
+        document = new DescriptionDeck();
+        
+        tabPanel.add(properties, "Properties");
         tabPanel.add(document, "Description");
-
+                
         this.add(tabPanel);
     }
 
+    private void save()
+    {
+        System.out.println("Saved ...");
+    }
+    
     public void update(Event entity) {
-        details.edit(entity);
-        area.setHTML(entity.getDescription().getActiveRevision().getContent());
+        this.entity = entity;
+        properties.edit(entity);
+        document.edit(entity);
+        editButton.setEnabled(true);
     }
 
     public void reset() {
-        details.reset();
-        area.setHTML("");
-        //document.reset();
+        entity = null;
+        properties.reset();
+        document.reset();
+        editButton.setEnabled(false);
     }
 
-    private LayoutPanel createRichtext()
-    {
-        LayoutPanel panel = new LayoutPanel(new BoxLayout(BoxLayout.Orientation.VERTICAL));
 
-        // Create the text area and toolbar
-        area = new RichTextArea();
-        area.setSize("98%", "14em");        
-
-        DOM.setStyleAttribute(area.getElement(), "background", "#E8E8E8");
-
-        RichTextToolbar toolbar = new RichTextToolbar(area);
-
-        panel.setPadding(0);
-        panel.setWidgetSpacing(0);
-        panel.add(toolbar, new BoxLayoutData(BoxLayoutData.FillStyle.HORIZONTAL));
-        panel.add(new WidgetWrapper(area), new BoxLayoutData(BoxLayoutData.FillStyle.BOTH));
-
-        Button buttonOK = new Button("OK");
-        buttonOK.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-
-            }
-        });
-
-        Button buttonCancel = new Button("Cancel");
-        buttonCancel.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-
-            }
-        });
-
-
-        DeferredCommand.addCommand(new Command() {
-            public void execute() {
-                area.setFocus(true);
-            }
-        });
-
-
-        return panel;
-
-    }
 }

@@ -48,6 +48,11 @@
                     <groupId>org.drools</groupId>     <!-- JDT conflict with GTW SDK -->
                     <artifactId>drools-compiler</artifactId>
                 </exclusion>
+
+                 <!--exclusion>
+                    <groupId>org.infinispan</groupId>
+                    <artifactId>infinispan-core</artifactId>
+                </exclusion-->
             </exclusions>
         </dependency>
 
@@ -64,21 +69,9 @@
                 <exclusion>
                     <groupId>org.drools</groupId>     <!-- JDT conflict with GTW SDK -->
                     <artifactId>drools-compiler</artifactId>
-                </exclusion>
+                </exclusion>                
 
                 <!--exclusion>
-                    <groupId>org.jboss.seam.remoting</groupId>
-                    <artifactId>seam-remoting-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-extensions</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.seam.clouds</groupId>
-                    <artifactId>seam-clouds</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.infinispan</groupId>
                     <artifactId>infinispan-core</artifactId>
                 </exclusion-->
