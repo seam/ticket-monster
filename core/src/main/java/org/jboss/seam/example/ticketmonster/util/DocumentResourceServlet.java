@@ -88,7 +88,7 @@ public class DocumentResourceServlet extends HttpServlet
       {
          return resourceSearch;
       }
-      BeanManager beanManager = BeanManagerAccessor.getManager();
+      BeanManager beanManager = BeanManagerAccessor.getBeanManager();
       Bean<?> bean = beanManager.resolve(beanManager.getBeans(DocumentResourceSearch.class));
       if (bean == null)
       {
