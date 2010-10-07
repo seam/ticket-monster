@@ -44,18 +44,36 @@
         <servlet-name>Document Resource Servlet</servlet-name>
         <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
     </servlet>
-    
+
+
+    <servlet>
+        <servlet-name>ErraiServlet</servlet-name>
+        <servlet-class>org.jboss.errai.bus.server.servlet.DefaultBlockingServlet</servlet-class>
+        <init-param>
+            <param-name>jndiName</param-name>
+            <param-value>java:/Errai</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ErraiServlet</servlet-name>
+        <url-pattern>*.erraiBus</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Document Resource Servlet</servlet-name>
         <url-pattern>/document/resource/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>   
     
    <context-param>
       <param-name>facelets.LIBRARIES</param-name>
       <param-value>/WEB-INF/taglib.xml</param-value>
    </context-param>
    
-    
+   <listener>
+        <listener-class>org.jboss.errai.container.BootstrapListener</listener-class>
+    </listener>
    <listener>
       <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
    </listener>

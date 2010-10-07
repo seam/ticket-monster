@@ -1,11 +1,13 @@
 package org.jboss.seam.example.ticketmonster.action;
 
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
+import org.jboss.seam.persistence.transaction.Transactional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -16,22 +18,22 @@ import java.util.List;
  */
 @Model
 public class CategorySearch {
-    
-   @Inject EntityManager entityManager;
 
-   private List<EventCategory> categories;
+    @Inject EntityManager entityManager;
 
-   private void loadCategories()
-   {
-      categories = entityManager.createQuery("select c from EventCategory c").getResultList();
-   }
-   
-   public List<EventCategory> getCategories()
-   {
-      if (categories == null)
-      {
-         loadCategories();
-      }
-      return categories;
-   }
+    private List<EventCategory> categories;
+
+    private void loadCategories()
+    {
+        categories = entityManager.createQuery("select c from EventCategory c").getResultList();
+    }
+
+    public List<EventCategory> getCategories()
+    {
+        if (categories == null)
+        {
+            loadCategories();
+        }
+        return categories;
+    }   
 }

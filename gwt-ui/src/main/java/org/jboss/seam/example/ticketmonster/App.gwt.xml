@@ -10,5 +10,7 @@
 
     <source path="action" />
     <source path="model" />
-    <source path="client" /> 
+    <source path="client" />
+
+    <stylesheet src="ticket.css"/>
 </module>
