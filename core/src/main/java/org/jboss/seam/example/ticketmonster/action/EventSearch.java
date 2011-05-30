@@ -1,7 +1,7 @@
 package org.jboss.seam.example.ticketmonster.action;
 
 import org.jboss.seam.example.ticketmonster.model.Event;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.servlet.http.RequestParam;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public @Model class EventSearch extends BaseEventSearch
 {
-    @Inject @HttpParam("category") String category;
+    @Inject @RequestParam("category") String category;
 
     private List<Event> events;
 

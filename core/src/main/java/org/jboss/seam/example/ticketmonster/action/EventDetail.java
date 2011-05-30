@@ -18,7 +18,7 @@ import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.Show;
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.remoting.annotations.WebRemote;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Provides data for the event booking screen.
@@ -29,7 +29,7 @@ import org.jboss.seam.servlet.http.HttpParam;
 public @Model class EventDetail
 {
    @Inject EntityManager entityManager;   
-   @Inject @HttpParam("eventId") String eventId;
+   @Inject @RequestParam("eventId") String eventId;
    @Inject BookingManager bookingManager;
    
    @Inject Instance<EventBooking> eventBooking;

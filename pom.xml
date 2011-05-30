@@ -26,19 +26,19 @@
 		<facelets.version>1.1.15.B1</facelets.version>
 		<junit.version>4.8.1</junit.version>
 		<uel.impl.version>2.1.2-b04</uel.impl.version>
-		<weld.extensions.version>1.0.0-SNAPSHOT</weld.extensions.version>
+		<seam.solder.version>3.0.0.Final</seam.solder.version>
 		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
-		<seam.security.version>3.0.0-SNAPSHOT</seam.security.version>
-		<seam.xmlconfig.version>3.0.0-SNAPSHOT</seam.xmlconfig.version>
-		<seam.persistence.version>3.0.0-SNAPSHOT</seam.persistence.version>
-		<seam.servlet.version>3.0.0-SNAPSHOT</seam.servlet.version>
-		<seam.remoting.version>3.0.0-SNAPSHOT</seam.remoting.version>
+		<seam.security.version>3.0.0.Final</seam.security.version>
+		<seam.config.version>3.0.0.Final</seam.config.version>
+		<seam.persistence.version>3.0.0.Final</seam.persistence.version>
+		<seam.servlet.version>3.0.0.Final</seam.servlet.version>
+		<seam.remoting.version>3.0.0.Final</seam.remoting.version>
 		<seam.clouds.version>3.0.0-SNAPSHOT</seam.clouds.version>
 		<infinispan.version>4.1.0.FINAL</infinispan.version>
 		<project.eap51.source.directory>src/eap-51</project.eap51.source.directory>
 		<project.jboss6.source.directory>src/jboss-6</project.jboss6.source.directory>
-		<errai.version>1.1-SNAPSHOT</errai.version>
-		<errai-cdi.version>1.1-SNAPSHOT</errai-cdi.version>
+		<errai.version>1.2.2.Final</errai.version>
+		<errai-cdi.version>1.2.2.Final</errai-cdi.version>
 		<jetty.version>6.1.25</jetty.version>
 		<mvel.version>2.0.18-RC4</mvel.version>
 		<hsqldb.version>1.8.0.7</hsqldb.version>
@@ -87,13 +87,13 @@
 
 			<dependency>
 				<groupId>org.jboss.seam.remoting</groupId>
-				<artifactId>seam-remoting-core</artifactId>
+				<artifactId>seam-remoting</artifactId>
 				<version>${seam.remoting.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.jboss.seam.security</groupId>
-				<artifactId>seam-security-impl</artifactId>
+				<artifactId>seam-security</artifactId>
 				<version>${seam.security.version}</version>
 			</dependency>
 
@@ -104,20 +104,14 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.seam.xml</groupId>
-				<artifactId>seam-xml-config</artifactId>
-				<version>${seam.xmlconfig.version}</version>
+				<groupId>org.jboss.seam.config</groupId>
+				<artifactId>seam-config-xml</artifactId>
+				<version>${seam.config.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.jboss.seam.persistence</groupId>
-				<artifactId>seam-persistence-api</artifactId>
-				<version>${seam.persistence.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.seam.persistence</groupId>
-				<artifactId>seam-persistence-impl</artifactId>
+				<artifactId>seam-persistence</artifactId>
 				<version>${seam.persistence.version}</version>
 			</dependency>
 
@@ -128,9 +122,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.weld</groupId>
-				<artifactId>weld-extensions</artifactId>
-				<version>${weld.extensions.version}</version>
+				<groupId>org.jboss.seam.solder</groupId>
+				<artifactId>seam-solder</artifactId>
+				<version>${seam.solder.version}</version>
 			</dependency>
 
 			<dependency>

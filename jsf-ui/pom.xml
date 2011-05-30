@@ -117,8 +117,8 @@
         <!--         </exclusions>-->
         <!--      </dependency>-->
         <dependency>
-            <groupId>org.jboss.seam.xml</groupId>
-            <artifactId>seam-xml-config</artifactId>
+            <groupId>org.jboss.seam.config</groupId>
+            <artifactId>seam-config-xml</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>cdi-api</artifactId>
@@ -129,7 +129,7 @@
 
         <dependency>
             <groupId>org.jboss.seam.persistence</groupId>
-            <artifactId>seam-persistence-impl</artifactId>
+            <artifactId>seam-persistence</artifactId>
         </dependency>
 
         <dependency>

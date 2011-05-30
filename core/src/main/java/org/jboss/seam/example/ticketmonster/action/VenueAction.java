@@ -9,8 +9,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
-import org.jboss.seam.persistence.transaction.Transactional;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.transaction.Transactional;
+import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Venue action bean
@@ -24,7 +24,7 @@ public @Named @ConversationScoped class VenueAction implements Serializable
   
    @Inject Conversation conversation;
    @Inject EntityManager entityManager;
-   @Inject @HttpParam("venueId") String venueId;
+   @Inject @RequestParam("venueId") String venueId;
    
    private Venue venue;   
    

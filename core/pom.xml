@@ -44,7 +44,7 @@
 
       <dependency>
          <groupId>org.jboss.seam.remoting</groupId>
-         <artifactId>seam-remoting-core</artifactId>
+         <artifactId>seam-remoting</artifactId>
       </dependency>
 
       <dependency>
@@ -55,7 +55,7 @@
 
       <dependency>
          <groupId>org.jboss.seam.persistence</groupId>
-         <artifactId>seam-persistence-api</artifactId>
+         <artifactId>seam-persistence</artifactId>
       </dependency>
 
       <dependency>
@@ -65,8 +65,8 @@
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.weld</groupId>
-         <artifactId>weld-extensions</artifactId>
+         <groupId>org.jboss.seam.solder</groupId>
+         <artifactId>seam-solder</artifactId>
       </dependency>
 
       <dependency>
@@ -90,7 +90,7 @@
          <artifactId>infinispan-core</artifactId>
       </dependency>
 
-      <dependency>
+      <!--dependency>
          <groupId>org.jboss.seam.clouds</groupId>
          <artifactId>seam-clouds</artifactId>
          <exclusions>
@@ -103,7 +103,7 @@
                <artifactId>jclouds-aws</artifactId>
             </exclusion>
          </exclusions>
-      </dependency>
+      </dependency-->
 
       <dependency>
          <groupId>javax.validation</groupId>

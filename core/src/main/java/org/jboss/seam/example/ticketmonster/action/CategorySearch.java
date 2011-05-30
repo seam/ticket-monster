@@ -1,14 +1,12 @@
 package org.jboss.seam.example.ticketmonster.action;
 
-import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.seam.persistence.transaction.Transactional;
+import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.List;
+
+import org.jboss.seam.example.ticketmonster.model.EventCategory;
 
 /**
  * Event Category search actions

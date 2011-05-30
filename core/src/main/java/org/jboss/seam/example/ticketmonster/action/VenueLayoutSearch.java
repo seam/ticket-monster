@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Provides venue layout search data
@@ -19,7 +19,7 @@ import org.jboss.seam.servlet.http.HttpParam;
 public @Model class VenueLayoutSearch
 {
    @Inject EntityManager entityManager;   
-   @Inject @HttpParam("venueId") String venueId;
+   @Inject @RequestParam("venueId") String venueId;
    
    private Venue venue;
    private List<VenueLayout> layouts;

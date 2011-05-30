@@ -18,8 +18,8 @@ import org.jboss.seam.example.ticketmonster.model.SectionRow;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
 import org.jboss.seam.persistence.FlushModeType;
 import org.jboss.seam.persistence.ManagedPersistenceContext;
-import org.jboss.seam.persistence.transaction.Transactional;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.transaction.Transactional;
+import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * 
@@ -32,7 +32,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    
    @Inject Conversation conversation;
    @Inject Instance<EntityManager> entityManagerInstance;
-   @Inject @HttpParam("layoutId") String layoutId;
+   @Inject @RequestParam("layoutId") String layoutId;
    
    private EntityManager entityManager;
    private VenueLayout layout;   

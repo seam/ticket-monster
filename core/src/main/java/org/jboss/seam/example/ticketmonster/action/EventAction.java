@@ -12,8 +12,8 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.example.ticketmonster.model.Document;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.Revision;
-import org.jboss.seam.persistence.transaction.Transactional;
-import org.jboss.seam.servlet.http.HttpParam;
+import org.jboss.seam.transaction.Transactional;
+import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Event management related operations
@@ -27,7 +27,7 @@ public @Named @ConversationScoped class EventAction implements Serializable
    
    @Inject EntityManager entityManager;
    @Inject Conversation conversation;
-   @Inject @HttpParam("eventId") String eventId;
+   @Inject @RequestParam("eventId") String eventId;
    
    private Event event;
    private String description;
