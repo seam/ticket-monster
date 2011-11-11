@@ -2,15 +2,15 @@ package org.jboss.seam.example.ticketmonster.action;
 
 import java.io.Serializable;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
-import org.jboss.seam.transaction.Transactional;
-import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Venue action bean
@@ -18,13 +18,13 @@ import org.jboss.seam.servlet.http.RequestParam;
  * @author Shane Bryzak
  *
  */
-public @Named @ConversationScoped class VenueAction implements Serializable
+public @Stateful @Named @ConversationScoped class VenueAction implements Serializable
 {
    private static final long serialVersionUID = 2646300975197236221L;
   
    @Inject Conversation conversation;
-   @Inject EntityManager entityManager;
-   @Inject @RequestParam("venueId") String venueId;
+   @PersistenceContext EntityManager entityManager;
+   /*@Inject @RequestParam("venueId")*/ String venueId;
    
    private Venue venue;   
    
@@ -47,7 +47,7 @@ public @Named @ConversationScoped class VenueAction implements Serializable
       return false;
    }
    
-   public @Transactional String save()
+   public String save()
    {
       if (venue.getId() != null)
       {

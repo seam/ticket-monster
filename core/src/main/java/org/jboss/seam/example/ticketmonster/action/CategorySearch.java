@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
 
@@ -17,7 +18,7 @@ import org.jboss.seam.example.ticketmonster.model.EventCategory;
 @Model
 public class CategorySearch {
 
-    @Inject EntityManager entityManager;
+    @PersistenceContext EntityManager entityManager;
 
     private List<EventCategory> categories;
 

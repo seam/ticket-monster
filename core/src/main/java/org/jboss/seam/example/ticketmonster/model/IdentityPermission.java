@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.jboss.errai.bus.server.annotations.ExposeEntity;
-
 /**
  * This entity stores ACL permissions
  * 

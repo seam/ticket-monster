@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
-import org.jboss.weld.extensions.beanManager.BeanManagerAware;
+import org.jboss.solder.beanManager.BeanManagerAware;
 
 public class VenueConverter extends BeanManagerAware implements Converter
 {

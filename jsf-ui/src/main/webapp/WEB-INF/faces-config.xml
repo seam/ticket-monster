@@ -5,11 +5,7 @@
    xsi:schemaLocation="
       http://java.sun.com/xml/ns/javaee
       http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-      
-   <application>
-      <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
-   </application>
-      
+
    <navigation-rule>
       <from-view-id>/admin/home.xhtml</from-view-id>
 

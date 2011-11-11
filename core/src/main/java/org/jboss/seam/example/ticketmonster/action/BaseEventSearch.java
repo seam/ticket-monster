@@ -7,14 +7,15 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import java.util.List;
 
 @RequestScoped
 @Named("BaseSearch")
 public class BaseEventSearch {
 
-
-    @Inject
+    @PersistenceContext
     EntityManager entityManager;
     
     public List<Event> getMajorEvents() {

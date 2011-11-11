@@ -6,6 +6,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.DocumentResource;
 
@@ -17,7 +18,7 @@ import org.jboss.seam.example.ticketmonster.model.DocumentResource;
  */
 public @Model class DocumentResourceSearch
 {
-   @Inject EntityManager entityManager;
+    @PersistenceContext EntityManager entityManager;
    
    public DocumentResource findResourceByKey(Long docId, String key)
    {

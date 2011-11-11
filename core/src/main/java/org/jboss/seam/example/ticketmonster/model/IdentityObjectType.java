@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.jboss.errai.bus.server.annotations.ExposeEntity;
-
 /**
  * A lookup table containing identity object types
  *  

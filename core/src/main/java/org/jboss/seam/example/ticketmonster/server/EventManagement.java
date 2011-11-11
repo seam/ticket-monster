@@ -15,20 +15,21 @@
  */
 package org.jboss.seam.example.ticketmonster.server;
 
-import org.jboss.errai.bus.client.api.Message;
+/*import org.jboss.errai.bus.client.api.Message;
 import org.jboss.errai.bus.client.api.MessageCallback;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.bus.client.framework.MessageBus;
-import org.jboss.errai.bus.server.annotations.Service;
+import org.jboss.errai.bus.server.annotations.Service;*/
 import org.jboss.seam.example.ticketmonster.action.BaseEventSearch;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.seam.persistence.transaction.Transactional;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -36,21 +37,21 @@ import java.util.List;
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Sep 30, 2010
  */
-@Service
+//@Service
 @RequestScoped
-public class EventManagement implements MessageCallback {
+@Stateful
+public class EventManagement {//implements MessageCallback {
 
-    @Inject
-    MessageBus bus;
+    //@Inject
+    //MessageBus bus;
     
     @Inject @Named("BaseSearch")
     BaseEventSearch eventSearch;
 
-    @Inject
+    @PersistenceContext
     EntityManager entityManager;
     
-    @Transactional
-    public void callback(Message message) {
+    /*public void callback(Message message) {
 
         switch(Crud.valueOf(message.getCommandType()))
         {
@@ -69,7 +70,7 @@ public class EventManagement implements MessageCallback {
 
                 break;
         }
-    }
+    }*/
 
     private EventCategory categoryForName(String name)
     {

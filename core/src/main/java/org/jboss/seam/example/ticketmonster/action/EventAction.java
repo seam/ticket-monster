@@ -3,17 +3,17 @@ package org.jboss.seam.example.ticketmonster.action;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.Document;
 import org.jboss.seam.example.ticketmonster.model.Event;
 import org.jboss.seam.example.ticketmonster.model.Revision;
-import org.jboss.seam.transaction.Transactional;
-import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Event management related operations
@@ -21,13 +21,13 @@ import org.jboss.seam.servlet.http.RequestParam;
  * @author Shane Bryzak
  *
  */
-public @Named @ConversationScoped class EventAction implements Serializable
+public @Stateful @Named @ConversationScoped class EventAction implements Serializable
 {
    private static final long serialVersionUID = 1735221845795268934L;
    
-   @Inject EntityManager entityManager;
+   @PersistenceContext EntityManager entityManager;
    @Inject Conversation conversation;
-   @Inject @RequestParam("eventId") String eventId;
+   /*@Inject @RequestParam("eventId")*/ String eventId;
    
    private Event event;
    private String description;
@@ -50,7 +50,6 @@ public @Named @ConversationScoped class EventAction implements Serializable
       return false;
    }   
    
-   @Transactional
    public String save()
    {
       if (event.getId() != null)

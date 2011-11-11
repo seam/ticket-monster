@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.weld.extensions.beanManager.BeanManagerAware;
+import org.jboss.solder.beanManager.BeanManagerAware;
 
 public class CategoryConverter extends BeanManagerAware implements Converter
 {

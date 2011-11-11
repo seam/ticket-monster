@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Instance;
@@ -12,29 +13,25 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.SectionRow;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
-import org.jboss.seam.persistence.FlushModeType;
-import org.jboss.seam.persistence.ManagedPersistenceContext;
-import org.jboss.seam.transaction.Transactional;
-import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * 
  * @author Shane Bryzak
  *
  */
-public @ConversationScoped @Named class LayoutAction implements Serializable
+public @Stateful @ConversationScoped @Named class LayoutAction implements Serializable
 {
    private static final long serialVersionUID = 2646300975197236221L;
    
    @Inject Conversation conversation;
-   @Inject Instance<EntityManager> entityManagerInstance;
-   @Inject @RequestParam("layoutId") String layoutId;
-   
-   private EntityManager entityManager;
+   @PersistenceContext EntityManager entityManager;
+   /*@Inject @RequestParam("layoutId")*/ String layoutId;
+
    private VenueLayout layout;   
    private List<Section> sections;
    
@@ -54,10 +51,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
    {      
       // Only load the layout if a layoutId has been provided
       if (layout == null && layoutId != null && conversation.isTransient())
-      {      
-         entityManager = entityManagerInstance.get();
-         ((ManagedPersistenceContext) entityManager).changeFlushMode(FlushModeType.MANUAL);         
-         
+      {                      
          conversation.begin();      
          layout = entityManager.find(VenueLayout.class, Long.valueOf(layoutId));
          
@@ -83,7 +77,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
       return "success";
    }
    
-   public @Transactional void removeSection(Section section)
+   public void removeSection(Section section)
    {      
       sections.remove(section);      
       if (section.getId() != null) 
@@ -121,7 +115,7 @@ public @ConversationScoped @Named class LayoutAction implements Serializable
       return "success";
    }
    
-   public @Transactional String save()
+   public String save()
    {
       if (layout.getCapacity() != getSectionCapacityTotal())
       {

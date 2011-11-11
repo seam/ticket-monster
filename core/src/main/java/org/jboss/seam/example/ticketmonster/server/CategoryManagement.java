@@ -15,41 +15,43 @@
  */
 package org.jboss.seam.example.ticketmonster.server;
 
-import org.jboss.errai.bus.client.api.Message;
-import org.jboss.errai.bus.client.api.MessageCallback;
-import org.jboss.errai.bus.client.api.base.MessageBuilder;
-import org.jboss.errai.bus.client.framework.MessageBus;
-import org.jboss.errai.bus.server.annotations.Service;
-import org.jboss.seam.example.ticketmonster.action.CategorySearch;
-import org.jboss.seam.example.ticketmonster.model.EventCategory;
-import org.jboss.seam.persistence.transaction.Transactional;
+import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.List;
+
+/*import org.jboss.errai.bus.client.api.Message;
+import org.jboss.errai.bus.client.api.MessageCallback;
+import org.jboss.errai.bus.client.api.base.MessageBuilder;
+import org.jboss.errai.bus.client.framework.MessageBus;
+import org.jboss.errai.bus.server.annotations.Service;*/
+import org.jboss.seam.example.ticketmonster.action.CategorySearch;
+import org.jboss.seam.example.ticketmonster.model.EventCategory;
 
 /**
  * @author: Heiko Braun <hbraun@redhat.com>
  * @date: Sep 10, 2010
  */
 
-@Service
+//@Service
 @RequestScoped
-public class CategoryManagement implements MessageCallback {
+@Stateful
+public class CategoryManagement { //implements MessageCallback {
 
     @Inject
     CategorySearch catSearch;
 
-    @Inject
-    MessageBus bus;
+    //@Inject
+    //MessageBus bus;
 
-    @Inject
+    @PersistenceContext
     EntityManager entityManager;
 
-    @Transactional
-    public void callback(Message message) {
+/*    public void callback(Message message) {
 
         switch (Crud.valueOf(message.getCommandType()))
         {
@@ -72,7 +74,7 @@ public class CategoryManagement implements MessageCallback {
                 throw new IllegalArgumentException("Unknown command "+ message.getCommandType());
         }
 
-    }
+    }*/
 
     private void createCatgory(String name)
     {

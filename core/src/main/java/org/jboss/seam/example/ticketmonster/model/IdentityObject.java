@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.jboss.errai.bus.server.annotations.ExposeEntity;
 
 /**
  * Picketlink IDM SPI class, stores users, groups, etc.

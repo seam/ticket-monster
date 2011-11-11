@@ -9,6 +9,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.Allocation;
 import org.jboss.seam.example.ticketmonster.model.PriceCategory;
@@ -23,7 +24,7 @@ import org.jboss.seam.example.ticketmonster.model.PriceCategory;
 public @ConversationScoped @Named class EventBooking implements Serializable
 {
    @Inject Conversation conversation;
-   @Inject EntityManager entityManager;
+   @PersistenceContext EntityManager entityManager;
    
    private Allocation allocation;
    

@@ -5,10 +5,10 @@ import java.util.List;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.example.ticketmonster.model.VenueLayout;
-import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Provides venue layout search data
@@ -18,8 +18,8 @@ import org.jboss.seam.servlet.http.RequestParam;
  */
 public @Model class VenueLayoutSearch
 {
-   @Inject EntityManager entityManager;   
-   @Inject @RequestParam("venueId") String venueId;
+    @PersistenceContext EntityManager entityManager;   
+   /*@Inject @RequestParam("venueId")*/ String venueId;
    
    private Venue venue;
    private List<VenueLayout> layouts;

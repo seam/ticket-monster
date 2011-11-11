@@ -9,6 +9,7 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.example.ticketmonster.dto.Availability;
 import org.jboss.seam.example.ticketmonster.model.Allocation;
@@ -18,7 +19,6 @@ import org.jboss.seam.example.ticketmonster.model.Section;
 import org.jboss.seam.example.ticketmonster.model.Show;
 import org.jboss.seam.example.ticketmonster.model.Venue;
 import org.jboss.seam.remoting.annotations.WebRemote;
-import org.jboss.seam.servlet.http.RequestParam;
 
 /**
  * Provides data for the event booking screen.
@@ -28,8 +28,8 @@ import org.jboss.seam.servlet.http.RequestParam;
  */
 public @Model class EventDetail
 {
-   @Inject EntityManager entityManager;   
-   @Inject @RequestParam("eventId") String eventId;
+    @PersistenceContext EntityManager entityManager;   
+   /*@Inject @RequestParam("eventId")*/ String eventId;
    @Inject BookingManager bookingManager;
    
    @Inject Instance<EventBooking> eventBooking;

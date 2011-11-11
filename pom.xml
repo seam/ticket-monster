@@ -21,19 +21,16 @@
 		<jboss.domain>default</jboss.domain>
 
 		<!-- Versions -->
+		<cdi.version>1.0-SP4</cdi.version>
+		<validation.version>1.0.0.GA</validation.version>
 		<weld.version>1.1.0-SNAPSHOT</weld.version>
 		<weld.api.version>1.1.0-SNAPSHOT</weld.api.version>
 		<facelets.version>1.1.15.B1</facelets.version>
 		<junit.version>4.8.1</junit.version>
 		<uel.impl.version>2.1.2-b04</uel.impl.version>
-		<seam.solder.version>3.0.0.Final</seam.solder.version>
+		<solder.version>3.1.0.Beta4</solder.version>
 		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
-		<seam.security.version>3.0.0.Final</seam.security.version>
-		<seam.config.version>3.0.0.Final</seam.config.version>
-		<seam.persistence.version>3.0.0.Final</seam.persistence.version>
-		<seam.servlet.version>3.0.0.Final</seam.servlet.version>
-		<seam.remoting.version>3.0.0.Final</seam.remoting.version>
-		<seam.clouds.version>3.0.0-SNAPSHOT</seam.clouds.version>
+		<seam.remoting.version>3.1.0.Beta4</seam.remoting.version>
 		<infinispan.version>4.1.0.FINAL</infinispan.version>
 		<project.eap51.source.directory>src/eap-51</project.eap51.source.directory>
 		<project.jboss6.source.directory>src/jboss-6</project.jboss6.source.directory>
@@ -43,6 +40,8 @@
 		<mvel.version>2.0.18-RC4</mvel.version>
 		<hsqldb.version>1.8.0.7</hsqldb.version>
 		<slf4j.version>1.5.11</slf4j.version>
+
+                <jboss.javaee.version>2.0.0.Final</jboss.javaee.version>
 
 		<!-- EC2 -->
 		<ami>ami-14c4317d</ami>
@@ -56,33 +55,26 @@
 
 	<dependencyManagement>
 		<dependencies>
+                   <dependency>
+		      <groupId>org.jboss.spec</groupId>
+		      <artifactId>jboss-javaee-6.0</artifactId>
+		      <version>${jboss.javaee.version}</version>
+		      <scope>provided</scope>
+		      <type>pom</type>
+		   </dependency>
 
-			<dependency>
-				<groupId>org.jboss.weld</groupId>
-				<artifactId>weld-api-bom</artifactId>
-				<version>1.1.Beta1</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+		   <dependency>
+		      <groupId>org.jboss.spec</groupId>
+		      <artifactId>jboss-javaee-6.0</artifactId>
+		      <version>${jboss.javaee.version}</version>
+		      <scope>import</scope>
+		      <type>pom</type>
+		   </dependency>
 
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.weld.servlet</groupId>
-				<artifactId>weld-servlet</artifactId>
-				<classifier>jboss5</classifier>
-				<version>${weld.version}</version>
-			</dependency>
-
-			<!-- Needed on JBoss AS as EL is out of date -->
-			<dependency>
-				<groupId>org.glassfish.web</groupId>
-				<artifactId>el-impl</artifactId>
-				<version>${uel.impl.version}</version>
 			</dependency>
 
 			<dependency>
@@ -92,75 +84,15 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.seam.security</groupId>
-				<artifactId>seam-security</artifactId>
-				<version>${seam.security.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.seam.clouds</groupId>
-				<artifactId>seam-clouds</artifactId>
-				<version>${seam.clouds.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.seam.config</groupId>
-				<artifactId>seam-config-xml</artifactId>
-				<version>${seam.config.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.seam.persistence</groupId>
-				<artifactId>seam-persistence</artifactId>
-				<version>${seam.persistence.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${hibernate.validator.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.seam.solder</groupId>
-				<artifactId>seam-solder</artifactId>
-				<version>${seam.solder.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jboss.seam.servlet</groupId>
-				<artifactId>seam-servlet</artifactId>
-				<version>${seam.servlet.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.infinispan</groupId>
-				<artifactId>infinispan-core</artifactId>
-				<version>${infinispan.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>log4j</groupId>
-						<artifactId>log4j</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.jboss.javaee</groupId>
-						<artifactId>jboss-transaction-api</artifactId>
-					</exclusion>
-					<exclusion>
-						<artifactId>rhq-pluginAnnotations</artifactId>
-						<groupId>org.rhq.helpers</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>jboss-common-core</artifactId>
-						<groupId>org.jboss</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-
-			<dependency>
-				<groupId>com.sun.facelets</groupId>
-				<artifactId>jsf-facelets</artifactId>
-				<version>${facelets.version}</version>
+				<groupId>org.jboss.solder</groupId>
+				<artifactId>solder-impl</artifactId>
+				<version>${solder.version}</version>
 			</dependency>
 
 			<dependency>

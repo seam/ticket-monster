@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.example.ticketmonster.action.DocumentResourceSearch;
 import org.jboss.seam.example.ticketmonster.model.DocumentResource;
-import org.jboss.weld.extensions.beanManager.BeanManagerAccessor;
 
 /**
  * This servlet serves document resources
@@ -27,6 +26,8 @@ public class DocumentResourceServlet extends HttpServlet
    
    // Not working in EAP 5.1, see WELD-665
    @Inject DocumentResourceSearch resourceSearch;
+   
+   @Inject BeanManager beanManager;
    
    
    @Override
@@ -88,7 +89,7 @@ public class DocumentResourceServlet extends HttpServlet
       {
          return resourceSearch;
       }
-      BeanManager beanManager = BeanManagerAccessor.getBeanManager();
+
       Bean<?> bean = beanManager.resolve(beanManager.getBeans(DocumentResourceSearch.class));
       if (bean == null)
       {

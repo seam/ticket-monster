@@ -8,8 +8,8 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.infinispan.AdvancedCache;
 import org.jboss.seam.example.ticketmonster.dto.RowAllocation;
 import org.jboss.seam.example.ticketmonster.dto.SectionAllocation;
 import org.jboss.seam.example.ticketmonster.model.Allocation;
@@ -31,11 +31,9 @@ public @ApplicationScoped class BookingManager
 {   
    public static final int MAX_AVAILABLE_SEATS_LIMIT = 10;
    
-   @Inject @RowCache AdvancedCache<String,RowAllocation> rowCache;
-   @Inject @SectionCache AdvancedCache<String,SectionAllocation> sectionCache;
    //@Inject @SectionRowCache AdvancedCache<String, List<SectionRow>> sectionRowCache;
    
-   @Inject EntityManager entityManager;
+   @PersistenceContext EntityManager entityManager;
    
    private String getRowKey(Show show, SectionRow row)
    {
@@ -45,14 +43,15 @@ public @ApplicationScoped class BookingManager
    public RowAllocation getRowAllocation(Show show, SectionRow row)
    {
       final String key = getRowKey(show, row);
-      if (!rowCache.containsKey(key)) loadRowAllocation(key, show, row);
-      return rowCache.get(key);
+      //if (!rowCache.containsKey(key)) loadRowAllocation(key, show, row);
+      //return rowCache.get(key);
+      return null;
    }
    
    private void loadRowAllocation(String key, Show show, SectionRow row)
    {
       //rowCache.lock(key);
-      if (!rowCache.containsKey(key))
+      /*if (!rowCache.containsKey(key))
       {
          List<Allocation> allocations = entityManager.createQuery(
                "select a from Allocation a where a.show = :show and a.row = :row")
@@ -62,7 +61,7 @@ public @ApplicationScoped class BookingManager
          
          RowAllocation rowAllocation = new RowAllocation(row.getCapacity(), allocations);                
          rowCache.put(key, rowAllocation);
-      }
+      }*/
    }   
    
    private String getSectionKey(Show show, Section section)
@@ -74,20 +73,21 @@ public @ApplicationScoped class BookingManager
    {
       final String key = getSectionKey(show, section);
       
-      if (!sectionCache.containsKey(key)) loadSectionAllocation(key, show, section);
-      SectionAllocation sa = sectionCache.get(key);
-      return AvailabilityUtils.getAvailability(sa.getCapacity(), sa.getSeatsAvailable());
+      //if (!sectionCache.containsKey(key)) loadSectionAllocation(key, show, section);
+      //SectionAllocation sa = sectionCache.get(key);
+      //return AvailabilityUtils.getAvailability(sa.getCapacity(), sa.getSeatsAvailable());
+      return null;
    }
 
    public int getMaxSectionSeats(Show show, Section section)
    {
       final String key = getSectionKey(show, section);
       
-      if (!sectionCache.containsKey(key)) loadSectionAllocation(key, show, section);
+      //if (!sectionCache.containsKey(key)) loadSectionAllocation(key, show, section);
             
-      SectionAllocation sa = sectionCache.get(key); 
-      int maxSeats = sa.getMaxSeats(); 
-      
+      //SectionAllocation sa = sectionCache.get(key); 
+      //int maxSeats = sa.getMaxSeats(); 
+      /*
       if (maxSeats == -1)
       {
          // sectionCache.lock(key);
@@ -112,13 +112,15 @@ public @ApplicationScoped class BookingManager
          
          maxSeats = sa.getMaxSeats();
       }
-      return maxSeats;
+      return maxSeats; */
+      
+      return 0;
    }
    
    protected void loadSectionAllocation(String key, Show show, Section section)
    {
       // sectionCache.lock(key);
-      if (!sectionCache.containsKey(key))
+     /* if (!sectionCache.containsKey(key))
       {
          Long allocated = (Long) entityManager.createQuery("select sum(a.quantity) from Allocation a " +
                "where a.show = :show and a.row.section = :section")
@@ -132,7 +134,7 @@ public @ApplicationScoped class BookingManager
                available);
          
          sectionCache.put(key, sa);
-      }
+      }*/
    }
    
    protected List<SectionRow> findSectionRows(Long sectionId)

@@ -1,7 +1,5 @@
 package org.jboss.seam.example.ticketmonster.model;
 
-import org.jboss.errai.bus.server.annotations.ExposeEntity;
-
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -15,7 +13,6 @@ import javax.persistence.Id;
  * @author Shane Bryzak
  *
  */
-@ExposeEntity
 @Entity
 public class TicketCategory implements Serializable
 {

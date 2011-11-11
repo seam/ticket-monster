@@ -3,7 +3,6 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <name>TicketMonster::Core</name>
-   <groupId>org.jboss.seam.examples</groupId>
    <artifactId>ticket-monster-core</artifactId>
    <packaging>jar</packaging>
 
@@ -14,16 +13,37 @@
       <version>1.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
+   
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>${jboss.javaee.version}</version>
+            <scope>provided</scope>
+            <type>pom</type>
+         </dependency>
+
+         <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>${jboss.javaee.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+         </dependency>
+
+      </dependencies>
+   </dependencyManagement>
 
    <dependencies>
 
-      <dependency>
+      <!--dependency>
          <groupId>org.jboss.errai</groupId>
          <artifactId>errai-bus</artifactId>
          <scope>provided</scope>
-      </dependency>
+      </dependency-->
 
-       <dependency>
+       <!--dependency>
            <groupId>org.jboss.errai</groupId>
            <artifactId>errai-cdi</artifactId>
            <version>${errai-cdi.version}</version>
@@ -34,86 +54,57 @@
                </exclusion>
            </exclusions>
            <scope>provided</scope>
-       </dependency>
+       </dependency-->
 
        <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.spec.javax.ejb</groupId>
+         <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>      
 
       <dependency>
          <groupId>org.jboss.seam.remoting</groupId>
          <artifactId>seam-remoting</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>javax.faces</groupId>
-         <artifactId>jsf-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam.persistence</groupId>
-         <artifactId>seam-persistence</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>javax.persistence</groupId>
-         <artifactId>persistence-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam.solder</groupId>
-         <artifactId>seam-solder</artifactId>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam.servlet</groupId>
-         <artifactId>seam-servlet</artifactId>
-      </dependency>
-
-<!--      <dependency>-->
-<!--         <groupId>org.jboss.seam.security</groupId>-->
-<!--         <artifactId>seam-security-impl</artifactId>-->
-<!--         <exclusions>-->
-<!--            <exclusion>-->
-<!--               <groupId>org.drools</groupId>-->
-<!--               <artifactId>drools-pipeline</artifactId>-->
-<!--            </exclusion>-->
-<!--         </exclusions>-->
-<!--      </dependency>-->
-
-      <dependency>
-         <groupId>org.infinispan</groupId>
-         <artifactId>infinispan-core</artifactId>
-      </dependency>
-
-      <!--dependency>
-         <groupId>org.jboss.seam.clouds</groupId>
-         <artifactId>seam-clouds</artifactId>
          <exclusions>
-            <exclusion>
-               <groupId>org.jclouds</groupId>
-               <artifactId>jclouds-blobstore</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.jclouds</groupId>
-               <artifactId>jclouds-aws</artifactId>
-            </exclusion>
-         </exclusions>
-      </dependency-->
+             <exclusion>
+                 <groupId>dom4j</groupId>
+                 <artifactId>dom4j</artifactId>
+             </exclusion>
+         </exclusions>         
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.spec.javax.faces</groupId>
+         <artifactId>jboss-jsf-api_2.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.0-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.solder</groupId>
+         <artifactId>solder-impl</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
       <dependency>
          <groupId>javax.validation</groupId>
          <artifactId>validation-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-         <groupId>javax.servlet</groupId>
-         <artifactId>servlet-api</artifactId>
          <scope>provided</scope>
       </dependency>
 

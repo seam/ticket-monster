@@ -1,14 +1,14 @@
 package org.jboss.seam.example.ticketmonster.model;
 
-import org.jboss.errai.bus.server.annotations.ExposeEntity;
-
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 /**
@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
  * @author Shane Bryzak
  *
  */
-@ExposeEntity
 @Entity
 public class Revision implements Serializable
 {
@@ -96,6 +95,7 @@ public class Revision implements Serializable
       this.modifiedBy = modifiedBy;
    }
    
+   @Lob @Column(length = 4096) 
    public String getContent()
    {
       return content;
