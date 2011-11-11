@@ -142,19 +142,19 @@
                     <execution>
                         <id>default-war</id>
                         <configuration>
-                            <warName>${project.build.finalName}-original</warName>
+                            <warName>${project.build.finalName}</warName>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!--execution>
                         <id>package-exploded</id>
                         <phase>package</phase>
                         <goals>
                             <goal>exploded</goal>
                         </goals>
                         <configuration>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}.war</webappDirectory>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-exploded.war</webappDirectory>
                         </configuration>
-                    </execution>
+                    </execution-->
                 </executions>
             </plugin>
 

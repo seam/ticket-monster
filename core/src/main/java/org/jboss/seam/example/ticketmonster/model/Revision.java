@@ -95,7 +95,7 @@ public class Revision implements Serializable
       this.modifiedBy = modifiedBy;
    }
    
-   @Lob @Column(length = 4096) 
+   @Lob @Column(length = 1000000) 
    public String getContent()
    {
       return content;
