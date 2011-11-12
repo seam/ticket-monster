@@ -27,7 +27,7 @@
    
     <servlet>
         <servlet-name>Document Resource Servlet</servlet-name>
-        <servlet-class>org.jboss.seam.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
+        <servlet-class>org.jboss.jdf.example.ticketmonster.util.DocumentResourceServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>

@@ -112,13 +112,13 @@
    </navigation-rule>
    
    <converter>
-      <converter-for-class>org.jboss.seam.example.ticketmonster.model.EventCategory</converter-for-class>
-      <converter-class>org.jboss.seam.example.ticketmonster.jsf.CategoryConverter</converter-class>
+      <converter-for-class>org.jboss.jdf.example.ticketmonster.model.EventCategory</converter-for-class>
+      <converter-class>org.jboss.jdf.example.ticketmonster.jsf.CategoryConverter</converter-class>
    </converter>
    
    <converter>
-      <converter-for-class>org.jboss.seam.example.ticketmonster.model.Venue</converter-for-class>
-      <converter-class>org.jboss.seam.example.ticketmonster.jsf.VenueConverter</converter-class>
+      <converter-for-class>org.jboss.jdf.example.ticketmonster.model.Venue</converter-for-class>
+      <converter-class>org.jboss.jdf.example.ticketmonster.jsf.VenueConverter</converter-class>
    </converter>
 
 </faces-config>

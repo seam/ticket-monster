@@ -2,17 +2,17 @@
   "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
   "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
 <facelet-taglib>
-    <namespace>http://jboss.org/seam/example/ticketmonster</namespace>
+    <namespace>http://jboss.org/jdf/example/ticketmonster</namespace>
     
     <function>
       <function-name>convertCategories</function-name>
-      <function-class>org.jboss.seam.example.ticketmonster.jsf.SelectItems</function-class>
+      <function-class>org.jboss.jdf.example.ticketmonster.jsf.SelectItems</function-class>
       <function-signature>java.util.List convertCategories(java.util.List)</function-signature>
     </function>
     
     <function>
       <function-name>convertVenues</function-name>
-      <function-class>org.jboss.seam.example.ticketmonster.jsf.SelectItems</function-class>
+      <function-class>org.jboss.jdf.example.ticketmonster.jsf.SelectItems</function-class>
       <function-signature>java.util.List convertVenues(java.util.List)</function-signature>
     </function>
     
